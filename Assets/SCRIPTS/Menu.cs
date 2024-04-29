@@ -9,13 +9,11 @@ public class Menu : MonoBehaviour
 
     public void OpenCharacterPnl()
     {
-        CharacterPnl.SetActive(true);
         CharacterDownPnl.SetActive(true);
     }
 
     public void CloseCharacterPnl()
     {
-        CharacterPnl.SetActive(false);
         CharacterDownPnl.SetActive(false);
     }
 
