@@ -1,0 +1,30 @@
+public void —hoiceThing(string btnEcipName)
+    {
+        //ecipName = ecipName;
+        pnlInventEcip.SetActive(true);
+        ecipName = btnEcipName;
+        //switch (ecipName)
+        //{
+        //    case "s1":
+        //        //if (Language.SelectLanguage == 1)
+        //        //    nameEcip.text = "SOCKS";
+        //        //else if(Language.SelectLanguage == 2)
+        //        //    nameEcip.text = "ÕŒ— »";
+
+        //        //dAF.SetActive(false);
+        //        //dAT.SetActive(true);
+        //        //dAR.SetActive(false);
+        //        //dMS.SetActive(false);
+        //        //dMV.SetActive(false);
+        //        //dFV.SetActive(false);
+        //        //dCL.SetActive(false);
+        //        //afTx.text = "+" + socks1.GetComponent<CharEcip>().af.ToString("");
+        //        //atTx.text = "+" + socks1.GetComponent<CharEcip>().at.ToString("");
+        //        //arTx.text = "+" + socks1.GetComponent<CharEcip>().ar.ToString("");
+        //        //msTx.text = "+" + socks1.GetComponent<CharEcip>().ms.ToString("") + "km/h";
+        //        //mvTx.text = "+" + socks1.GetComponent<CharEcip>().mv.ToString("") + "kg";
+        //        //fvTx.text = socks1.GetComponent<CharEcip>().fv.ToString("") + "kg";
+        //        ecipName = "s1";
+        //        break;
+        //}
+    }
