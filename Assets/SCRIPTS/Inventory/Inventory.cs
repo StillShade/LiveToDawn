@@ -45,4 +45,26 @@ public class Inventory : MonoBehaviour
 		maxSlots += amount;
 		Debug.Log("Инвентарь расширен! Новые слоты: " + maxSlots);
 	}
+
+	public void RemoveItem(Item item, int quantity)
+	{
+		for (int i = slots.Count - 1; i >= 0; i--) // Проходится с конца списка
+		{
+			if (slots[i].item == item)
+			{
+				if (slots[i].quantity > quantity)
+				{
+					slots[i].quantity -= quantity;
+					return;
+				}
+				else
+				{
+					quantity -= slots[i].quantity;
+					slots.RemoveAt(i);
+					if (quantity <= 0) return;
+				}
+			}
+		}
+		Debug.Log("Предмет не найден в инвентаре!");
+	}
 }
