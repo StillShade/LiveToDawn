@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: socks_white
   m_EditorClassIdentifier: 
   itemName: socks_white
-  icon: {fileID: 21300000, guid: b87e6a08d79ac8c4fa276dbda458fd35, type: 3}
+  icon: {fileID: 1859558404224768020, guid: bc83f91303af8b24ba978f0869cec28d, type: 3}
   isStackable: 0
   maxStack: 0
