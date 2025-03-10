@@ -2,7 +2,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Inventory : MonoBehaviour
+public class InventoryOld: MonoBehaviour
 {
     public GameObject pnlInvent;
     public GameObject pnlInventEcip;
