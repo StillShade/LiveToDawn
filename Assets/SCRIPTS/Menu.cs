@@ -25,7 +25,7 @@ public class Menu : MonoBehaviour
     public void ClosePnlOptions()
     {
         pnlOptions.SetActive(false);
-    }
+    }    
 
     void Start()
     {
