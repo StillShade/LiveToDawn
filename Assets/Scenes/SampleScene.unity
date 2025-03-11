@@ -1504,12 +1504,12 @@ RectTransform:
   m_Children:
   - {fileID: 2048429285}
   - {fileID: 1988489512}
-  m_Father: {fileID: 1204288736}
+  m_Father: {fileID: 1404489340}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.66, y: 0}
-  m_AnchorMax: {x: 0.99, y: 0.2}
-  m_AnchoredPosition: {x: 95.5, y: 336.96002}
-  m_SizeDelta: {x: -89.75, y: 673.92}
+  m_AnchorMin: {x: 0, y: 0.025}
+  m_AnchorMax: {x: 0.025, y: 1}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &104408770
 MonoBehaviour:
@@ -1565,6 +1565,18 @@ MonoBehaviour:
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: unwrap
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 519420033}
+        m_TargetAssemblyTypeName: Menu, Assembly-CSharp
+        m_MethodName: DeactivLeftBtn
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &104408771
@@ -8407,7 +8419,7 @@ MonoBehaviour:
   CharacterPnl: {fileID: 1404489339}
   CharacterDownPnl: {fileID: 1488165842}
   pnlOptions: {fileID: 1874443978}
-  pnlEcip: {fileID: 1204288735}
+  btnLeftPnl: {fileID: 104408768}
 --- !u!114 &519420034
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -16561,6 +16573,18 @@ MonoBehaviour:
           m_StringArgument: rollup
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 519420033}
+        m_TargetAssemblyTypeName: Menu, Assembly-CSharp
+        m_MethodName: ActivLeftBtn
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1169568629
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -17175,14 +17199,13 @@ RectTransform:
   - {fileID: 533269978}
   - {fileID: 1948452115}
   - {fileID: 213569076}
-  - {fileID: 104408769}
   - {fileID: 1169568627}
   m_Father: {fileID: 1404489340}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.025}
   m_AnchorMax: {x: 0.22, y: 1}
-  m_AnchoredPosition: {x: -422.3999, y: 0.000030517578}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchoredPosition: {x: -615.2627, y: 0.000030517578}
+  m_SizeDelta: {x: 9.4747925, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1204288737
 MonoBehaviour:
@@ -19874,6 +19897,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 325214071}
+  - {fileID: 104408769}
   - {fileID: 1204288736}
   - {fileID: 1955208506}
   - {fileID: 190903142}
