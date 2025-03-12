@@ -7,6 +7,7 @@ public class Menu : MonoBehaviour
     public GameObject CharacterPnl;
     public GameObject CharacterDownPnl;
     public GameObject pnlOptions;
+    public GameObject btnLeftPnl;
 
     public void OpenCharacterPnl()
     {
@@ -25,6 +26,16 @@ public class Menu : MonoBehaviour
     public void ClosePnlOptions()
     {
         pnlOptions.SetActive(false);
+    }  
+    
+    public void ActivLeftBtn()
+    {
+        btnLeftPnl.SetActive(true);
+    }
+
+    public void DeactivLeftBtn()
+    {
+        btnLeftPnl.SetActive(false);
     }
 
     void Start()

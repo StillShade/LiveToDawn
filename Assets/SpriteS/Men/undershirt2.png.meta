@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: a566728a0bf12fd4b860e5ce16857b1e
+guid: 87d3535750d76d643bca312fd543fc78
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -8755009343390361857
-    second: iconInventar_0
+      213: 2399086284325151222
+    second: undershirt2_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -46,7 +46,7 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 2
+  spriteMode: 1
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -126,45 +126,23 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: iconInventar_0
+      name: undershirt2_0
       rect:
         serializedVersion: 2
-        x: 0
-        y: 0
-        width: 512
-        height: 512
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: ff6ddf16365ff7680800000000000000
-      internalID: -8755009343390361857
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: iconInventar_1
-      rect:
-        serializedVersion: 2
-        x: 256
-        y: 0
-        width: 256
-        height: 512
+        x: 55
+        y: 895
+        width: 454
+        height: 517
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: 0
+      tessellationDetail: -1
       bones: []
-      spriteID: 9b7019ceda54ce24ca0154c9cec8481d
-      internalID: 735246808
+      spriteID: 6f166b2c3444b4120800000000000000
+      internalID: 2399086284325151222
       vertices: []
       indices: 
       edges: []
@@ -173,7 +151,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: d2defa75a58e6304cb13a9e75d1b7b5b
+    spriteID: 5e97eb03825dee720800000000000000
     internalID: 0
     vertices: []
     indices: 
@@ -183,8 +161,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      iconInventar_0: -8755009343390361857
-      iconInventar_1: 735246808
+      undershirt2_0: 2399086284325151222
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
