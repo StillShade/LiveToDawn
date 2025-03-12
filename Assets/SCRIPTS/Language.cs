@@ -10,7 +10,7 @@ public class Language : MonoBehaviour
     [Header("Options")]
     public Text txLanguage;
     [Header("Êíîïêè ıêèïèğîâêè")]
-    public Text head, face, eyes, light_clothing, warm_clothes, outerwear, armor, unloading_vest, gloves, pants, socks, boots, backpack, transport, basicWeapon, additionalWeapons;
+    public Text head, face, eyes, light_clothing, warm_clothes, outerwear, armor, unloading_vest, gloves, pants, socks, boots, backpack, transport, basicWeapon, additionalWeapons, rollUp;
     [Header("Ïàíåëü îïèñàíèÿ ıêèïèğîâêè")]
     public Text drop, clothe, drop2, takeOff;
 
@@ -72,12 +72,13 @@ public class Language : MonoBehaviour
         boots.text = "ÁÎÒÈÍÊÈ";
         backpack.text = "ĞŞÊÇÀÊ";
         transport.text = "ÒĞÀÍÑÏÎĞÒ";
-        basicWeapon.text = "ÎÑÍÎÂÍÎÅ ÎĞÓÆÈÅ";
-        additionalWeapons.text = "ÄÎÏÎËÍÈÒÅËÜÍÎÅ ÎĞÓÆÈÅ";
+        basicWeapon.text = "1-ÎÅ ÎĞÓÆÈÅ";
+        additionalWeapons.text = "2-ÎÅ ÎĞÓÆÈÅ";
         drop.text = "ÂÛÊÈÍÓÒÜ";
         drop2.text = "ÂÛÊÈÍÓÒÜ";
         clothe.text = "ÎÄÅÒÜ";
         takeOff.text = "ÑÍßÒÜ";
+        rollUp.text = "ÑÂÅĞÍÓÒÜ";
     }
     public void SelectEng()
     {
@@ -96,11 +97,12 @@ public class Language : MonoBehaviour
         boots.text = "BOOTS";
         backpack.text = "BACKPACK";
         transport.text = "TRANSPORT";
-        basicWeapon.text = "BASIC WEAPON";
-        additionalWeapons.text = "ADDITIONAL WEAPONS";
+        basicWeapon.text = "1ST WEAPON";
+        additionalWeapons.text = "2ST WEAPON";
         drop.text = "DROP";
         drop2.text = "DROP";
         clothe.text = "CLOTHE";
         takeOff.text = "TAKE OFF";
+        rollUp.text = "ROLL UP";
     }
 }

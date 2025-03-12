@@ -335,8 +335,8 @@ TextureImporter:
       name: Menu Ecip_8
       rect:
         serializedVersion: 2
-        x: 1089
-        y: 258
+        x: 1172
+        y: 259
         width: 291
         height: 371
       alignment: 0
@@ -357,8 +357,8 @@ TextureImporter:
       name: Menu Ecip_9
       rect:
         serializedVersion: 2
-        x: 1380
-        y: 261
+        x: 1470
+        y: 262
         width: 212
         height: 363
       alignment: 0
@@ -423,8 +423,8 @@ TextureImporter:
       name: Menu Ecip_13
       rect:
         serializedVersion: 2
-        x: 784
-        y: 246
+        x: 1196
+        y: 14
         width: 246
         height: 231
       alignment: 0
@@ -445,9 +445,9 @@ TextureImporter:
       name: Menu Ecip_14
       rect:
         serializedVersion: 2
-        x: 573
-        y: 30
-        width: 243
+        x: 1451
+        y: 12
+        width: 240
         height: 192
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
@@ -467,10 +467,10 @@ TextureImporter:
       name: Menu Ecip_11
       rect:
         serializedVersion: 2
-        x: 836
-        y: 53
-        width: 472
-        height: 152
+        x: 735
+        y: 0
+        width: 442
+        height: 285
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -481,28 +481,6 @@ TextureImporter:
       bones: []
       spriteID: 0d5834a190118f94fbd220c36ec0f478
       internalID: -722543564
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Menu Ecip_15
-      rect:
-        serializedVersion: 2
-        x: 1308
-        y: 53
-        width: 226
-        height: 152
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 9de3b3f9c3845aa489a2555003943966
-      internalID: -1587208471
       vertices: []
       indices: 
       edges: []
