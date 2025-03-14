@@ -1,10 +1,10 @@
-using System.Collections.Generic;
+п»їusing System.Collections.Generic;
 using UnityEngine;
 
 public class Inventory : MonoBehaviour
 {
-    private int maxSlots = 10; // Теперь приватное
-    public int MaxSlots => maxSlots; // Геттер для чтения
+    private int maxSlots = 10; // РўРµРїРµСЂСЊ РїСЂРёРІР°С‚РЅРѕРµ
+    public int MaxSlots => maxSlots; // Р“РµС‚С‚РµСЂ РґР»СЏ С‡С‚РµРЅРёСЏ
 
     public List<InventorySlot> slots = new List<InventorySlot>();
     public InventoryUI inventoryUI;
@@ -16,19 +16,19 @@ public class Inventory : MonoBehaviour
 
     private void InitializeSlots()
     {
-        Debug.Log($"Инициализация инвентаря. Создаем {maxSlots} слотов.");
+        Debug.Log($"РРЅРёС†РёР°Р»РёР·Р°С†РёСЏ РёРЅРІРµРЅС‚Р°СЂСЏ. РЎРѕР·РґР°РµРј {maxSlots} СЃР»РѕС‚РѕРІ.");
 
         for (int i = 0; i < maxSlots; i++)
         {
-            slots.Add(new InventorySlot(null, 0)); // Создаем пустой слот
+            slots.Add(new InventorySlot(null, 0)); // РЎРѕР·РґР°РµРј РїСѓСЃС‚РѕР№ СЃР»РѕС‚
         }
     }
 
     public void AddItem(Item item, int quantity)
     {
-        int initialQuantity = quantity; // Сохраняем изначальное количество для логирования
+        int initialQuantity = quantity; // РЎРѕС…СЂР°РЅСЏРµРј РёР·РЅР°С‡Р°Р»СЊРЅРѕРµ РєРѕР»РёС‡РµСЃС‚РІРѕ РґР»СЏ Р»РѕРіРёСЂРѕРІР°РЅРёСЏ
 
-        // 1. Попытка сложить предмет в уже существующий слот
+        // 1. РџРѕРїС‹С‚РєР° СЃР»РѕР¶РёС‚СЊ РїСЂРµРґРјРµС‚ РІ СѓР¶Рµ СЃСѓС‰РµСЃС‚РІСѓСЋС‰РёР№ СЃР»РѕС‚
         for (int i = 0; i < slots.Count; i++)
         {
             if (!slots[i].IsEmpty() && slots[i].item.Equals(item) && item.isStackable)
@@ -40,19 +40,19 @@ public class Inventory : MonoBehaviour
                     slots[i].SetQuantity(slots[i].Quantity + amountToAdd);
                     quantity -= amountToAdd;
 
-                    Debug.Log($"Добавлено {amountToAdd} штук предмета {item.itemName} в существующий слот [{i}]");
+                    Debug.Log($"Р”РѕР±Р°РІР»РµРЅРѕ {amountToAdd} С€С‚СѓРє РїСЂРµРґРјРµС‚Р° {item.itemName} РІ СЃСѓС‰РµСЃС‚РІСѓСЋС‰РёР№ СЃР»РѕС‚ [{i}]");
 
                     if (quantity <= 0)
                     {
-                        Debug.Log($"Успешно добавлено {initialQuantity} предметов {item.itemName}.");
-                        inventoryUI.UpdateUI(); // Обновляем UI и выходим
+                        Debug.Log($"РЈСЃРїРµС€РЅРѕ РґРѕР±Р°РІР»РµРЅРѕ {initialQuantity} РїСЂРµРґРјРµС‚РѕРІ {item.itemName}.");
+                        inventoryUI.UpdateUI(); // РћР±РЅРѕРІР»СЏРµРј UI Рё РІС‹С…РѕРґРёРј
                         return;
                     }
                 }
             }
         }
 
-        // 2. Добавление в пустой слот (только если еще есть предметы для добавления)
+        // 2. Р”РѕР±Р°РІР»РµРЅРёРµ РІ РїСѓСЃС‚РѕР№ СЃР»РѕС‚ (С‚РѕР»СЊРєРѕ РµСЃР»Рё РµС‰Рµ РµСЃС‚СЊ РїСЂРµРґРјРµС‚С‹ РґР»СЏ РґРѕР±Р°РІР»РµРЅРёСЏ)
         if (quantity > 0)
         {
             for (int i = 0; i < slots.Count; i++)
@@ -63,27 +63,27 @@ public class Inventory : MonoBehaviour
                     slots[i].SetItem(item, amountToAdd);
                     quantity -= amountToAdd;
 
-                    Debug.Log($"Добавлен новый предмет {item.itemName} ({amountToAdd} шт.) в слот [{i}]");
+                    Debug.Log($"Р”РѕР±Р°РІР»РµРЅ РЅРѕРІС‹Р№ РїСЂРµРґРјРµС‚ {item.itemName} ({amountToAdd} С€С‚.) РІ СЃР»РѕС‚ [{i}]");
 
                     if (quantity <= 0)
                     {
-                        break;  // Все предметы добавлены, выходим
+                        break;  // Р’СЃРµ РїСЂРµРґРјРµС‚С‹ РґРѕР±Р°РІР»РµРЅС‹, РІС‹С…РѕРґРёРј
                     }
                 }
             }
         }
 
-        // 3. Если не удалось добавить все предметы
+        // 3. Р•СЃР»Рё РЅРµ СѓРґР°Р»РѕСЃСЊ РґРѕР±Р°РІРёС‚СЊ РІСЃРµ РїСЂРµРґРјРµС‚С‹
         if (quantity > 0)
         {
-            Debug.Log($"Инвентарь полон! Осталось {quantity} предметов {item.itemName}, которые не поместились.");
+            Debug.Log($"РРЅРІРµРЅС‚Р°СЂСЊ РїРѕР»РѕРЅ! РћСЃС‚Р°Р»РѕСЃСЊ {quantity} РїСЂРµРґРјРµС‚РѕРІ {item.itemName}, РєРѕС‚РѕСЂС‹Рµ РЅРµ РїРѕРјРµСЃС‚РёР»РёСЃСЊ.");
         }
         else
         {
-            Debug.Log($"Успешно добавлено {initialQuantity} предметов {item.itemName}.");
+            Debug.Log($"РЈСЃРїРµС€РЅРѕ РґРѕР±Р°РІР»РµРЅРѕ {initialQuantity} РїСЂРµРґРјРµС‚РѕРІ {item.itemName}.");
         }
 
-        inventoryUI.UpdateUI(); // Обновляем UI один раз в конце
+        inventoryUI.UpdateUI(); // РћР±РЅРѕРІР»СЏРµРј UI РѕРґРёРЅ СЂР°Р· РІ РєРѕРЅС†Рµ
     }
 
     public void RemoveItem(Item item, int quantity)
@@ -110,45 +110,63 @@ public class Inventory : MonoBehaviour
                 }
             }
         }
-        Debug.Log("Предмет не найден в инвентаре!");
+        Debug.Log("РџСЂРµРґРјРµС‚ РЅРµ РЅР°Р№РґРµРЅ РІ РёРЅРІРµРЅС‚Р°СЂРµ!");
         inventoryUI.UpdateUI();
     }
 
     public void ExpandInventory(int amount)
     {
-        if (amount <= 0) return; // Защита от некорректных значений
+        if (amount <= 0) return; // Р—Р°С‰РёС‚Р° РѕС‚ РЅРµРєРѕСЂСЂРµРєС‚РЅС‹С… Р·РЅР°С‡РµРЅРёР№
 
         maxSlots += amount;
         for (int i = 0; i < amount; i++)
         {
-            slots.Add(new InventorySlot(null, 0)); // Создаем пустой слот
+            slots.Add(new InventorySlot(null, 0)); // РЎРѕР·РґР°РµРј РїСѓСЃС‚РѕР№ СЃР»РѕС‚
         }
 
-        Debug.Log("Инвентарь расширен! Новое количество слоты: " + maxSlots);
+        Debug.Log("РРЅРІРµРЅС‚Р°СЂСЊ СЂР°СЃС€РёСЂРµРЅ! РќРѕРІРѕРµ РєРѕР»РёС‡РµСЃС‚РІРѕ СЃР»РѕС‚С‹: " + maxSlots);
         inventoryUI.ExpandUI(amount);
     }
 
+    //СѓРјРµРЅСЊС€Р°РµРј РєРѕР»РёС‡РµСЃС‚РІРѕ СЃР»РѕС‚РѕРІ РµСЃР»Рё РІРѕР·РјРѕР¶РЅРѕ
     public void ShrinkInventory(int amount)
     {
         if (amount <= 0) return;
-        if (maxSlots - amount < 1) // Предотвращаем удаление всех слотов
+        if (maxSlots - amount < 1) // РџСЂРµРґРѕС‚РІСЂР°С‰Р°РµРј СѓРґР°Р»РµРЅРёРµ РІСЃРµС… СЃР»РѕС‚РѕРІ
         {
-            Debug.LogWarning("Нельзя уменьшить инвентарь до 0 слотов!");
+            Debug.LogWarning("РќРµР»СЊР·СЏ СѓРјРµРЅСЊС€РёС‚СЊ РёРЅРІРµРЅС‚Р°СЂСЊ РґРѕ 0 СЃР»РѕС‚РѕРІ!");
             return;
         }
 
-        // Удаляем последние `amount` слотов
-        for (int i = 0; i < amount; i++)
+        // 1пёЏ РџРѕРґСЃС‡РёС‚С‹РІР°РµРј РїСѓСЃС‚С‹Рµ СЃР»РѕС‚С‹
+        int emptySlots = 0;
+        foreach (var slot in slots)
         {
-            if (slots.Count > 0)
+            if (slot.IsEmpty()) emptySlots++;
+        }
+
+        // 2пёЏ РџСЂРѕРІРµСЂСЏРµРј, С…РІР°С‚Р°РµС‚ Р»Рё РїСѓСЃС‚С‹С… СЃР»РѕС‚РѕРІ РґР»СЏ СѓРґР°Р»РµРЅРёСЏ
+        if (emptySlots < amount)
+        {
+            int needed = amount - emptySlots;
+            Debug.LogWarning($"Р’СЃРµРіРѕ СЃР»РѕС‚РѕРІ {maxSlots}. РќРµРґРѕСЃС‚Р°С‚РѕС‡РЅРѕ РїСѓСЃС‚С‹С… СЃР»РѕС‚РѕРІ ({emptySlots})! РћСЃРІРѕР±РѕРґРёС‚Рµ РµС‰Рµ {needed} СЃР»РѕС‚РѕРІ, С‡С‚РѕР±С‹ СѓРјРµРЅСЊС€РёС‚СЊ РёРЅРІРµРЅС‚Р°СЂСЊ РЅР° {amount} СЃР»РѕС‚РѕРІ.");
+            return;
+        }
+
+        // 3пёЏ РЈРґР°Р»СЏРµРј С‚РѕР»СЊРєРѕ РїСѓСЃС‚С‹Рµ СЃР»РѕС‚С‹ (РЅРµ РѕР±СЏР·Р°С‚РµР»СЊРЅРѕ РїРѕРґСЂСЏРґ)
+        int removedSlots = 0;
+        for (int i = slots.Count - 1; i >= 0 && removedSlots < amount; i--)
+        {
+            if (slots[i].IsEmpty())
             {
-                slots.RemoveAt(slots.Count - 1);
+                slots.RemoveAt(i);
+                removedSlots++;
             }
         }
 
-        maxSlots -= amount;
+        maxSlots -= removedSlots;
 
-        Debug.Log("Инвентарь уменьшен! Новое количество слотов: " + maxSlots);
-        inventoryUI.ShrinkUI(amount);
+        Debug.Log($"РРЅРІРµРЅС‚Р°СЂСЊ СѓРјРµРЅСЊС€РµРЅ РЅР° {removedSlots} СЃР»РѕС‚РѕРІ. РќРѕРІРѕРµ РєРѕР»РёС‡РµСЃС‚РІРѕ СЃР»РѕС‚РѕРІ: {maxSlots}");
+        inventoryUI.ShrinkUI(removedSlots);
     }
 }
