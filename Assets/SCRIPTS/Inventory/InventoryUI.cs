@@ -1,11 +1,19 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class InventoryUI : MonoBehaviour
 {
     public Inventory inventory;
     public GameObject slotPrefab;
     public Transform slotParent;
+    public ScrollRect scrollRect;
+
+    public void ScrollToBottom()
+    {
+        Canvas.ForceUpdateCanvases(); // Обновляем UI перед прокруткой
+        scrollRect.verticalNormalizedPosition = 0f; // Скроллим вниз
+    }
 
     private void Start()
     {
@@ -106,19 +114,15 @@ public class InventoryUI : MonoBehaviour
     {
         Debug.Log("ShrinkUI вызван с amount: " + amount);
 
-        for (int i = 0; i < amount; i++)
+        int removedSlots = 0;
+
+        for (int i = slotParent.childCount - 1; i >= 0 && removedSlots < amount; i--)
         {
-            if (slotParent.childCount > inventory.slots.Count)
-            {
-                Destroy(slotParent.GetChild(slotParent.childCount - 1).gameObject);
-            }
-            else
-            {
-                Debug.Log("UI-слотов уже меньше или равно количеству слотов в Inventory. Останавливаем удаление.");
-                break;
-            }
+            Destroy(slotParent.GetChild(i).gameObject);
+            removedSlots++;
         }
 
+        Debug.Log($"Удалено {removedSlots} UI-слотов.");
         UpdateUI();
     }
 }

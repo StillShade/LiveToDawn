@@ -15,8 +15,14 @@ public class InventoryTest : MonoBehaviour
         inventory.AddItem(socks_white, 1);
         inventory.RemoveItem(bread, 1);
         //inventory.RemoveItem(bread, 14);
-        inventory.ExpandInventory(5);
-        inventory.ShrinkInventory(5);
+        //inventory.ExpandInventory(5);
+        //inventory.ShrinkInventory(5);
+        inventory.AddItem(socks_white, 1);
+        inventory.AddItem(socks_white, 1);
+        inventory.AddItem(socks_white, 1);
+        inventory.AddItem(socks_white, 1);
+        inventory.AddItem(socks_white, 1);
+        inventory.AddItem(socks_white, 1);
     }
 
     public void RemoveBread()
