@@ -16,6 +16,8 @@ public class InventorySlotUI : MonoBehaviour, IBeginDragHandler, IDragHandler, I
     private Texture2D dragCursorTexture; // Курсор при перетаскивании
     private Vector2 cursorHotspot; // Смещение курсора
 
+    private InventorySlotUI placeholderSlot; // Временный слот-заглушка
+
     // Устанавливаем слот в UI
     public void SetSlot(InventorySlot newSlot)
     {
@@ -49,14 +51,33 @@ public class InventorySlotUI : MonoBehaviour, IBeginDragHandler, IDragHandler, I
 
         draggedSlot = this;
         originalParent = transform.parent;
-        transform.SetParent(transform.root); // Перемещаем иконку в корень UI
+
+        // Получаем индекс текущего слота в родителе
+        int slotIndex = transform.GetSiblingIndex();
+
+        // Создаем копию слота (заглушку)
+        placeholderSlot = Instantiate(gameObject, originalParent).GetComponent<InventorySlotUI>();
+        placeholderSlot.SetSlot(slot); // Копируем данные
+        placeholderSlot.itemIcon.color = new Color(1, 1, 1, 0.5f); // Делаем полупрозрачной
+
+        // Проверяем, есть ли CanvasGroup, если нет — добавляем
+        CanvasGroup canvasGroup = placeholderSlot.GetComponent<CanvasGroup>();
+        if (canvasGroup == null)
+        {
+            canvasGroup = placeholderSlot.gameObject.AddComponent<CanvasGroup>();
+        }
+        canvasGroup.blocksRaycasts = false; // Отключаем, чтобы заглушка не мешала
+
+        // Вставляем заглушку на место оригинального слота
+        placeholderSlot.transform.SetSiblingIndex(slotIndex);
+
+        // Перемещаем оригинальный слот в корень UI
+        transform.SetParent(transform.root);
         transform.SetAsLastSibling();
         itemIcon.raycastTarget = false; // Отключаем блокировку мыши
 
         // Меняем курсор на иконку предмета
         ChangeCursorToItemIcon(slot.item.icon);
-
-        Debug.Log($"Начали перетаскивать {slot.item.itemName}");
     }
 
     // Перетаскивание
@@ -72,12 +93,27 @@ public class InventorySlotUI : MonoBehaviour, IBeginDragHandler, IDragHandler, I
         if (draggedSlot == null) return;
 
         itemIcon.raycastTarget = true; // Включаем обратно блокировку мыши
-        transform.SetParent(originalParent);
-        transform.localPosition = Vector3.zero;
+
+        if (placeholderSlot != null)
+        {
+            // 1. Перемещаем предмет на место заглушки
+            transform.SetParent(placeholderSlot.transform.parent);
+            transform.SetSiblingIndex(placeholderSlot.transform.GetSiblingIndex());
+
+            // 2. Теперь можно удалить заглушку
+            Destroy(placeholderSlot.gameObject);
+            placeholderSlot = null;
+        }
+        else
+        {
+            // Если placeholderSlot почему-то не существует, возвращаем предмет обратно
+            transform.SetParent(originalParent);
+            transform.localPosition = Vector3.zero;
+        }
 
         draggedSlot = null;
 
-        // Возвращаем стандартный курсор
+        // 3. Возвращаем стандартный курсор
         Cursor.SetCursor(null, Vector2.zero, CursorMode.Auto);
     }
 
