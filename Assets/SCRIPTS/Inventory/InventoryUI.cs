@@ -1,11 +1,19 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class InventoryUI : MonoBehaviour
 {
     public Inventory inventory;
     public GameObject slotPrefab;
     public Transform slotParent;
+    public ScrollRect scrollRect;
+
+    public void ScrollToBottom()
+    {
+        Canvas.ForceUpdateCanvases(); // Обновляем UI перед прокруткой
+        scrollRect.verticalNormalizedPosition = 0f; // Скроллим вниз
+    }
 
     private void Start()
     {
