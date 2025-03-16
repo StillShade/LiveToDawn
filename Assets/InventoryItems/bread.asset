@@ -15,4 +15,4 @@ MonoBehaviour:
   itemName: bread
   icon: {fileID: -4431494890709657585, guid: ac46f4a196a6b0143960cf201ce816b7, type: 3}
   isStackable: 1
-  maxStack: 100
+  maxStack: 10
