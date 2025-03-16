@@ -5607,8 +5607,13 @@ RectTransform:
 <<<<<<< Updated upstream
 <<<<<<< Updated upstream
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
   - {fileID: 508954964}
   m_Father: {fileID: 1404489340}
+=======
+  - {fileID: 2094308000}
+  m_Father: {fileID: 304226839}
+>>>>>>> Stashed changes
 =======
   - {fileID: 2094308000}
   m_Father: {fileID: 304226839}
@@ -37884,8 +37889,11 @@ CanvasRenderer:
 <<<<<<< Updated upstream
 <<<<<<< Updated upstream
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 --- !u!114 &2094308004
 =======
+=======
+>>>>>>> Stashed changes
 =======
 >>>>>>> Stashed changes
 =======
@@ -37931,6 +37939,9 @@ RectTransform:
 --- !u!114 &2100475420
 <<<<<<< Updated upstream
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
 =======
 >>>>>>> Stashed changes
@@ -37944,6 +37955,7 @@ MonoBehaviour:
 <<<<<<< Updated upstream
 <<<<<<< Updated upstream
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
   m_GameObject: {fileID: 2094307999}
   m_Enabled: 1
   m_EditorHideFlags: 0
@@ -37953,6 +37965,8 @@ MonoBehaviour:
   m_HorizontalFit: 0
   m_VerticalFit: 2
 =======
+=======
+>>>>>>> Stashed changes
 =======
 >>>>>>> Stashed changes
 =======
@@ -37991,6 +38005,9 @@ CanvasRenderer:
   m_CullTransparentMesh: 1
 <<<<<<< Updated upstream
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
 =======
 >>>>>>> Stashed changes
