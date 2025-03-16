@@ -41,11 +41,12 @@ public class Menu : MonoBehaviour
         audios[0].Play();
         pnlMap.SetActive(true);
         BtnMapClose.SetActive(true);
+        CloseCharacterPnl();
+        CloseInventory();
     }
 
     public void ClosePnlMap()
-    {
-        audios[0].Play();
+    {        
         pnlMap.SetActive(false);
         BtnMapClose.SetActive(false);
     }
@@ -55,8 +56,6 @@ public class Menu : MonoBehaviour
         audios[0].Play();
         pnlMap.SetActive(false);
         locationForest.SetActive(true);
-        CloseCharacterPnl();
-        CloseInventory();
         BtnMapClose.SetActive(false);
     }
 
@@ -86,11 +85,11 @@ public class Menu : MonoBehaviour
         animCharactPnl.SetTrigger("openingChar");
         btnLeftPnl.SetActive(true);
         BtnInventory.SetActive(false);
+        ClosePnlMap();
     }
 
     public void CloseCharacterPnl()
     {
-        audios[1].Play();
         BtnCharacterPnl.SetActive(false);
         animCharactPnl.SetTrigger("closeChar");
     }
@@ -101,10 +100,10 @@ public class Menu : MonoBehaviour
         BtnInventory.SetActive(true);
         animCharactPnl.SetTrigger("openInventory");
         BtnCharacterPnl.SetActive(false);
+        ClosePnlMap();
     }
     public void CloseInventory()
     {
-        audios[1].Play();
         BtnInventory.SetActive(false);
         animCharactPnl.SetTrigger("closeInventory");
         BtnCharacterPnl.SetActive(false);
