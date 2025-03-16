@@ -1,11 +1,19 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class InventoryUI : MonoBehaviour
 {
     public Inventory inventory;
     public GameObject slotPrefab;
     public Transform slotParent;
+    public ScrollRect scrollRect;
+
+    public void ScrollToBottom()
+    {
+        Canvas.ForceUpdateCanvases(); // Обновляем UI перед прокруткой
+        scrollRect.verticalNormalizedPosition = 0f; // Скроллим вниз
+    }
 
     private void Start()
     {
@@ -33,7 +41,10 @@ public class InventoryUI : MonoBehaviour
                 break; // Прерываем создание, если достигнуто максимальное количество
             }
 
-            Instantiate(slotPrefab, slotParent);
+            GameObject slotObject = Instantiate(slotPrefab, slotParent);
+            InventorySlotUI slotUI = slotObject.GetComponent<InventorySlotUI>();
+            slotUI.slotIndex = i; // Устанавливаем индекс
+            slotUI.SetSlot(inventory.slots[i]); // Привязываем слот
         }
 
         UpdateUI();
@@ -73,6 +84,22 @@ public class InventoryUI : MonoBehaviour
                 //Debug.Log($"Слот [{i}] отсутствует в inventory.slots (index выходит за границы).");
             }
         }
+        DebugUISlots();
+    }
+
+    private void DebugUISlots()
+    {
+        Debug.Log("=== Порядок UI-слотов (InventoryUI) ===");
+        for (int i = 0; i < slotParent.childCount; i++)
+        {
+            InventorySlotUI slotUI = slotParent.GetChild(i).GetComponent<InventorySlotUI>();
+            if (i < inventory.slots.Count)
+            {
+                InventorySlot slot = inventory.slots[i];
+                string itemName = (slot != null && slot.item != null) ? slot.item.itemName : "ПУСТОЙ";
+                Debug.Log($"UI-слот {i}: {itemName}");
+            }
+        }
     }
 
     public void ExpandUI(int newSlots)
@@ -96,7 +123,10 @@ public class InventoryUI : MonoBehaviour
                 break; // Прерываем цикл, если UI-слотов уже достаточно
             }
 
-            Instantiate(slotPrefab, slotParent);
+            GameObject slotObject = Instantiate(slotPrefab, slotParent);
+            InventorySlotUI slotUI = slotObject.GetComponent<InventorySlotUI>();
+            slotUI.slotIndex = i; // Устанавливаем индекс
+            slotUI.SetSlot(inventory.slots[i]); // Привязываем слот
         }
 
         UpdateUI();
@@ -106,19 +136,15 @@ public class InventoryUI : MonoBehaviour
     {
         Debug.Log("ShrinkUI вызван с amount: " + amount);
 
-        for (int i = 0; i < amount; i++)
+        int removedSlots = 0;
+
+        for (int i = slotParent.childCount - 1; i >= 0 && removedSlots < amount; i--)
         {
-            if (slotParent.childCount > inventory.slots.Count)
-            {
-                Destroy(slotParent.GetChild(slotParent.childCount - 1).gameObject);
-            }
-            else
-            {
-                Debug.Log("UI-слотов уже меньше или равно количеству слотов в Inventory. Останавливаем удаление.");
-                break;
-            }
+            Destroy(slotParent.GetChild(i).gameObject);
+            removedSlots++;
         }
 
+        Debug.Log($"Удалено {removedSlots} UI-слотов.");
         UpdateUI();
     }
 }
