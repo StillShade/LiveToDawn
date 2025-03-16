@@ -1,11 +1,12 @@
 using Unity.VisualScripting.Antlr3.Runtime;
 using UnityEngine;
 using UnityEngine.UI;
+using System.Collections;
 
 public class CuttingTrees : MonoBehaviour
 {
     public Animator anim, hit;
-    public GameObject tree;
+    public GameObject tree, btn;
     public AudioSource[] audioTree;
     public int hpTree = 10;
     public Image image;
@@ -16,6 +17,13 @@ public class CuttingTrees : MonoBehaviour
         anim.GetComponent<Animator>();
         hit.GetComponent<Animator>();
         audioTree = tree.GetComponents<AudioSource>();       
+    }
+
+    IEnumerator Delay()
+    {
+        yield return new WaitForSeconds(1.0f);
+
+        btn.SetActive(true);
     }
 
     public void cuttingTree()
@@ -36,6 +44,8 @@ public class CuttingTrees : MonoBehaviour
                 hit.SetTrigger("Hit");
                 hpTree--;
                 image.fillAmount -= 0.01f;
+                btn.SetActive(false);
+                StartCoroutine(Delay());
             }
         }
         else
