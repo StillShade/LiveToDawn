@@ -6,7 +6,7 @@ public class CuttingTrees : MonoBehaviour
 {
     public Animator anim, hit;
     public AudioSource treeFall, hittingTree;
-    public int hpTree = 5;
+    public int hpTree = 10;
     public Image image;
 
 
@@ -35,7 +35,7 @@ public class CuttingTrees : MonoBehaviour
                 hittingTree.Play();
                 hit.SetTrigger("Hit");
                 hpTree--;
-                image.fillAmount -= 0.025f;
+                image.fillAmount -= 0.01f;
             }
         }
         else

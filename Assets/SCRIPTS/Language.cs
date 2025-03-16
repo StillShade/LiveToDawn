@@ -8,7 +8,7 @@ public class Language : MonoBehaviour
     public GameObject btnEng;
 
     [Header("Нижняя панель")]
-    public Text characterBtn, characterBtnClose, shelterBtn, mapBtn, inventoryBtn, inventoryBtnClose;
+    public Text characterBtn, characterBtnClose, shelterBtn, mapBtn, mapBtnClose, inventoryBtn, inventoryBtnClose;
     [Header("Options")]
     public Text txLanguage;
     [Header("Кнопки экипировки")]
@@ -91,6 +91,7 @@ public class Language : MonoBehaviour
         inventoryBtnClose.text = "ЗАКРЫТЬ";
         shelterBtn.text = "УБЕЖИЩЕ";
         mapBtn.text = "КАРТА";
+        mapBtnClose.text = "ЗАКРЫТЬ";
     }
     public void SelectEng()
     {
@@ -124,5 +125,6 @@ public class Language : MonoBehaviour
         inventoryBtnClose.text = "CLOSE";
         shelterBtn.text = "SHELTER";
         mapBtn.text = "MAP";
+        mapBtnClose.text = "CLOSE";
     }
 }
