@@ -1,4 +1,4 @@
-using UnityEngine;
+п»їusing UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using UnityEngine.EventSystems;
@@ -6,19 +6,21 @@ using UnityEngine.EventSystems;
 
 public class InventorySlotUI : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler, IDropHandler
 {
-    public Image itemIcon;  // Иконка предмета
-    public TMP_Text quantityText; // Количество предметов
+    public Image itemIcon;  // РРєРѕРЅРєР° РїСЂРµРґРјРµС‚Р°
+    public TMP_Text quantityText; // РљРѕР»РёС‡РµСЃС‚РІРѕ РїСЂРµРґРјРµС‚РѕРІ
 
-    private InventorySlot slot; // Ссылка на слот инвентаря
-    private Transform originalParent; // Для возврата иконки
-    private static InventorySlotUI draggedSlot; // Какой слот перетаскиваем
+    private InventorySlot slot; // РЎСЃС‹Р»РєР° РЅР° СЃР»РѕС‚ РёРЅРІРµРЅС‚Р°СЂСЏ
+    private Transform originalParent; // Р”Р»СЏ РІРѕР·РІСЂР°С‚Р° РёРєРѕРЅРєРё
+    private static InventorySlotUI draggedSlot; // РљР°РєРѕР№ СЃР»РѕС‚ РїРµСЂРµС‚Р°СЃРєРёРІР°РµРј
 
-    private Texture2D dragCursorTexture; // Курсор при перетаскивании
-    private Vector2 cursorHotspot; // Смещение курсора
+    private Texture2D dragCursorTexture; // РљСѓСЂСЃРѕСЂ РїСЂРё РїРµСЂРµС‚Р°СЃРєРёРІР°РЅРёРё
+    private Vector2 cursorHotspot; // РЎРјРµС‰РµРЅРёРµ РєСѓСЂСЃРѕСЂР°
 
-    private InventorySlotUI placeholderSlot; // Временный слот-заглушка
+    private InventorySlotUI placeholderSlot; // Р’СЂРµРјРµРЅРЅС‹Р№ СЃР»РѕС‚-Р·Р°РіР»СѓС€РєР°
+    public static int tempIndex; //РёРЅРґРµРєСЃ РїРµСЂРµРјРµС‰Р°РµРјРѕРіРѕ СЃР»РѕС‚Р° РІ РёРЅРІРµРЅС‚Р°СЂРµ
+    public int slotIndex;
 
-    // Устанавливаем слот в UI
+    // РЈСЃС‚Р°РЅР°РІР»РёРІР°РµРј СЃР»РѕС‚ РІ UI
     public void SetSlot(InventorySlot newSlot)
     {
         slot = newSlot;
@@ -35,16 +37,18 @@ public class InventorySlotUI : MonoBehaviour, IBeginDragHandler, IDragHandler, I
         }
     }
 
-    // Очищаем UI слот
+    // РћС‡РёС‰Р°РµРј UI СЃР»РѕС‚
     public void ClearSlot()
     {
         slot = null;
         itemIcon.sprite = null;
         itemIcon.enabled = false;
         quantityText.text = "";
+
+        transform.SetSiblingIndex(transform.GetSiblingIndex()); // Р“Р°СЂР°РЅС‚РёСЏ, С‡С‚Рѕ UI-СЃР»РѕС‚ РѕСЃС‚Р°РЅРµС‚СЃСЏ РЅР° РјРµСЃС‚Рµ
     }
 
-    // Начало перетаскивания
+    // РќР°С‡Р°Р»Рѕ РїРµСЂРµС‚Р°СЃРєРёРІР°РЅРёСЏ
     public void OnBeginDrag(PointerEventData eventData)
     {
         if (slot == null || slot.item == null) return;
@@ -52,97 +56,139 @@ public class InventorySlotUI : MonoBehaviour, IBeginDragHandler, IDragHandler, I
         draggedSlot = this;
         originalParent = transform.parent;
 
-        // Получаем индекс текущего слота в родителе
-        int slotIndex = transform.GetSiblingIndex();
+        // РџРѕР»СѓС‡Р°РµРј РёРЅРґРµРєСЃ С‚РµРєСѓС‰РµРіРѕ СЃР»РѕС‚Р° РІ СЂРѕРґРёС‚РµР»Рµ
+        tempIndex = transform.GetSiblingIndex();
 
-        // Создаем копию слота (заглушку)
+        // РЎРѕР·РґР°РµРј РєРѕРїРёСЋ СЃР»РѕС‚Р° (Р·Р°РіР»СѓС€РєСѓ)
         placeholderSlot = Instantiate(gameObject, originalParent).GetComponent<InventorySlotUI>();
-        placeholderSlot.SetSlot(slot); // Копируем данные
-        placeholderSlot.itemIcon.color = new Color(1, 1, 1, 0.5f); // Делаем полупрозрачной
+        placeholderSlot.SetSlot(slot); // РљРѕРїРёСЂСѓРµРј РґР°РЅРЅС‹Рµ
+        placeholderSlot.itemIcon.color = new Color(1, 1, 1, 0.5f); // Р”РµР»Р°РµРј РїРѕР»СѓРїСЂРѕР·СЂР°С‡РЅРѕР№
 
-        // Проверяем, есть ли CanvasGroup, если нет — добавляем
+        // РџСЂРѕРІРµСЂСЏРµРј, РµСЃС‚СЊ Р»Рё CanvasGroup, РµСЃР»Рё РЅРµС‚ вЂ” РґРѕР±Р°РІР»СЏРµРј
         CanvasGroup canvasGroup = placeholderSlot.GetComponent<CanvasGroup>();
         if (canvasGroup == null)
         {
             canvasGroup = placeholderSlot.gameObject.AddComponent<CanvasGroup>();
         }
-        canvasGroup.blocksRaycasts = false; // Отключаем, чтобы заглушка не мешала
+        canvasGroup.blocksRaycasts = false; // РћС‚РєР»СЋС‡Р°РµРј, С‡С‚РѕР±С‹ Р·Р°РіР»СѓС€РєР° РЅРµ РјРµС€Р°Р»Р°
 
-        // Вставляем заглушку на место оригинального слота
-        placeholderSlot.transform.SetSiblingIndex(slotIndex);
+        // Р’СЃС‚Р°РІР»СЏРµРј Р·Р°РіР»СѓС€РєСѓ РЅР° РјРµСЃС‚Рѕ РѕСЂРёРіРёРЅР°Р»СЊРЅРѕРіРѕ СЃР»РѕС‚Р°
+        placeholderSlot.transform.SetSiblingIndex(tempIndex);
 
-        // Перемещаем оригинальный слот в корень UI
+        // РџРµСЂРµРјРµС‰Р°РµРј РѕСЂРёРіРёРЅР°Р»СЊРЅС‹Р№ СЃР»РѕС‚ РІ РєРѕСЂРµРЅСЊ UI
         transform.SetParent(transform.root);
         transform.SetAsLastSibling();
-        itemIcon.raycastTarget = false; // Отключаем блокировку мыши
+        itemIcon.raycastTarget = false; // РћС‚РєР»СЋС‡Р°РµРј Р±Р»РѕРєРёСЂРѕРІРєСѓ РјС‹С€Рё
 
-        // Меняем курсор на иконку предмета
+        // РњРµРЅСЏРµРј РєСѓСЂСЃРѕСЂ РЅР° РёРєРѕРЅРєСѓ РїСЂРµРґРјРµС‚Р°
         ChangeCursorToItemIcon(slot.item.icon);
     }
 
-    // Перетаскивание
+    // РџРµСЂРµС‚Р°СЃРєРёРІР°РЅРёРµ
     public void OnDrag(PointerEventData eventData)
     {
         if (draggedSlot == null) return;
         transform.position = eventData.position;
     }
 
-    // Завершение перетаскивания
+    // Р—Р°РІРµСЂС€РµРЅРёРµ РїРµСЂРµС‚Р°СЃРєРёРІР°РЅРёСЏ
     public void OnEndDrag(PointerEventData eventData)
     {
         if (draggedSlot == null) return;
 
-        itemIcon.raycastTarget = true; // Включаем обратно блокировку мыши
+        itemIcon.raycastTarget = true; // Р’РєР»СЋС‡Р°РµРј РѕР±СЂР°С‚РЅРѕ Р±Р»РѕРєРёСЂРѕРІРєСѓ РјС‹С€Рё
 
         if (placeholderSlot != null)
         {
-            // 1. Перемещаем предмет на место заглушки
+            // 1. РџРµСЂРµРјРµС‰Р°РµРј РїСЂРµРґРјРµС‚ РЅР° РјРµСЃС‚Рѕ Р·Р°РіР»СѓС€РєРё
             transform.SetParent(placeholderSlot.transform.parent);
             transform.SetSiblingIndex(placeholderSlot.transform.GetSiblingIndex());
 
-            // 2. Теперь можно удалить заглушку
+            // 2. РўРµРїРµСЂСЊ РјРѕР¶РЅРѕ СѓРґР°Р»РёС‚СЊ Р·Р°РіР»СѓС€РєСѓ
             Destroy(placeholderSlot.gameObject);
             placeholderSlot = null;
         }
         else
         {
-            // Если placeholderSlot почему-то не существует, возвращаем предмет обратно
+            // Р•СЃР»Рё placeholderSlot РїРѕС‡РµРјСѓ-С‚Рѕ РЅРµ СЃСѓС‰РµСЃС‚РІСѓРµС‚, РІРѕР·РІСЂР°С‰Р°РµРј РїСЂРµРґРјРµС‚ РѕР±СЂР°С‚РЅРѕ
             transform.SetParent(originalParent);
             transform.localPosition = Vector3.zero;
         }
 
         draggedSlot = null;
 
-        // 3. Возвращаем стандартный курсор
+        // 3. Р’РѕР·РІСЂР°С‰Р°РµРј СЃС‚Р°РЅРґР°СЂС‚РЅС‹Р№ РєСѓСЂСЃРѕСЂ
         Cursor.SetCursor(null, Vector2.zero, CursorMode.Auto);
     }
 
-    // Обработка дропа в другой слот
+    // РћР±СЂР°Р±РѕС‚РєР° РґСЂРѕРїР° РІ РґСЂСѓРіРѕР№ СЃР»РѕС‚
     public void OnDrop(PointerEventData eventData)
     {
         if (draggedSlot == null || draggedSlot == this) return;
 
-        Debug.Log($"Перемещение предмета {draggedSlot.slot.item.itemName} в новый слот");
+        Debug.Log($"РџРµСЂРµРјРµС‰РµРЅРёРµ РїСЂРµРґРјРµС‚Р° {draggedSlot.slot.item.itemName} РІ РЅРѕРІС‹Р№ СЃР»РѕС‚");
 
         SwapItems(draggedSlot);
     }
 
-    // Обмен предметами между слотами
+    // РћР±РјРµРЅ РїСЂРµРґРјРµС‚Р°РјРё РјРµР¶РґСѓ СЃР»РѕС‚Р°РјРё
     private void SwapItems(InventorySlotUI otherSlot)
     {
-        InventorySlot temp = otherSlot.slot;
-        otherSlot.SetSlot(this.slot);
-        this.SetSlot(temp);
+        if (otherSlot == null)
+        {
+            Debug.LogError("РћС€РёР±РєР°: otherSlot СЂР°РІРµРЅ null!");
+            return;
+        }
 
-        Debug.Log("Предметы поменялись местами!");
+        Inventory inventory = GetComponentInParent<InventoryUI>().inventory;
+        if (inventory == null)
+        {
+            Debug.LogError("РћС€РёР±РєР°: Inventory РЅРµ РЅР°Р№РґРµРЅ Сѓ InventoryUI!");
+            return;
+        }
+
+        // РџРѕР»СѓС‡Р°РµРј РёРЅРґРµРєСЃС‹ РёР· UI
+        int thisIndex = transform.GetSiblingIndex();
+        int otherIndex = tempIndex;
+        Debug.Log($"thisIndex = {thisIndex}, otherIndex = {otherIndex}");
+
+        // РџСЂРѕРІРµСЂСЏРµРј, С‡С‚Рѕ РёРЅРґРµРєСЃС‹ РєРѕСЂСЂРµРєС‚РЅС‹
+        if (thisIndex < 0 || thisIndex >= inventory.slots.Count ||
+            otherIndex < 0 || otherIndex >= inventory.slots.Count)
+        {
+            Debug.LogError($"РћС€РёР±РєР°: РќРµРєРѕСЂСЂРµРєС‚РЅС‹Рµ РёРЅРґРµРєСЃС‹! thisIndex = {thisIndex}, otherIndex = {otherIndex}");
+            return;
+        }
+
+        // Р•СЃР»Рё РїРµСЂРµС‚Р°СЃРєРёРІР°РµРј РїСЂРµРґРјРµС‚ РІ РїСѓСЃС‚РѕР№ СЃР»РѕС‚
+        if (inventory.slots[thisIndex] == null)
+        {
+            inventory.slots[thisIndex] = inventory.slots[otherIndex]; // РџРµСЂРµРЅРѕСЃРёРј РїСЂРµРґРјРµС‚
+            inventory.slots[otherIndex] = null; // РћС‡РёС‰Р°РµРј С‚РµРєСѓС‰РёР№ СЃР»РѕС‚
+        }
+        else // РћР±С‹С‡РЅС‹Р№ РѕР±РјРµРЅ РїСЂРµРґРјРµС‚Р°РјРё
+        {
+            InventorySlot temp = inventory.slots[thisIndex];
+            inventory.slots[thisIndex] = inventory.slots[otherIndex];
+            inventory.slots[otherIndex] = temp;
+        }
+
+        InventorySlot tempUI = otherSlot.slot;
+        otherSlot.SetSlot(this.slot);
+        this.SetSlot(tempUI);
+
+        // РћР±РЅРѕРІР»СЏРµРј UI
+        inventory.inventoryUI.UpdateUI();
+
+        Debug.Log($"РџСЂРµРґРјРµС‚С‹ РїРѕРјРµРЅСЏР»РёСЃСЊ РјРµСЃС‚Р°РјРё! [{thisIndex}] в‡„ [{otherIndex}]");
     }
 
-    // Создаем курсор из иконки предмета
+    // РЎРѕР·РґР°РµРј РєСѓСЂСЃРѕСЂ РёР· РёРєРѕРЅРєРё РїСЂРµРґРјРµС‚Р°
     private void ChangeCursorToItemIcon(Sprite itemSprite)
     {
         if (itemSprite == null) return;
 
-        // Создаем текстуру для курсора
+        // РЎРѕР·РґР°РµРј С‚РµРєСЃС‚СѓСЂСѓ РґР»СЏ РєСѓСЂСЃРѕСЂР°
         dragCursorTexture = new Texture2D((int)itemSprite.rect.width, (int)itemSprite.rect.height, TextureFormat.RGBA32, false);
         Color[] pixels = itemSprite.texture.GetPixels(
             (int)itemSprite.rect.x,
@@ -153,10 +199,10 @@ public class InventorySlotUI : MonoBehaviour, IBeginDragHandler, IDragHandler, I
         dragCursorTexture.SetPixels(pixels);
         dragCursorTexture.Apply();
 
-        // Устанавливаем точку захвата в центр иконки
+        // РЈСЃС‚Р°РЅР°РІР»РёРІР°РµРј С‚РѕС‡РєСѓ Р·Р°С…РІР°С‚Р° РІ С†РµРЅС‚СЂ РёРєРѕРЅРєРё
         cursorHotspot = new Vector2(dragCursorTexture.width / 2, dragCursorTexture.height / 2);
 
-        // Устанавливаем курсор
+        // РЈСЃС‚Р°РЅР°РІР»РёРІР°РµРј РєСѓСЂСЃРѕСЂ
         Cursor.SetCursor(dragCursorTexture, cursorHotspot, CursorMode.Auto);
     }
 }

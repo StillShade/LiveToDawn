@@ -9367,7 +9367,7 @@ GameObject:
   - component: {fileID: 540292055}
   - component: {fileID: 540292054}
   m_Layer: 0
-  m_Name: TestShrinkInventory (1)
+  m_Name: TestExpandInventory (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -32618,7 +32618,7 @@ MonoBehaviour:
   m_StartAxis: 0
   m_CellSize: {x: 150, y: 150}
   m_Spacing: {x: 10, y: 10}
-  m_Constraint: 0
+  m_Constraint: 1
   m_ConstraintCount: 5
 --- !u!114 &2094308002
 MonoBehaviour:
