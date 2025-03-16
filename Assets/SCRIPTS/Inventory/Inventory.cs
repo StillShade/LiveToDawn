@@ -45,7 +45,7 @@ public class Inventory : MonoBehaviour
                     if (quantity <= 0)
                     {
                         Debug.Log($"Успешно добавлено {initialQuantity} предметов {item.itemName}.");
-                        inventoryUI.UpdateUI(); // Обновляем UI и выходим
+                        //inventoryUI.UpdateUI(); // Обновляем UI и выходим
                         return;
                     }
                 }
@@ -84,6 +84,16 @@ public class Inventory : MonoBehaviour
         }
 
         inventoryUI.UpdateUI(); // Обновляем UI один раз в конце
+    }
+
+    private void DebugInventorySlots()
+    {
+        Debug.Log("=== Порядок слотов в Inventory ===");
+        for (int i = 0; i < slots.Count; i++)
+        {
+            string itemName = slots[i].IsEmpty() ? "ПУСТОЙ" : slots[i].item.itemName;
+            Debug.Log($"Слот {i}: {itemName} ({slots[i].Quantity})");
+        }
     }
 
     public void RemoveItem(Item item, int quantity)
@@ -125,6 +135,7 @@ public class Inventory : MonoBehaviour
         }
 
         Debug.Log("Инвентарь расширен! Новое количество слоты: " + maxSlots);
+        DebugInventorySlots();
         inventoryUI.ExpandUI(amount);
     }
 
