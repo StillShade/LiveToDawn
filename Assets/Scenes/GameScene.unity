@@ -5605,8 +5605,13 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
   - {fileID: 508954964}
   m_Father: {fileID: 1404489340}
+=======
+  - {fileID: 2094308000}
+  m_Father: {fileID: 304226839}
+>>>>>>> Stashed changes
 =======
   - {fileID: 2094308000}
   m_Father: {fileID: 304226839}
@@ -37872,8 +37877,11 @@ CanvasRenderer:
   m_GameObject: {fileID: 2094307999}
   m_CullTransparentMesh: 1
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 --- !u!114 &2094308004
 =======
+=======
+>>>>>>> Stashed changes
 --- !u!1 &2100475418
 GameObject:
   m_ObjectHideFlags: 0
@@ -37913,12 +37921,16 @@ RectTransform:
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2100475420
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
+<<<<<<< Updated upstream
 <<<<<<< Updated upstream
   m_GameObject: {fileID: 2094307999}
   m_Enabled: 1
@@ -37929,6 +37941,8 @@ MonoBehaviour:
   m_HorizontalFit: 0
   m_VerticalFit: 2
 =======
+=======
+>>>>>>> Stashed changes
   m_GameObject: {fileID: 2100475418}
   m_Enabled: 1
   m_EditorHideFlags: 0
@@ -37961,6 +37975,9 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2100475418}
   m_CullTransparentMesh: 1
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
 --- !u!1 &2103558045
 GameObject:
