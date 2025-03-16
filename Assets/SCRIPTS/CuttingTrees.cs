@@ -5,7 +5,8 @@ using UnityEngine.UI;
 public class CuttingTrees : MonoBehaviour
 {
     public Animator anim, hit;
-    public AudioSource treeFall, hittingTree;
+    public GameObject tree;
+    public AudioSource[] audioTree;
     public int hpTree = 10;
     public Image image;
 
@@ -14,8 +15,7 @@ public class CuttingTrees : MonoBehaviour
     {
         anim.GetComponent<Animator>();
         hit.GetComponent<Animator>();
-        treeFall.GetComponent<AudioSource>();
-        hittingTree.GetComponent<AudioSource>();        
+        audioTree = tree.GetComponents<AudioSource>();       
     }
 
     public void cuttingTree()
@@ -24,15 +24,15 @@ public class CuttingTrees : MonoBehaviour
         {
             if (hpTree == 1)
             {
-                hittingTree.Play();
+                audioTree[0].Play();
                 hit.SetTrigger("Hit");
                 hpTree--;
                 anim.SetTrigger("HittingTree");
-                treeFall.Play();
+                audioTree[1].Play();
             }
             else
             {
-                hittingTree.Play();
+                audioTree[0].Play();
                 hit.SetTrigger("Hit");
                 hpTree--;
                 image.fillAmount -= 0.01f;
