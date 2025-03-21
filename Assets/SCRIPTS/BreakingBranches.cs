@@ -9,12 +9,13 @@ public class BreakingBranches : MonoBehaviour
     public GameObject img1, img2, img3, img4;
     public GameObject shrub, btn;
     public AudioSource audioShub;
-    public Animator anim;
+    public Animator anim, animProgress;
     public int hpShrub;
 
     void Start()
     {
         shrub.GetComponent<Animator>();
+        animProgress.GetComponent<Animator>();
         audioShub = shrub.GetComponent<AudioSource>();
     }
 
@@ -28,6 +29,15 @@ public class BreakingBranches : MonoBehaviour
     public void breakingBranches()
     {
         if(hpShrub != 0)
+        {
+            animProgress.SetTrigger("start");
+            audioShub.Play();
+            anim.SetTrigger("break");
+            StartCoroutine(Delay());
+            btn.SetActive(false);
+            StartCoroutine(TimeClick());
+        }
+        else if(hpShrub == 1)
         {
             audioShub.Play();
             anim.SetTrigger("break");
@@ -54,7 +64,7 @@ public class BreakingBranches : MonoBehaviour
         {
             case 0:
                 break;
-            case 1:
+            case 1:                
                 hpShrub -= 1;
                 img1.SetActive(false);
                 break;
