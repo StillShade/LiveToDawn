@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 73c6bd3fc5f1d5c4f85f14f0efcf7571
+guid: e7323e01db768ca4b94753aedbb39c56
 TextureImporter:
   internalIDToNameTable:
   - first:
@@ -116,10 +116,10 @@ TextureImporter:
       name: pineTreeStump_0
       rect:
         serializedVersion: 2
-        x: 287
-        y: 0
-        width: 223
-        height: 59
+        x: 216
+        y: 4
+        width: 328
+        height: 147
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}

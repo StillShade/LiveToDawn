@@ -1,28 +1,10 @@
 fileFormatVersion: 2
-guid: 09085d0cc1471c443a8996ccd71f204d
+guid: 32a853d2b9c46a743a968ca7c72ed26b
 TextureImporter:
   internalIDToNameTable:
   - first:
       213: 321896664185055274
     second: pineTree_0
-  - first:
-      213: -8528150868714194079
-    second: pineTree_1
-  - first:
-      213: 3860545617579851198
-    second: pineTree_2
-  - first:
-      213: 3876922542063182170
-    second: pineTree_3
-  - first:
-      213: 3601643911056928377
-    second: pineTree_4
-  - first:
-      213: 5923744857326852448
-    second: pineTree_5
-  - first:
-      213: 2060884622543125791
-    second: pineTree_6
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -67,8 +49,8 @@ TextureImporter:
   spriteMode: 1
   spriteExtrude: 1
   spriteMeshType: 1
-  alignment: 9
-  spritePivot: {x: 0.5061802, y: 0.09511457}
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
   spritePixelsToUnits: 100
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
@@ -135,11 +117,11 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
-        y: 0
+        y: 126
         width: 768
-        height: 1344
+        height: 1251
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -156,8 +138,8 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 794176f80531ef3488441ba1a6eac9fd
-    internalID: 1709285921
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
     vertices: []
     indices: 
     edges: []

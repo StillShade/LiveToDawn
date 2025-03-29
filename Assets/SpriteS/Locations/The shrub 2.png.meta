@@ -1,10 +1,13 @@
 fileFormatVersion: 2
-guid: 3f8443cbd003ea34aa6719ab1aa5f0af
+guid: 5db79cac2143e8c46a67a869a9740627
 TextureImporter:
   internalIDToNameTable:
   - first:
       213: 2862495160676086852
     second: The shrub 2_0
+  - first:
+      213: -6078660750749504600
+    second: The shrub 2_1
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -116,10 +119,10 @@ TextureImporter:
       name: The shrub 2_0
       rect:
         serializedVersion: 2
-        x: 315
-        y: 80
-        width: 396
-        height: 620
+        x: 279
+        y: 326
+        width: 79
+        height: 28
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -130,6 +133,28 @@ TextureImporter:
       bones: []
       spriteID: 4447f57be20a9b720800000000000000
       internalID: 2862495160676086852
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: The shrub 2_1
+      rect:
+        serializedVersion: 2
+        x: 288
+        y: 80
+        width: 537
+        height: 620
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8ab6779d04244aba0800000000000000
+      internalID: -6078660750749504600
       vertices: []
       indices: 
       edges: []
@@ -149,6 +174,7 @@ TextureImporter:
       entries: []
     nameFileIdTable:
       The shrub 2_0: 2862495160676086852
+      The shrub 2_1: -6078660750749504600
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

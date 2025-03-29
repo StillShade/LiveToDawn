@@ -1,13 +1,10 @@
 fileFormatVersion: 2
-guid: 9b97addb258b443419f2bb772de5448d
+guid: 1c4fbae9d875fe84ebd6fdccaa53c16c
 TextureImporter:
   internalIDToNameTable:
   - first:
       213: 4811112563559099636
     second: LocForestBack_0
-  - first:
-      213: -2368511929994239752
-    second: LocForestBack_1
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -122,7 +119,7 @@ TextureImporter:
         x: 0
         y: 0
         width: 1920
-        height: 131
+        height: 356
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -133,28 +130,6 @@ TextureImporter:
       bones: []
       spriteID: 4fceb5dd26184c240800000000000000
       internalID: 4811112563559099636
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: LocForestBack_1
-      rect:
-        serializedVersion: 2
-        x: 1591
-        y: 131
-        width: 11
-        height: 6
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 8f02b66d2fa512fd0800000000000000
-      internalID: -2368511929994239752
       vertices: []
       indices: 
       edges: []
@@ -174,7 +149,6 @@ TextureImporter:
       entries: []
     nameFileIdTable:
       LocForestBack_0: 4811112563559099636
-      LocForestBack_1: -2368511929994239752
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

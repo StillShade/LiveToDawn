@@ -14,6 +14,7 @@ public class Menu : MonoBehaviour
     public GameObject btnLeftPnl;
     public GameObject pnlMap;
     public GameObject locationForest;
+    public int mapMode = 0;
 
     //public void OpenCharacterPnl()
     //{
@@ -24,6 +25,15 @@ public class Menu : MonoBehaviour
     //{
     //    CharacterDownPnl.SetActive(false);
     //}
+
+    public void OpenShelter()
+    {
+        audios[0].Play();
+        pnlMap.SetActive(false);
+        locationForest.SetActive(false);
+        BtnMapClose.SetActive(false);
+        mapMode = 0;
+    }
 
     public void OpenPnlOptions()
     {
@@ -38,6 +48,7 @@ public class Menu : MonoBehaviour
 
     public void OpenPnlMap()
     {
+        mapMode = 1;
         audios[0].Play();
         pnlMap.SetActive(true);
         BtnMapClose.SetActive(true);
@@ -57,6 +68,7 @@ public class Menu : MonoBehaviour
         pnlMap.SetActive(false);
         locationForest.SetActive(true);
         BtnMapClose.SetActive(false);
+        mapMode = 1;
     }
 
     public void CloseLocationForest()
@@ -90,8 +102,16 @@ public class Menu : MonoBehaviour
 
     public void CloseCharacterPnl()
     {
-        BtnCharacterPnl.SetActive(false);
-        animCharactPnl.SetTrigger("closeChar");
+        if(mapMode == 1)
+        {
+            BtnCharacterPnl.SetActive(false);
+            animCharactPnl.SetTrigger("MapMode");
+        }
+        else
+        {
+            BtnCharacterPnl.SetActive(false);
+            animCharactPnl.SetTrigger("closeChar");
+        }        
     }
 
     public void OpenInventory()
@@ -104,9 +124,18 @@ public class Menu : MonoBehaviour
     }
     public void CloseInventory()
     {
-        BtnInventory.SetActive(false);
-        animCharactPnl.SetTrigger("closeInventory");
-        BtnCharacterPnl.SetActive(false);
+        if (mapMode == 1)
+        {
+            BtnInventory.SetActive(false);
+            BtnCharacterPnl.SetActive(false);
+            animCharactPnl.SetTrigger("MapMode2");
+        }
+        else
+        {
+            BtnInventory.SetActive(false);
+            animCharactPnl.SetTrigger("closeInventory");
+            BtnCharacterPnl.SetActive(false);
+        }        
     }
 
     void Start()
