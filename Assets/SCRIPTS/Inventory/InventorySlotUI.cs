@@ -1,13 +1,12 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
-using TMPro;
 using UnityEngine.EventSystems;
 
 
 public class InventorySlotUI : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler, IDropHandler
 {
     public Image itemIcon;  // Иконка предмета
-    public TMP_Text quantityText; // Количество предметов
+    public Text quantityText; // Количество предметов
 
     private InventorySlot slot; // Ссылка на слот инвентаря
     private Transform originalParent; // Для возврата иконки
