@@ -4,6 +4,7 @@ using UnityEngine;
 public class InventorySlot
 {
     public Item item;
+    
     private int quantity; // Сделали приватным
 
     public int Quantity => quantity; // Геттер для чтения
@@ -29,7 +30,7 @@ public class InventorySlot
     {
         bool isNull = ReferenceEquals(item, null);
 
-        //Debug.Log($"Проверка IsEmpty(): item = {(isNull ? "NULL" : item.itemName)}, quantity = {quantity}, результат = {isNull}");
+        Debug.Log($"Проверка IsEmpty(): item = {(isNull ? "NULL" : item.itemName)}, quantity = {quantity}, результат = {isNull}");
 
         return isNull;
     }

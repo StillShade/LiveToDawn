@@ -3,6 +3,7 @@ using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
 
+
 public class InventorySlotUI : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler, IDropHandler
 {
     public Image itemIcon;  // Иконка предмета
@@ -18,7 +19,22 @@ public class InventorySlotUI : MonoBehaviour, IBeginDragHandler, IDragHandler, I
     private InventorySlotUI placeholderSlot; // Временный слот-заглушка
     public static int tempIndex; //индекс перемещаемого слота в инвентаре
     public int slotIndex;
+    private InventoryUI parentInventoryUI;
+    public static InventoryUI sourceInventoryUI;
 
+
+    private void Start()
+    {
+        if (parentInventoryUI == null)
+        {
+            parentInventoryUI = GetComponentInParent<InventoryUI>();
+
+            if (parentInventoryUI == null)
+            {
+                Debug.LogError($"❌ InventorySlotUI: не удалось найти родительский InventoryUI для {gameObject.name}");
+            }
+        }
+    }
     // Устанавливаем слот в UI
     public void SetSlot(InventorySlot newSlot)
     {
@@ -54,6 +70,7 @@ public class InventorySlotUI : MonoBehaviour, IBeginDragHandler, IDragHandler, I
 
         draggedSlot = this;
         originalParent = transform.parent;
+        sourceInventoryUI = GetComponentInParent<InventoryUI>();
 
         // Получаем индекс текущего слота в родителе
         tempIndex = transform.GetSiblingIndex();
@@ -127,11 +144,11 @@ public class InventorySlotUI : MonoBehaviour, IBeginDragHandler, IDragHandler, I
 
         Debug.Log($"Перемещение предмета {draggedSlot.slot.item.itemName} в новый слот");
 
-        SwapItems(draggedSlot);
+        SwapItems(draggedSlot, sourceInventoryUI);
     }
 
     // Обмен предметами между слотами
-    private void SwapItems(InventorySlotUI otherSlot)
+    private void SwapItems(InventorySlotUI otherSlot, InventoryUI otherInventoryUI )
     {
         if (otherSlot == null)
         {
@@ -139,47 +156,91 @@ public class InventorySlotUI : MonoBehaviour, IBeginDragHandler, IDragHandler, I
             return;
         }
 
+        if (otherInventoryUI == null)
+        {
+            Debug.LogError("Ошибка: otherInventoryUI равен null (не определен)!");
+            return;
+        }
+
         Inventory inventory = GetComponentInParent<InventoryUI>().inventory;
+        
         if (inventory == null)
         {
             Debug.LogError("Ошибка: Inventory не найден у InventoryUI!");
             return;
         }
+        Inventory otherInventory = otherInventoryUI.inventory;
+        Debug.Log($"inventory == otherInventory  {inventory == otherInventory}");
 
-        // Получаем индексы из UI
-        int thisIndex = transform.GetSiblingIndex();
-        int otherIndex = tempIndex;
-        Debug.Log($"thisIndex = {thisIndex}, otherIndex = {otherIndex}");
-
-        // Проверяем, что индексы корректны
-        if (thisIndex < 0 || thisIndex >= inventory.slots.Count ||
-            otherIndex < 0 || otherIndex >= inventory.slots.Count)
+        if (inventory == otherInventory)
         {
-            Debug.LogError($"Ошибка: Некорректные индексы! thisIndex = {thisIndex}, otherIndex = {otherIndex}");
-            return;
-        }
+            // Получаем индексы из UI
+            int thisIndex = transform.GetSiblingIndex();
+            int otherIndex = tempIndex;
+            Debug.Log($"thisIndex = {thisIndex}, otherIndex = {otherIndex}");
 
-        // Если перетаскиваем предмет в пустой слот
-        if (inventory.slots[thisIndex] == null)
+            // Проверяем, что индексы корректны
+            if (thisIndex < 0 || thisIndex >= inventory.slots.Count ||
+                otherIndex < 0 || otherIndex >= inventory.slots.Count)
+            {
+                Debug.LogError($"Ошибка: Некорректные индексы! thisIndex = {thisIndex}, otherIndex = {otherIndex}");
+                return;
+            }
+
+            // Если перетаскиваем предмет в пустой слот
+            if (inventory.slots[thisIndex] == null)
+            {
+                inventory.slots[thisIndex] = inventory.slots[otherIndex]; // Переносим предмет
+                inventory.slots[otherIndex] = null; // Очищаем текущий слот
+            }
+            else // Обычный обмен предметами
+            {
+                InventorySlot temp = inventory.slots[thisIndex];
+                inventory.slots[thisIndex] = inventory.slots[otherIndex];
+                inventory.slots[otherIndex] = temp;
+            }
+
+            InventorySlot tempUI = otherSlot.slot;
+            otherSlot.SetSlot(this.slot);
+            this.SetSlot(tempUI);
+
+            // Обновляем UI
+            inventory.inventoryUI.UpdateUI();
+            
+            Debug.Log($"Предметы поменялись местами! [{thisIndex}] ⇄ [{otherIndex}]");
+        } else
         {
-            inventory.slots[thisIndex] = inventory.slots[otherIndex]; // Переносим предмет
-            inventory.slots[otherIndex] = null; // Очищаем текущий слот
+            // Получаем индексы из UI
+            int thisIndex = transform.GetSiblingIndex();
+            int otherIndex = tempIndex;
+            
+            // Проверяем, что индексы корректны
+            if (thisIndex < 0 || thisIndex >= inventory.slots.Count)
+            {
+                Debug.LogError($"Ошибка: Некорректные индексы! thisIndex = {thisIndex}, otherIndex = {otherIndex}");
+                return;
+            }
+            Debug.Log($"item {otherInventory.slots[otherIndex].item}");
+
+            if (inventory.slots[thisIndex] == null || inventory.slots[thisIndex].item == null)
+            {
+                inventory.AddItemToSlot(thisIndex, otherInventory.slots[otherIndex].item, otherInventory.slots[otherIndex].Quantity);
+                otherInventory.RemoveItemFromSlot(otherIndex, otherInventory.slots[otherIndex].Quantity);
+                otherSlot.ClearSlot();
+            } else
+            {
+                Debug.Log($"слот не пустой");
+                InventorySlot temp = inventory.slots[thisIndex];
+                InventorySlot tempUI = this.slot;
+                inventory.RemoveItemFromSlot(thisIndex, inventory.slots[thisIndex].Quantity);
+                inventory.AddItemToSlot(thisIndex, otherInventory.slots[otherIndex].item, otherInventory.slots[otherIndex].Quantity);
+                otherInventory.RemoveItemFromSlot(otherIndex, otherInventory.slots[otherIndex].Quantity);
+                otherInventory.AddItemToSlot(otherIndex, temp.item, temp.Quantity);
+                otherSlot.SetSlot(tempUI);
+                this.SetSlot(this.slot);
+            }
         }
-        else // Обычный обмен предметами
-        {
-            InventorySlot temp = inventory.slots[thisIndex];
-            inventory.slots[thisIndex] = inventory.slots[otherIndex];
-            inventory.slots[otherIndex] = temp;
-        }
-
-        InventorySlot tempUI = otherSlot.slot;
-        otherSlot.SetSlot(this.slot);
-        this.SetSlot(tempUI);
-
-        // Обновляем UI
-        inventory.inventoryUI.UpdateUI();
-
-        Debug.Log($"Предметы поменялись местами! [{thisIndex}] ⇄ [{otherIndex}]");
+        
     }
 
     // Создаем курсор из иконки предмета

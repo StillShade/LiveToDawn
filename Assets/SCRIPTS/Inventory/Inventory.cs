@@ -86,6 +86,81 @@ public class Inventory : MonoBehaviour
         inventoryUI.UpdateUI(); // Обновляем UI один раз в конце
     }
 
+    public void AddItemToSlot(int slotIndex, Item item, int quantity)
+    {
+        Debug.Log($"Пытаюсь добавить item {item} в количестве {quantity} в слот {slotIndex}");
+        // Проверка валидности
+        if (item == null)
+        {
+            Debug.LogWarning("Попытка добавить null-предмет.");
+            return;
+        }
+
+        if (quantity <= 0)
+        {
+            Debug.LogWarning("Количество должно быть положительным.");
+            return;
+        }
+
+        if (slotIndex < 0 || slotIndex >= slots.Count)
+        {
+            Debug.LogWarning($"Неверный индекс слота: {slotIndex}");
+            return;
+        }
+
+        var slot = slots[slotIndex];
+
+        // Если слот пуст — просто установить предмет
+        if (slot.IsEmpty())
+        {
+            int amountToAdd = item.isStackable ? Mathf.Min(quantity, item.maxStack) : 1;
+            slot.SetItem(item, amountToAdd);
+            quantity -= amountToAdd;
+
+            Debug.Log($"Добавлен новый предмет {item.itemName} ({amountToAdd} шт.) в пустой слот [{slotIndex}].");
+
+            if (quantity > 0)
+            {
+                Debug.Log($"Осталось {quantity} шт. предмета {item.itemName}, не помещающихся в слот [{slotIndex}].");
+            }
+
+            inventoryUI.UpdateUI();
+            return;
+        } else
+        {
+            Debug.Log($"слот не из empty");
+        }
+
+        // Если слот занят тем же предметом — попытаться добавить в стек
+        if (slot.item.Equals(item) && item.isStackable)
+        {
+            int spaceLeft = item.maxStack - slot.Quantity;
+
+            if (spaceLeft <= 0)
+            {
+                Debug.Log($"Слот [{slotIndex}] с предметом {item.itemName} уже полон.");
+                return;
+            }
+
+            int amountToAdd = Mathf.Min(quantity, spaceLeft);
+            slot.SetQuantity(slot.Quantity + amountToAdd);
+            quantity -= amountToAdd;
+
+            Debug.Log($"Добавлено {amountToAdd} шт. предмета {item.itemName} в слот [{slotIndex}].");
+
+            if (quantity > 0)
+            {
+                Debug.Log($"Осталось {quantity} шт. предмета {item.itemName}, не помещающихся в слот [{slotIndex}].");
+            }
+
+            inventoryUI.UpdateUI();
+            return;
+        }
+
+        // Если в слоте другой предмет или предмет не стакается
+        Debug.LogWarning($"Слот [{slotIndex}] уже занят другим предметом или предмет не может быть добавлен.");
+    }
+
     private void DebugInventorySlots()
     {
         Debug.Log("=== Порядок слотов в Inventory ===");
@@ -121,6 +196,37 @@ public class Inventory : MonoBehaviour
             }
         }
         Debug.Log("Предмет не найден в инвентаре!");
+        inventoryUI.UpdateUI();
+    }
+
+    //ЭТОТ МЕТОД НУЖНО ТЕСТИРОВАТЬ
+
+    public void RemoveItemFromSlot(int slotIndex, int quantity)
+    {
+        if (slotIndex < 0 || slotIndex >= slots.Count)
+        {
+            Debug.LogWarning("Недопустимый индекс слота!");
+            return;
+        }
+
+        InventorySlot slot = slots[slotIndex];
+
+        if (slot.item == null)
+        {
+            Debug.LogWarning("Слот пуст!");
+            return;
+        }
+
+        if (slot.Quantity > quantity)
+        {
+            slot.SetQuantity(slot.Quantity - quantity);
+        }
+        else
+        {
+            // Удаляем весь предмет, если quantity >= slot.Quantity
+            slots[slotIndex] = new InventorySlot();
+        }
+
         inventoryUI.UpdateUI();
     }
 
