@@ -3,11 +3,18 @@ using UnityEngine;
 
 public class Inventory : MonoBehaviour
 {
+    [SerializeField]
     private int maxSlots = 10; // Теперь приватное
     public int MaxSlots => maxSlots; // Геттер для чтения
 
     public List<InventorySlot> slots = new List<InventorySlot>();
-    public InventoryUI inventoryUI;
+    //public InventoryUI inventoryUI;
+
+    public event System.Action OnInventoryChanged;
+    public event System.Action<int> OnSlotChanged;
+    public event System.Action<int> OnInventoryExpanded;
+    public event System.Action<int> OnInventoryShrunk;
+
 
     private void Awake()
     {
@@ -83,7 +90,8 @@ public class Inventory : MonoBehaviour
             Debug.Log($"Успешно добавлено {initialQuantity} предметов {item.itemName}.");
         }
 
-        inventoryUI.UpdateUI(); // Обновляем UI один раз в конце
+        // Обновляем UI один раз в конце - раньше было: inventoryUI.UpdateUI(); переходим на делеагаты и события
+        OnInventoryChanged?.Invoke();
     }
 
     public void AddItemToSlot(int slotIndex, Item item, int quantity)
@@ -124,7 +132,8 @@ public class Inventory : MonoBehaviour
                 Debug.Log($"Осталось {quantity} шт. предмета {item.itemName}, не помещающихся в слот [{slotIndex}].");
             }
 
-            inventoryUI.UpdateUI();
+            //inventoryUI.UpdateUI(slotIndex); теперь переходим на вызов событий
+            OnSlotChanged?.Invoke(slotIndex);
             return;
         } else
         {
@@ -153,7 +162,8 @@ public class Inventory : MonoBehaviour
                 Debug.Log($"Осталось {quantity} шт. предмета {item.itemName}, не помещающихся в слот [{slotIndex}].");
             }
 
-            inventoryUI.UpdateUI();
+            //inventoryUI.UpdateUI(slotIndex); переходим на делеагаты и события
+            OnSlotChanged?.Invoke(slotIndex);
             return;
         }
 
@@ -180,7 +190,8 @@ public class Inventory : MonoBehaviour
                 if (slots[i].Quantity > quantity)
                 {
                     slots[i].SetQuantity(slots[i].Quantity - quantity);
-                    inventoryUI.UpdateUI();
+                    //inventoryUI.UpdateUI();
+                    OnInventoryChanged?.Invoke();
                     return;
                 }
                 else
@@ -189,17 +200,17 @@ public class Inventory : MonoBehaviour
                     slots[i] = new InventorySlot();
                     if (quantity <= 0)
                     {
-                        inventoryUI.UpdateUI();
+                        //inventoryUI.UpdateUI();
+                        OnInventoryChanged?.Invoke();
                         return;
                     }
                 }
             }
         }
         Debug.Log("Предмет не найден в инвентаре!");
-        inventoryUI.UpdateUI();
     }
 
-    //ЭТОТ МЕТОД НУЖНО ТЕСТИРОВАТЬ
+   
 
     public void RemoveItemFromSlot(int slotIndex, int quantity)
     {
@@ -227,7 +238,8 @@ public class Inventory : MonoBehaviour
             slots[slotIndex] = new InventorySlot();
         }
 
-        inventoryUI.UpdateUI();
+        //inventoryUI.UpdateUI(slotIndex);
+        OnSlotChanged?.Invoke(slotIndex);
     }
 
     public void ExpandInventory(int amount)
@@ -242,7 +254,8 @@ public class Inventory : MonoBehaviour
 
         Debug.Log("Инвентарь расширен! Новое количество слоты: " + maxSlots);
         DebugInventorySlots();
-        inventoryUI.ExpandUI(amount);
+        //inventoryUI.ExpandUI(amount);
+        OnInventoryExpanded?.Invoke(amount);
     }
 
     //уменьшаем количество слотов если возможно
@@ -284,6 +297,7 @@ public class Inventory : MonoBehaviour
         maxSlots -= removedSlots;
 
         Debug.Log($"Инвентарь уменьшен на {removedSlots} слотов. Новое количество слотов: {maxSlots}");
-        inventoryUI.ShrinkUI(removedSlots);
+        //inventoryUI.ShrinkUI(removedSlots);
+        OnInventoryShrunk?.Invoke(removedSlots);
     }
 }

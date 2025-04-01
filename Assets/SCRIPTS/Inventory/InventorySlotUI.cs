@@ -204,9 +204,9 @@ public class InventorySlotUI : MonoBehaviour, IBeginDragHandler, IDragHandler, I
             otherSlot.SetSlot(this.slot);
             this.SetSlot(tempUI);
 
-            // Обновляем UI
-            inventory.inventoryUI.UpdateUI();
-            
+            // Обновляем UI ранее было inventory.inventoryUI.UpdateUI();
+            // возможно вообще не нужно inventory.OnInventoryChanged?.Invoke();
+
             Debug.Log($"Предметы поменялись местами! [{thisIndex}] ⇄ [{otherIndex}]");
         } else
         {

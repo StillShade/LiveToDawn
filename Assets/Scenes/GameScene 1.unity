@@ -7434,6 +7434,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e212b78e0cbf3ed4a89425ae7730bd16, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  maxSlots: 50
   slots: []
   inventoryUI: {fileID: 2124211754}
 --- !u!224 &300300028
@@ -26007,6 +26008,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e212b78e0cbf3ed4a89425ae7730bd16, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  maxSlots: 10
   slots: []
   inventoryUI: {fileID: 267880904}
 --- !u!1 &1152993181
