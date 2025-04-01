@@ -9,6 +9,26 @@ public class InventoryUI : MonoBehaviour
     public Transform slotParent;
     public ScrollRect scrollRect;
 
+    private void OnEnable()
+    {
+        if (inventory == null) return;
+
+        inventory.OnInventoryChanged += UpdateUI;
+        inventory.OnSlotChanged += UpdateUI;
+        inventory.OnInventoryExpanded += ExpandUI;
+        inventory.OnInventoryShrunk += ShrinkUI;
+    }
+
+    private void OnDisable()
+    {
+        if (inventory == null) return;
+
+        inventory.OnInventoryChanged -= UpdateUI;
+        inventory.OnSlotChanged -= UpdateUI;
+        inventory.OnInventoryExpanded -= ExpandUI;
+        inventory.OnInventoryShrunk -= ShrinkUI;
+    }
+
     public void ScrollToBottom()
     {
         Canvas.ForceUpdateCanvases(); // Обновляем UI перед прокруткой
@@ -84,7 +104,37 @@ public class InventoryUI : MonoBehaviour
                 //Debug.Log($"Слот [{i}] отсутствует в inventory.slots (index выходит за границы).");
             }
         }
-        DebugUISlots();
+       // DebugUISlots();
+    }
+
+    public void UpdateUI(int index)
+    {
+        if (index < 0 || index >= slotParent.childCount)
+        {
+            Debug.LogWarning($"UpdateUI: индекс {index} вне допустимых границ.");
+            return;
+        }
+
+        InventorySlotUI slotUI = slotParent.GetChild(index).GetComponent<InventorySlotUI>();
+
+        if (index < inventory.slots.Count)
+        {
+            InventorySlot slot = inventory.slots[index];
+
+            if (slot.IsEmpty())
+            {
+                slotUI.ClearSlot();
+            }
+            else
+            {
+                slotUI.SetSlot(slot);
+            }
+        }
+        else
+        {
+            // Если в inventory.slots нет слота с таким индексом, очищаем UI-ячейку
+            slotUI.ClearSlot();
+        }
     }
 
     private void DebugUISlots()

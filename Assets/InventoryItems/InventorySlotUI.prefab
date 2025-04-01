@@ -137,7 +137,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemIcon: {fileID: 3442595675790251529}
-  quantityText: {fileID: 4126599556298095343}
+  quantityText: {fileID: 1418513697989833628}
+  slotIndex: 0
 --- !u!1 &2822106228164754930
 GameObject:
   m_ObjectHideFlags: 0
@@ -156,7 +157,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &5603592724409309111
 RectTransform:
   m_ObjectHideFlags: 0
@@ -250,7 +251,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &6322358764019361132
 RectTransform:
   m_ObjectHideFlags: 0
