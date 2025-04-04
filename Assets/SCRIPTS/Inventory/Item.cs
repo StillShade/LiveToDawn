@@ -15,7 +15,9 @@ public enum ItemType
     Sweater,     // Кофта
     TShirt,      // Футболка
     Car,          // Машина
-    Food        //еда    
+    Food,       //еда
+    Glasses,    //очки
+    Unloading_vest  //разгрузка
     // Добавить другие типы
 }
 

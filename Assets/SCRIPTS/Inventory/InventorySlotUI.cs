@@ -9,9 +9,14 @@ public class InventorySlotUI : MonoBehaviour, IBeginDragHandler, IDragHandler, I
     public Image itemIcon;  // Иконка предмета
     public Text quantityText; // Количество предметов
 
-    private InventorySlot slot; // Ссылка на слот инвентаря
+    private InventorySlot slot;
+    public InventorySlot Slot
+    {
+        get => slot;
+        set => slot = value;
+    } // Ссылка на слот инвентаря
     private Transform originalParent; // Для возврата иконки
-    private static InventorySlotUI draggedSlot; // Какой слот перетаскиваем
+    protected static InventorySlotUI draggedSlot; // Какой слот перетаскиваем
 
     private Texture2D dragCursorTexture; // Курсор при перетаскивании
     private Vector2 cursorHotspot; // Смещение курсора
@@ -20,7 +25,7 @@ public class InventorySlotUI : MonoBehaviour, IBeginDragHandler, IDragHandler, I
     public static int tempIndex; //индекс перемещаемого слота в инвентаре
     public int slotIndex;
     private InventoryUI parentInventoryUI;
-    public static InventoryUI sourceInventoryUI;
+    public static IInventoryUI sourceInventoryUI;
 
 
     private void Start()
@@ -36,7 +41,7 @@ public class InventorySlotUI : MonoBehaviour, IBeginDragHandler, IDragHandler, I
         }
     }
     // Устанавливаем слот в UI
-    public void SetSlot(InventorySlot newSlot)
+    public virtual void SetSlot(InventorySlot newSlot)
     {
         slot = newSlot;
 
@@ -53,7 +58,7 @@ public class InventorySlotUI : MonoBehaviour, IBeginDragHandler, IDragHandler, I
     }
 
     // Очищаем UI слот
-    public void ClearSlot()
+    public virtual void ClearSlot()
     {
         slot = null;
         itemIcon.sprite = null;
@@ -70,7 +75,7 @@ public class InventorySlotUI : MonoBehaviour, IBeginDragHandler, IDragHandler, I
 
         draggedSlot = this;
         originalParent = transform.parent;
-        sourceInventoryUI = GetComponentInParent<InventoryUI>();
+        sourceInventoryUI = GetComponentInParent<IInventoryUI>();
 
         // Получаем индекс текущего слота в родителе
         tempIndex = transform.GetSiblingIndex();
@@ -138,7 +143,7 @@ public class InventorySlotUI : MonoBehaviour, IBeginDragHandler, IDragHandler, I
     }
 
     // Обработка дропа в другой слот
-    public void OnDrop(PointerEventData eventData)
+    public virtual void OnDrop(PointerEventData eventData)
     {
         if (draggedSlot == null || draggedSlot == this) return;
 
@@ -148,7 +153,7 @@ public class InventorySlotUI : MonoBehaviour, IBeginDragHandler, IDragHandler, I
     }
 
     // Обмен предметами между слотами
-    private void SwapItems(InventorySlotUI otherSlot, InventoryUI otherInventoryUI )
+    private void SwapItems(InventorySlotUI otherSlot, IInventoryUI otherInventoryUI )
     {
         if (otherSlot == null)
         {
@@ -162,8 +167,14 @@ public class InventorySlotUI : MonoBehaviour, IBeginDragHandler, IDragHandler, I
             return;
         }
 
-        Inventory inventory = GetComponentInParent<InventoryUI>().inventory;
-        
+        var thisInventoryUI = GetComponentInParent<IInventoryUI>();
+        if (thisInventoryUI == null)
+        {
+            Debug.LogError("❌ InventoryUI не найден у текущего слота!");
+            return;
+        }
+        Inventory inventory = thisInventoryUI.inventory;
+
         if (inventory == null)
         {
             Debug.LogError("Ошибка: Inventory не найден у InventoryUI!");

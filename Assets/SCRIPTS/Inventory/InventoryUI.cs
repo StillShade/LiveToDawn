@@ -2,9 +2,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class InventoryUI : MonoBehaviour
+public class InventoryUI : MonoBehaviour, IInventoryUI
 {
     public Inventory inventory;
+    // Реализация интерфейса
+    Inventory IInventoryUI.inventory => inventory;
     public GameObject slotPrefab;
     public Transform slotParent;
     public ScrollRect scrollRect;

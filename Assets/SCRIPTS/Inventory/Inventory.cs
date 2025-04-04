@@ -15,6 +15,12 @@ public class Inventory : MonoBehaviour
     public event System.Action<int> OnInventoryExpanded;
     public event System.Action<int> OnInventoryShrunk;
 
+    //это для того, чтобы в наследнике можно было вызвать
+    protected void RaiseInventoryChanged()
+    {
+        OnInventoryChanged?.Invoke();
+    }
+
 
     private void Awake()
     {
