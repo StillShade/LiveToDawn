@@ -37,6 +37,21 @@ public class Inventory : MonoBehaviour
         }
     }
 
+    public bool TryAddItem(Item item, int quantity)
+    {
+        for (int i = 0; i < slots.Count; i++)
+        {
+            var slot = slots[i];
+            if (slot.IsEmpty())
+                return true;
+
+            if (slot.item.Equals(item) && item.isStackable && slot.Quantity < item.maxStack)
+                return true;
+        }
+
+        return false;
+    }
+
     public void AddItem(Item item, int quantity)
     {
         int initialQuantity = quantity; // Сохраняем изначальное количество для логирования
@@ -196,27 +211,29 @@ public class Inventory : MonoBehaviour
                 if (slots[i].Quantity > quantity)
                 {
                     slots[i].SetQuantity(slots[i].Quantity - quantity);
-                    //inventoryUI.UpdateUI();
                     OnInventoryChanged?.Invoke();
                     return;
                 }
                 else
                 {
                     quantity -= slots[i].Quantity;
-                    slots[i] = new InventorySlot();
+
+                    // ✅ Вместо удаления — очищаем слот
+                    slots[i].Clear();
+
                     if (quantity <= 0)
                     {
-                        //inventoryUI.UpdateUI();
                         OnInventoryChanged?.Invoke();
                         return;
                     }
                 }
             }
         }
-        Debug.Log("Предмет не найден в инвентаре!");
+
+        Debug.Log("❗ Предмет не найден в инвентаре!");
     }
 
-   
+
 
     public void RemoveItemFromSlot(int slotIndex, int quantity)
     {

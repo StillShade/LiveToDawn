@@ -2,7 +2,17 @@
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
-
+[System.Serializable]
+public struct RectTransformState
+{
+    public Vector2 anchorMin;
+    public Vector2 anchorMax;
+    public Vector2 anchoredPosition;
+    public Vector2 sizeDelta;
+    public Vector2 pivot;
+    public Quaternion rotation;
+    public Vector3 scale;
+}
 
 public class InventorySlotUI : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler, IDropHandler
 {
@@ -18,6 +28,8 @@ public class InventorySlotUI : MonoBehaviour, IBeginDragHandler, IDragHandler, I
     private Transform originalParent; // Для возврата иконки
     protected static InventorySlotUI draggedSlot; // Какой слот перетаскиваем
 
+    public virtual bool IsEquipmentSlot => false;
+
     private Texture2D dragCursorTexture; // Курсор при перетаскивании
     private Vector2 cursorHotspot; // Смещение курсора
 
@@ -26,6 +38,9 @@ public class InventorySlotUI : MonoBehaviour, IBeginDragHandler, IDragHandler, I
     public int slotIndex;
     private InventoryUI parentInventoryUI;
     public static IInventoryUI sourceInventoryUI;
+
+    private RectTransformState originalRectState;
+    private RectTransform rectTransform;
 
 
     private void Start()
@@ -69,8 +84,62 @@ public class InventorySlotUI : MonoBehaviour, IBeginDragHandler, IDragHandler, I
     }
 
     // Начало перетаскивания
-    public void OnBeginDrag(PointerEventData eventData)
+    public virtual void OnBeginDrag(PointerEventData eventData)
     {
+        if (IsEquipmentSlot)
+        {
+            Debug.Log("ВНИМАНИЕ этот код для EquipmetnSlotUI ");
+            if (Slot == null || Slot.item == null) return;
+
+            draggedSlot = this;
+            //originalParent = transform.parent;
+            sourceInventoryUI = GetComponentInParent<IInventoryUI>();
+
+            rectTransform = GetComponent<RectTransform>();
+
+            originalRectState = new RectTransformState
+            {
+                anchorMin = rectTransform.anchorMin,
+                anchorMax = rectTransform.anchorMax,
+                anchoredPosition = rectTransform.anchoredPosition,
+                sizeDelta = rectTransform.sizeDelta,
+                pivot = rectTransform.pivot,
+                rotation = rectTransform.localRotation,
+                scale = rectTransform.localScale
+            };
+            originalParent = transform.parent;
+            sourceInventoryUI = GetComponentInParent<IInventoryUI>();
+
+            // Получаем индекс текущего слота в родителе
+            tempIndex = transform.GetSiblingIndex();
+
+            // Создаем копию слота (заглушку)
+            placeholderSlot = Instantiate(gameObject, originalParent).GetComponent<InventorySlotUI>();
+            placeholderSlot.SetSlot(slot); // Копируем данные
+            placeholderSlot.itemIcon.color = new Color(1, 1, 1, 0.5f); // Делаем полупрозрачной
+
+            // Проверяем, есть ли CanvasGroup, если нет — добавляем
+            CanvasGroup canvasGroup1 = placeholderSlot.GetComponent<CanvasGroup>();
+            if (canvasGroup1 == null)
+            {
+                canvasGroup1 = placeholderSlot.gameObject.AddComponent<CanvasGroup>();
+            }
+            canvasGroup1.blocksRaycasts = false; // Отключаем, чтобы заглушка не мешала
+
+            // Вставляем заглушку на место оригинального слота
+            placeholderSlot.transform.SetSiblingIndex(tempIndex);
+
+            // Перемещаем оригинальный слот в корень UI
+            transform.SetParent(transform.root);
+            transform.SetAsLastSibling();
+            itemIcon.raycastTarget = false; // Отключаем блокировку мыши
+
+            // Меняем курсор на иконку предмета
+            ChangeCursorToItemIcon(Slot.item.icon);
+            return;
+        }
+
+
         if (slot == null || slot.item == null) return;
 
         draggedSlot = this;
@@ -113,9 +182,44 @@ public class InventorySlotUI : MonoBehaviour, IBeginDragHandler, IDragHandler, I
     }
 
     // Завершение перетаскивания
-    public void OnEndDrag(PointerEventData eventData)
+    public virtual void OnEndDrag(PointerEventData eventData)
     {
         if (draggedSlot == null) return;
+
+        if (IsEquipmentSlot)
+        {
+            if (draggedSlot == null) return;
+
+            itemIcon.raycastTarget = true; // Включаем обратно блокировку мыши
+            if (placeholderSlot != null)
+            {
+                // 1. Перемещаем предмет на место заглушки
+                transform.SetParent(placeholderSlot.transform.parent);
+                transform.SetSiblingIndex(placeholderSlot.transform.GetSiblingIndex());
+
+                // 2. Теперь можно удалить заглушку
+                Destroy(placeholderSlot.gameObject);
+                placeholderSlot = null;
+            } else
+            {
+                transform.SetParent(originalParent, false);
+            }
+                
+            Debug.Log("ВНИМАНИЕ этот код в QuipmetnSlotUI ");
+            rectTransform.anchorMin = originalRectState.anchorMin;
+            rectTransform.anchorMax = originalRectState.anchorMax;
+            rectTransform.anchoredPosition = originalRectState.anchoredPosition;
+            rectTransform.sizeDelta = originalRectState.sizeDelta;
+            rectTransform.pivot = originalRectState.pivot;
+            rectTransform.localRotation = originalRectState.rotation;
+            rectTransform.localScale = originalRectState.scale;
+
+            draggedSlot = null;
+
+            // 3. Возвращаем стандартный курсор
+            Cursor.SetCursor(null, Vector2.zero, CursorMode.Auto);
+            return;
+        }
 
         itemIcon.raycastTarget = true; // Включаем обратно блокировку мыши
 
@@ -153,7 +257,7 @@ public class InventorySlotUI : MonoBehaviour, IBeginDragHandler, IDragHandler, I
     }
 
     // Обмен предметами между слотами
-    private void SwapItems(InventorySlotUI otherSlot, IInventoryUI otherInventoryUI )
+    public virtual void SwapItems(InventorySlotUI otherSlot, IInventoryUI otherInventoryUI )
     {
         if (otherSlot == null)
         {
@@ -221,41 +325,64 @@ public class InventorySlotUI : MonoBehaviour, IBeginDragHandler, IDragHandler, I
             Debug.Log($"Предметы поменялись местами! [{thisIndex}] ⇄ [{otherIndex}]");
         } else
         {
-            // Получаем индексы из UI
-            int thisIndex = transform.GetSiblingIndex();
-            int otherIndex = tempIndex;
-            
-            // Проверяем, что индексы корректны
-            if (thisIndex < 0 || thisIndex >= inventory.slots.Count)
+            // если переносим из экипировки
+            if (otherSlot.IsEquipmentSlot) 
             {
-                Debug.LogError($"Ошибка: Некорректные индексы! thisIndex = {thisIndex}, otherIndex = {otherIndex}");
-                return;
-            }
-            Debug.Log($"item {otherInventory.slots[otherIndex].item}");
+                bool added = inventory.TryAddItem(otherSlot.Slot.item, otherSlot.Slot.Quantity);
 
-            if (inventory.slots[thisIndex] == null || inventory.slots[thisIndex].item == null)
-            {
-                inventory.AddItemToSlot(thisIndex, otherInventory.slots[otherIndex].item, otherInventory.slots[otherIndex].Quantity);
-                otherInventory.RemoveItemFromSlot(otherIndex, otherInventory.slots[otherIndex].Quantity);
-                otherSlot.ClearSlot();
+                if (added)
+                {
+                    // Обновляем слот назначения (если нужно)
+                    this.SetSlot(new InventorySlot(otherSlot.Slot.item, otherSlot.Slot.Quantity));
+
+                    // Удаляем предмет из экипировки
+                    otherInventoryUI.inventory.RemoveItem(otherSlot.Slot.item, otherSlot.Slot.Quantity);
+                    otherSlot.ClearSlot(); // освободили слот экипировки
+                }
+                else
+                {
+                    Debug.LogWarning("❌ Нет места в инвентаре для снятия экипировки.");
+                }
             } else
             {
-                Debug.Log($"слот не пустой");
-                InventorySlot temp = inventory.slots[thisIndex];
-                InventorySlot tempUI = this.slot;
-                inventory.RemoveItemFromSlot(thisIndex, inventory.slots[thisIndex].Quantity);
-                inventory.AddItemToSlot(thisIndex, otherInventory.slots[otherIndex].item, otherInventory.slots[otherIndex].Quantity);
-                otherInventory.RemoveItemFromSlot(otherIndex, otherInventory.slots[otherIndex].Quantity);
-                otherInventory.AddItemToSlot(otherIndex, temp.item, temp.Quantity);
-                otherSlot.SetSlot(tempUI);
-                this.SetSlot(this.slot);
+                // Получаем индексы из UI
+                int thisIndex = transform.GetSiblingIndex();
+                int otherIndex = tempIndex;
+
+                // Проверяем, что индексы корректны
+                if (thisIndex < 0 || thisIndex >= inventory.slots.Count)
+                {
+                    Debug.LogError($"Ошибка: Некорректные индексы! thisIndex = {thisIndex}, otherIndex = {otherIndex}");
+                    return;
+                }
+                Debug.Log($"item {otherInventory.slots[otherIndex].item}");
+
+                if (inventory.slots[thisIndex] == null || inventory.slots[thisIndex].item == null)
+                {
+                    inventory.AddItemToSlot(thisIndex, otherInventory.slots[otherIndex].item, otherInventory.slots[otherIndex].Quantity);
+                    otherInventory.RemoveItemFromSlot(otherIndex, otherInventory.slots[otherIndex].Quantity);
+                    otherSlot.ClearSlot();
+                }
+                else
+                {
+                    Debug.Log($"слот не пустой");
+                    InventorySlot temp = inventory.slots[thisIndex];
+                    InventorySlot tempUI = this.slot;
+                    inventory.RemoveItemFromSlot(thisIndex, inventory.slots[thisIndex].Quantity);
+                    inventory.AddItemToSlot(thisIndex, otherInventory.slots[otherIndex].item, otherInventory.slots[otherIndex].Quantity);
+                    otherInventory.RemoveItemFromSlot(otherIndex, otherInventory.slots[otherIndex].Quantity);
+                    otherInventory.AddItemToSlot(otherIndex, temp.item, temp.Quantity);
+                    otherSlot.SetSlot(tempUI);
+                    this.SetSlot(this.slot);
+                }   
             }
+                
         }
         
     }
 
     // Создаем курсор из иконки предмета
-    private void ChangeCursorToItemIcon(Sprite itemSprite)
+    public void ChangeCursorToItemIcon(Sprite itemSprite)
     {
         if (itemSprite == null) return;
 

@@ -41,4 +41,10 @@ public class InventorySlot
         SetQuantity(newQuantity);
     }
 
+    public void Clear()
+    {
+        item = null;
+        quantity = 0;
+    }
+
 }

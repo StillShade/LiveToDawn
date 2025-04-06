@@ -5,7 +5,7 @@ using UnityEngine;
 public class PersonalInventory : Inventory
 {
     [SerializeField]
-    private List<EquipmentSlot> equipmentSlots = new(); // Устанавливаются вручную в инспекторе
+    public List<EquipmentSlot> equipmentSlots = new(); // Устанавливаются вручную в инспекторе
 
     [SerializeField] private CharacterStats characterStats;
 
@@ -26,15 +26,23 @@ public class PersonalInventory : Inventory
         {
             if (equipSlot.CanAccept(item))
             {
-                equipSlot.SetItem(item);
-                ApplyStats(item.stats);
-                RaiseInventoryChanged();  // Обновить UI
+               // equipSlot.SetItem(item);
+               // ApplyStats(item.stats);
+              //  RaiseInventoryChanged();  // Обновить UI
                 return true;
             }
         }
 
         Debug.LogWarning($"Нет подходящего слота для предмета {item.itemName}");
         return false;
+    }
+
+    public void Equip(int index, Item item)
+    {
+        var equipSlot = equipmentSlots[index];
+        equipSlot.SetItem(item);
+        ApplyStats(item.stats);
+        RaiseInventoryChanged(); 
     }
 
     public void Unequip(ItemType type)
@@ -62,7 +70,7 @@ public class PersonalInventory : Inventory
         return null;
     }
 
-    private void ApplyStats(ItemStats stats)
+    public void ApplyStats(ItemStats stats)
     {
         characterStats.Add(stats);
     }
