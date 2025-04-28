@@ -366,11 +366,19 @@ public class InventorySlotUI : MonoBehaviour, IBeginDragHandler, IDragHandler, I
             return;
         }
 
-        if (secondEquipmentInventory.equipmentSlots[thisIndex].slot == null || secondEquipmentInventory.equipmentSlots[thisIndex].slot.item)
+        if (secondEquipmentInventory.equipmentSlots[thisIndex].slot == null || secondEquipmentInventory.equipmentSlots[thisIndex].slot.item == null)
         {
             Debug.Log("🎯 Слот экипировки КУДА переносим - пустой. Просто удаляем из старой и экипируем");
             secondEquipmentInventory.Equip(thisIndex, equipmentInventory.equipmentSlots[otherIndex].slot.item);
             equipmentInventory.UnEquip(otherIndex);
+        } else
+        {
+            Debug.Log("🎯 Меняем экипировку местами");
+            InventorySlot tempEquipment = secondEquipmentInventory.equipmentSlots[thisIndex].slot;
+            secondEquipmentInventory.UnEquip(thisIndex);
+            secondEquipmentInventory.Equip(thisIndex, equipmentInventory.equipmentSlots[otherIndex].slot.item);
+            equipmentInventory.UnEquip(otherIndex);
+            equipmentInventory.Equip(otherIndex, tempEquipment.item);
         }
 
     }
