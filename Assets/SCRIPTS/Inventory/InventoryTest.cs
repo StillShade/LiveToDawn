@@ -6,6 +6,7 @@ public class InventoryTest : MonoBehaviour
     public Inventory inventory2;
     public Item bread;
     public Item socks_white;
+    public Item socks_red;
 
     void Start()
     {
@@ -23,9 +24,9 @@ public class InventoryTest : MonoBehaviour
         inventory.AddItem(socks_white, 1);
         inventory.AddItem(socks_white, 1);
         inventory.AddItem(socks_white, 1);
+        inventory.AddItem(socks_red, 1);
         inventory.AddItem(socks_white, 1);
-        inventory.AddItem(socks_white, 1);
-        inventory.AddItem(socks_white, 1);
+        inventory.AddItem(socks_red, 1);
         //inventory.RemoveItemFromSlot(0, 1);
     }
 
