@@ -416,7 +416,7 @@ public class InventorySlotUI : MonoBehaviour, IBeginDragHandler, IDragHandler, I
 
     private void TransferFromInventoryToEquipment(Inventory thisInventory, Inventory otherInventory, int thisIndex, int otherIndex, InventorySlotUI otherSlot)
     {
-        Debug.Log("⚔️ Перенос предмета из инвентаря в экипировку");
+        Debug.Log("⚔️ Перенос предмета из инвентаря в экипировку ???????????????? В ЭКИПИРОВКУ");
 
         var itemToEquip = otherInventory.slots[otherIndex]?.item;
         if (itemToEquip == null)
