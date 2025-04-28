@@ -323,4 +323,9 @@ public class Inventory : MonoBehaviour
         //inventoryUI.ShrinkUI(removedSlots);
         OnInventoryShrunk?.Invoke(removedSlots);
     }
+
+    public virtual bool TryEquip(Item item)
+    {
+        return false;
+    }
 }

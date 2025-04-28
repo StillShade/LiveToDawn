@@ -20,7 +20,7 @@ public class PersonalInventory : Inventory
 
     }
 
-    public bool TryEquip(Item item)
+    public override bool TryEquip(Item item)
     {
         foreach (var equipSlot in equipmentSlots)
         {
@@ -45,7 +45,7 @@ public class PersonalInventory : Inventory
         RaiseInventoryChanged(); 
     }
 
-    public void Unequip(ItemType type)
+    public void UnEquip(ItemType type)
     {
         foreach (var equipSlot in equipmentSlots)
         {
@@ -57,6 +57,15 @@ public class PersonalInventory : Inventory
                 return;
             }
         }
+    }
+
+    public void UnEquip(int index)
+    {
+        var equipSlot = equipmentSlots[index];
+        RemoveStats(equipSlot.EquippedItem.stats);
+        equipSlot.Clear();
+        RaiseInventoryChanged();
+        return;
     }
 
     public EquipmentSlot GetEquipmentSlot(ItemType type)
