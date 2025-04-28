@@ -11,13 +11,12 @@ public class PersonalInventory : Inventory
 
     private void Awake()
     {
-        characterStats = GetComponent<CharacterStats>();
+        characterStats = GetComponentInParent<CharacterStats>();
 
         if (characterStats == null)
         {
-            Debug.LogError("❌ CharacterStats не найден на объекте с PersonalInventory!");
+            Debug.LogError("❌ CharacterStats не найден на родительском объекте!");
         }
-
     }
 
     public override bool TryEquip(Item item)
