@@ -19547,7 +19547,7 @@ MonoBehaviour:
   - acceptedType: 8
     slot:
       item: {fileID: 0}
-  - acceptedType: 0
+  - acceptedType: 8
     slot:
       item: {fileID: 0}
   - acceptedType: 12
@@ -21306,7 +21306,7 @@ MonoBehaviour:
   itemIcon: {fileID: 2140725710}
   quantityText: {fileID: 322096338}
   slotIndex: 0
-  acceptedType: 0
+  acceptedType: 8
   defaultIcon: {fileID: -722543564, guid: 7d29b0a40528a254eb71048fc11d430d, type: 3}
 --- !u!1 &918341590
 GameObject:

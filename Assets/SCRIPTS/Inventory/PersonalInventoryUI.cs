@@ -1,3 +1,4 @@
+using System.Linq;
 using UnityEngine;
 
 public class PersonalInventoryUI : MonoBehaviour, IInventoryUI
@@ -27,9 +28,10 @@ public class PersonalInventoryUI : MonoBehaviour, IInventoryUI
 
     public void UpdateUI()
     {
-        foreach (var slotUI in equipmentSlots)
+        for (int i = 0; i < equipmentSlots.Length; i++)
         {
-            var slot = inventory.GetEquipmentSlot(slotUI.acceptedType);
+            var slotUI = equipmentSlots[i];
+            var slot = inventory.equipmentSlots[i]; // Новый метод по индексу
             if (slot != null && !slot.slot.IsEmpty())
             {
                 slotUI.SetSlot(slot.slot);

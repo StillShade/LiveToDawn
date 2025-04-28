@@ -276,6 +276,10 @@ public class InventorySlotUI : MonoBehaviour, IBeginDragHandler, IDragHandler, I
         {
             TransferFromInventoryToEquipment(thisInventory, otherInventory, thisIndex, otherIndex, otherSlot);
         }
+        else if (IsEquipmentSlot && otherSlot.IsEquipmentSlot)
+        {
+            TransferFromEquipmentToEquipment(thisInventory, otherInventory, thisIndex, otherIndex, otherSlot);
+        }
         else if (thisInventory == otherInventory)
         {
             SwapWithinSameInventory(thisInventory, thisIndex, otherIndex, otherSlot);
@@ -339,6 +343,36 @@ public class InventorySlotUI : MonoBehaviour, IBeginDragHandler, IDragHandler, I
         {
             TransferBetweenInventories(inventory, otherInventory, thisIndex, otherIndex, otherSlot);
         }
+    }
+
+    private void TransferFromEquipmentToEquipment(Inventory inventory, Inventory otherInventory, int thisIndex, int otherIndex, InventorySlotUI otherSlot)
+    {
+        Debug.Log("🎯 Переносим предмет из экипировки в Экипировку");
+        var equipmentInventory = otherInventory as PersonalInventory;
+        if (equipmentInventory == null)
+        {
+            Debug.LogError("❌ Ошибка: Inventory не является EquipmentInventory.");
+            return;
+        }
+        var secondEquipmentInventory = inventory as PersonalInventory;
+        if (secondEquipmentInventory == null)
+        {
+            Debug.LogError("❌ Ошибка: Second Inventory не является EquipmentInventory.");
+            return;
+        }
+        if (AcceptedType.HasValue && equipmentInventory.equipmentSlots[otherIndex].slot.item.itemType != AcceptedType.Value)
+        {
+            Debug.LogWarning($"❌ Этот слот принимает {AcceptedType.Value}, а не {equipmentInventory.equipmentSlots[otherIndex].slot.item.itemType}");
+            return;
+        }
+
+        if (secondEquipmentInventory.equipmentSlots[thisIndex].slot == null || secondEquipmentInventory.equipmentSlots[thisIndex].slot.item)
+        {
+            Debug.Log("🎯 Слот экипировки КУДА переносим - пустой. Просто удаляем из старой и экипируем");
+            secondEquipmentInventory.Equip(thisIndex, equipmentInventory.equipmentSlots[otherIndex].slot.item);
+            equipmentInventory.UnEquip(otherIndex);
+        }
+
     }
 
     private void TransferFromEquipmentToInventory(Inventory inventory, Inventory otherInventory, int thisIndex, int otherIndex, InventorySlotUI otherSlot)
@@ -461,7 +495,7 @@ public class InventorySlotUI : MonoBehaviour, IBeginDragHandler, IDragHandler, I
                 equipmentInventory.UnEquip(thisIndex);
                 equipmentInventory.Equip(thisIndex, itemToEquip);
                 // Обновляем UI
-                SetSlot(new InventorySlot(itemToEquip, 1));
+                //SetSlot(new InventorySlot(itemToEquip, 1)); - ДЛЯ ЭКИПИРОВКИ ТАКОЕ КАЖЕТСЯ НЕ НУЖНО, можно будет поудалять
                 otherSlot.SetSlot(tempUI);
                 Debug.Log($"В ИНВЕНТАРЕ ТЕПЕРЬ {otherInventory.slots[otherIndex].item}, а в ЭКИПИРОВКЕ {equipmentInventory.equipmentSlots[thisIndex].slot.item}");
             }
