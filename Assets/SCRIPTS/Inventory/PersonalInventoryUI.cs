@@ -1,12 +1,14 @@
 using System.Linq;
 using UnityEngine;
 
+
 public class PersonalInventoryUI : MonoBehaviour, IInventoryUI
 {
     [SerializeField] public PersonalInventory inventory;
     Inventory IInventoryUI.inventory => inventory; // реализация интерфейса
     [SerializeField] private EquipmentSlotUI[] equipmentSlots; // Назначаются вручную в инспекторе
 
+   
     private void OnEnable()
     {
         if (inventory == null) return;
