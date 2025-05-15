@@ -8,7 +8,7 @@ public class Menu : MonoBehaviour
     public AudioSource[] audios;
     public GameObject CharacterPnl;
     public Animator animCharactPnl;
-    public GameObject BtnCharacterPnl, BtnInventory, BtnMapClose;
+    public GameObject BtnCharacterPnl, BtnInventory, BtnMapClose, BtnMap, BtnShelter;
     public GameObject CharacterDownPnl;
     public GameObject pnlOptions;
     public GameObject btnLeftPnl;
@@ -67,7 +67,9 @@ public class Menu : MonoBehaviour
         audios[0].Play();
         pnlMap.SetActive(false);
         locationForest.SetActive(true);
+        BtnMap.SetActive(false);
         BtnMapClose.SetActive(false);
+        BtnShelter.SetActive(false);
         mapMode = 1;
     }
 

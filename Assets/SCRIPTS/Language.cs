@@ -12,7 +12,7 @@ public class Language : MonoBehaviour
     [Header("Options")]
     public Text txLanguage;
     [Header(" ÌÓÔÍË ˝ÍËÔËÓ‚ÍË")]
-    public Text head, face, eyes, light_clothing, warm_clothes, outerwear, armor, unloading_vest, gloves, pants, socks, boots, backpack, transport, basicWeapon, additionalWeapons, rollUp;
+    public Text head, face, eyes, light_clothing, warm_clothes, outerwear, armor, unloading_vest, gloves, lingerie, pants, socks, boots, backpack, transport, Watch, Light, GPS, Weapon1, Weapon2, Weapon3, Weapon4, rollUp, btnActionExit;
     [Header("œ‡ÌÂÎ¸ ÓÔËÒ‡ÌËˇ ˝ÍËÔËÓ‚ÍË")]
     public Text drop, clothe, drop2, takeOff;
     [Header("ÀÓÍ‡ˆËË")]
@@ -71,13 +71,19 @@ public class Language : MonoBehaviour
         armor.text = "¡–ŒÕﬂ";
         unloading_vest.text = "–¿«√–”« ¿";
         gloves.text = "œ≈–◊¿“ »";
+        lingerie.text = "Õ»∆Õ≈≈ ¡≈À‹≈";
         pants.text = "ÿ“¿Õ€";
         socks.text = "ÕŒ— »";
         boots.text = "¡Œ“»Õ »";
         backpack.text = "–ﬁ «¿ ";
+        Watch.text = "◊¿—€";
+        Light.text = "—¬≈“";
+        GPS.text = "GPS";
         transport.text = "“–¿Õ—œŒ–“";
-        basicWeapon.text = "1-Œ≈ Œ–”∆»≈";
-        additionalWeapons.text = "2-Œ≈ Œ–”∆»≈";
+        Weapon1.text = "1-Œ≈ Œ–”∆»≈";
+        Weapon2.text = "2-Œ≈ Œ–”∆»≈";
+        Weapon3.text = " Œ¡”–¿";
+        Weapon4.text = "ÕŒ∆";
         drop.text = "¬€ »Õ”“‹";
         drop2.text = "¬€ »Õ”“‹";
         clothe.text = "Œƒ≈“‹";
@@ -92,6 +98,7 @@ public class Language : MonoBehaviour
         shelterBtn.text = "”¡≈∆»Ÿ≈";
         mapBtn.text = " ¿–“¿";
         mapBtnClose.text = "«¿ –€“‹";
+        btnActionExit.text = "¬€…“» »« œŒÃ≈Ÿ≈Õ»ﬂ";
     }
     public void SelectEng()
     {
@@ -105,13 +112,19 @@ public class Language : MonoBehaviour
         armor.text = "ARMOR";
         unloading_vest.text = "UNLOADING";
         gloves.text = "GLOVES";
+        lingerie.text = "LINGERIE";
         pants.text = "PANTS";
         socks.text = "SOCKS";
         boots.text = "BOOTS";
         backpack.text = "BACKPACK";
+        Watch.text = "WATCH";
+        Light.text = "LIGHT";
+        GPS.text = "GPS";
         transport.text = "TRANSPORT";
-        basicWeapon.text = "1ST WEAPON";
-        additionalWeapons.text = "2ST WEAPON";
+        Weapon1.text = "1ST WEAPON";
+        Weapon2.text = "2ST WEAPON";
+        Weapon3.text = "HOLSTER";
+        Weapon4.text = "KNIFE";
         drop.text = "DROP";
         drop2.text = "DROP";
         clothe.text = "CLOTHE";
@@ -126,5 +139,6 @@ public class Language : MonoBehaviour
         shelterBtn.text = "SHELTER";
         mapBtn.text = "MAP";
         mapBtnClose.text = "CLOSE";
+        btnActionExit.text = "EXIT THE ROOM";
     }
 }

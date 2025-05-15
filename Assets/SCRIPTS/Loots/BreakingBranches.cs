@@ -12,11 +12,21 @@ public class BreakingBranches : MonoBehaviour
     public Animator anim, animProgress;
     public int hpShrub;
 
-    void Start()
+    void OnEnable()
     {
         shrub.GetComponent<Animator>();
         animProgress.GetComponent<Animator>();
         audioShub = shrub.GetComponent<AudioSource>();
+    }
+
+    public void OnDisable()
+    {
+        hpShrub = 4;
+        btn.SetActive(true);
+        img1.SetActive(true);
+        img2.SetActive(true);
+        img3.SetActive(true);
+        img4.SetActive(true);
     }
 
     IEnumerator TimeClick()

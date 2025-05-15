@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 45cc059749b027b42b4c52e714566787
+guid: 8dc9db41f02bc6841b23564d76411142
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 7997204983943068323
-    second: gridTree_0
+      213: 4081716996416750574
+    second: LocForestFront2_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -113,13 +113,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: gridTree_0
+      name: LocForestFront2_0
       rect:
         serializedVersion: 2
-        x: 59
-        y: 5
-        width: 138
-        height: 246
+        x: 414
+        y: 0
+        width: 970
+        height: 346
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -128,8 +128,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 3aaf8e7df87cbfe60800000000000000
-      internalID: 7997204983943068323
+      spriteID: ee3481d7bfb25a830800000000000000
+      internalID: 4081716996416750574
       vertices: []
       indices: 
       edges: []
@@ -148,7 +148,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      gridTree_0: 7997204983943068323
+      LocForestFront2_0: 4081716996416750574
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

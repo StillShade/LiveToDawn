@@ -5,8 +5,8 @@ using System.Collections;
 
 public class CuttingTrees : MonoBehaviour
 {
-    public Animator anim, hit, animProgress;
-    public GameObject tree, btn;
+    public Animator hit, animProgress;
+    public GameObject tree, btn, pineTree;
     public AudioSource[] audioTree;
     public int hpTree = 10;
     public Image image;
@@ -15,10 +15,17 @@ public class CuttingTrees : MonoBehaviour
 
     public void OnEnable()
     {
-        anim.GetComponent<Animator>();
         hit.GetComponent<Animator>();
         animProgress.GetComponent<Animator>();
         audioTree = tree.GetComponents<AudioSource>();       
+    }
+
+    public void OnDisable()
+    {
+        hpTree = 10;
+        pineTree.SetActive(true);
+        btn.SetActive(true);
+        image.fillAmount = 1.00f;
     }
 
     IEnumerator Delay()
@@ -37,7 +44,7 @@ public class CuttingTrees : MonoBehaviour
                 audioTree[0].Play();
                 hit.SetTrigger("Hit");
                 hpTree--;
-                anim.SetTrigger("HittingTree");
+                hit.SetTrigger("HittingTree");
                 audioTree[1].Play();
             }
             else

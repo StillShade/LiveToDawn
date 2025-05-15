@@ -8,11 +8,23 @@ public class Stones : MonoBehaviour
     public Animator anim, animProgress;
     public int hpStones = 6;
 
-    void Start()
+    void OnEnable()
     {
         anim.GetComponent<Animator>();
         animProgress.GetComponent<Animator>();
         audioStones = stones.GetComponent<AudioSource>();
+    }
+
+    public void OnDisable()
+    {
+        hpStones = 6;
+        btn.SetActive(true);
+        img6.SetActive(true);
+        img5.SetActive(true);
+        img4.SetActive(true);
+        img3.SetActive(true);
+        img2.SetActive(true);
+        img1.SetActive(true);
     }
 
     IEnumerator TimeClick()
