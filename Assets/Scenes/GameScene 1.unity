@@ -1160,7 +1160,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 806, y: 0}
+  m_SizeDelta: {x: 806, y: 10}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &48183595
 MonoBehaviour:
@@ -4425,7 +4425,7 @@ RectTransform:
   m_Father: {fileID: 1585569940}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 20, y: 20}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -5042,7 +5042,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &213853618
 RectTransform:
   m_ObjectHideFlags: 0
@@ -19554,6 +19554,7 @@ MonoBehaviour:
     slot:
       item: {fileID: 0}
   characterStats: {fileID: 0}
+  playerVisualRoot: {fileID: 325214071}
 --- !u!1 &816395195
 GameObject:
   m_ObjectHideFlags: 0
@@ -28660,7 +28661,7 @@ GameObject:
   - component: {fileID: 1260698379}
   - component: {fileID: 1260698378}
   m_Layer: 0
-  m_Name: socks (1)
+  m_Name: socks
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -28673,7 +28674,7 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1260698376}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -50508,6 +50509,7 @@ MonoBehaviour:
     slot:
       item: {fileID: 0}
   characterStats: {fileID: 0}
+  playerVisualRoot: {fileID: 325214071}
 --- !u!1 &2129579798
 GameObject:
   m_ObjectHideFlags: 0
