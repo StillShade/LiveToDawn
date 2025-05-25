@@ -30,3 +30,6 @@ MonoBehaviour:
     woodDamage: 1
     ironDamage: 0
     fleshDamage: 10
+  effectsOnFlesh:
+  - effect: {fileID: 11400000, guid: d1674ba55c645ff4592cdbdee2420d53, type: 2}
+    chance: 0.08

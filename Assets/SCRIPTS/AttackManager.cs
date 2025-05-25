@@ -27,11 +27,26 @@ public class AttackManager : MonoBehaviour
             Debug.Log($"Наносим {damage} урона по {target.name}");
             target.TakeDamage(damage);
 
-            // Анимация удара и т.д.
+            // --- Применяем эффекты с вероятностью ---
+            // Например, только если цель — плоть (Flesh)
+            if (target.data.targetType == TargetType.Flesh && weaponItem.effectsOnFlesh != null)
+            {
+                foreach (var effectWithChance in weaponItem.effectsOnFlesh)
+                {
+                    if (effectWithChance.effect == null) continue;
+                    float roll = Random.value; // от 0 до 1
+                    if (roll <= effectWithChance.chance)
+                    {
+                        target.AddEffect(effectWithChance.effect);
+                        Debug.Log($"Наложен эффект: {effectWithChance.effect.effectName} на {target.name}");
+                    }
+                }
+            }
+
+            // --- Здесь можно добавить анимацию удара, звук и т.д. ---
         }
         else
         {
-            // Можно залогировать ошибку или проигнорировать
             Debug.LogWarning("Попытка атаковать неоружием!");
         }
     }

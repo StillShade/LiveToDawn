@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 [System.Serializable]
@@ -21,8 +22,17 @@ public struct WeaponDamageProfile
     }
 }
 
+[System.Serializable]
+public class EffectWithChance
+{
+    public StatusEffect effect;
+    [Range(0f, 1f)]
+    public float chance;
+}
+
 [CreateAssetMenu(fileName = "WeaponItem", menuName = "Scriptable Objects/WeaponItem")]
 public class WeaponItem : Item
 {
     public WeaponDamageProfile damageProfile;
+    public List<EffectWithChance> effectsOnFlesh;
 }
