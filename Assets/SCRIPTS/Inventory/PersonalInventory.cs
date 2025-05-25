@@ -29,6 +29,7 @@ public class PersonalInventory : Inventory
             ItemType.Backpack => "backpack",
             ItemType.Glasses => "glasses",
             ItemType.TShirt => "light_clothing",
+            ItemType.Weapon => "weapon",
             // ... и так далее ...
             _ => null
         };

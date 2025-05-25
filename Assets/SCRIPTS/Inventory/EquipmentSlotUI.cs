@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class EquipmentSlotUI : InventorySlotUI
+public class EquipmentSlotUI : InventorySlotUI, IPointerClickHandler
 {
     public ItemType acceptedType;
     public override ItemType? AcceptedType => acceptedType;
@@ -62,6 +62,33 @@ public class EquipmentSlotUI : InventorySlotUI
     {
         // Можно привязать через ScriptableObject или Resources.Load
         return null;
+    }
+        // для слота с оружием - атака
+    public void OnPointerClick(PointerEventData eventData)
+    {
+        Debug.Log("Клик по кнопке для атаки");
+        if (Slot == null)
+        {
+            Debug.LogWarning("Slot is null!");
+            return;
+        }
+        if (Slot.item == null)
+        {
+            Debug.LogWarning("Slot.item is null!");
+            return;
+        }
+        if (AttackManager.Instance == null)
+        {
+            Debug.LogWarning("AttackManager.Instance is null!");
+            return;
+        }
+        if (Slot.item.itemType != ItemType.Weapon)
+        {
+            Debug.LogWarning("В слоте не оружие!");
+            return;
+        }
+
+        AttackManager.Instance.AttackWithWeapon(Slot.item);
     }
 
 }

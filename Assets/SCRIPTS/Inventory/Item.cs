@@ -2,22 +2,22 @@ using UnityEngine;
 
 public enum ItemType
 {
-    Weapon,      // Оружие
-    Helmet,      // Шлем
-    Armor,       // Броня
-    Pants,       // Штаны
-    Boots,       // Ботинки
-    Gloves,      // Перчатки
-    Mask,        // Маска
-    Backpack,    // Рюкзак
-    Socks,       // Носки
-    Jacket,      // Куртка
-    Sweater,     // Кофта
-    TShirt,      // Футболка
-    Car,          // Машина
-    Food,       //еда
-    Glasses,    //очки
-    Unloading_vest  //разгрузка
+    Weapon = 0,      // Оружие
+    Helmet = 1,      // Шлем
+    Armor = 2,       // Броня
+    Pants = 3,       // Штаны
+    Boots = 4,       // Ботинки
+    Gloves = 5,      // Перчатки
+    Mask = 6,        // Маска
+    Backpack = 7,    // Рюкзак
+    Socks = 8,       // Носки
+    Jacket = 9,      // Куртка
+    Sweater = 10,     // Кофта
+    TShirt = 11,      // Футболка
+    Car = 12,          // Машина
+    Food = 13,       //еда
+    Glasses = 14,    //очки
+    Unloading_vest = 15  //разгрузка
     // Добавить другие типы
 }
 
@@ -55,6 +55,6 @@ public class Item : ScriptableObject
 
     public override int GetHashCode()
     {
-        return itemName.GetHashCode();
+        return (itemName != null ? itemName.GetHashCode() : 0);
     }
 }

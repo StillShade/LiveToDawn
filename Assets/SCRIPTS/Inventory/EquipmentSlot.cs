@@ -1,3 +1,5 @@
+using UnityEngine;
+
 [System.Serializable]
 public class EquipmentSlot
 {
@@ -6,6 +8,7 @@ public class EquipmentSlot
 
     public bool CanAccept(Item item)
     {
+        Debug.Log($"item.itemType: {item.itemType} ({(int)item.itemType}), acceptedType: {acceptedType} ({(int)acceptedType})");
         return item != null && item.itemType == acceptedType;
     }
 
