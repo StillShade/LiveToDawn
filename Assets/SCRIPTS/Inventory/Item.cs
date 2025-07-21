@@ -17,7 +17,12 @@ public enum ItemType
     Car = 12,          // ћашина
     Food = 13,       //еда
     Glasses = 14,    //очки
-    Unloading_vest = 15  //разгрузка
+    Unloading_vest = 15, //разгрузка
+    Clock = 16, //часы
+    Underwear = 17, //нижнее белье
+    GPS = 18,
+    Flashlight = 19, //фонарик
+
     // ƒобавить другие типы
 }
 

@@ -37,11 +37,11 @@ public class CharPlayer : MonoBehaviour
     public float fvP;
     public int clP;
 
-    private static int socks = 1;
-    private static int boots = 1;
-    private static int pants = 1;
+    private static int socks = 0;
+    private static int boots = 0;
+    private static int pants = 0;
     private static int gloves = 0;
-    private static int lightClothing = 1;
+    private static int lightClothing = 0;
     private static int faceMask = 0;
     private static int warmClothes = 0;
     private static int armor = 0;
