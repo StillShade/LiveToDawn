@@ -12,11 +12,15 @@ public class Language : MonoBehaviour
     [Header("Options")]
     public Text txLanguage;
     [Header("Кнопки экипировки")]
-    public Text head, face, eyes, light_clothing, warm_clothes, outerwear, armor, unloading_vest, gloves, lingerie, pants, socks, boots, backpack, transport, Watch, Light, GPS, Weapon1, Weapon2, Weapon3, Weapon4, rollUp, btnActionExit;
+    public Text head, face, eyes, light_clothing, warm_clothes, outerwear, armor, unloading_vest, gloves, lingerie, pants, socks, boots, backpack, transport, Watch, Light, GPS, Weapon1, Weapon2, Weapon3, Weapon4;
     [Header("Панель описания экипировки")]
     public Text drop, clothe, drop2, takeOff;
     [Header("Локации")]
     public Text shelter, forest;
+    [Header("Панель характеристик")]
+    public Text tabHealth, tabSkills, tabInfo;
+    [Header("КАРТЫ")]
+    public Text WOLF, PINE, BUSH, BIGSTONE, STONES, MUSHROOMS, DEER, TRADER, HUT, BUNKER;
 
     void Awake()
     {
@@ -88,17 +92,28 @@ public class Language : MonoBehaviour
         drop2.text = "ВЫКИНУТЬ";
         clothe.text = "ОДЕТЬ";
         takeOff.text = "СНЯТЬ";
-        rollUp.text = "СВЕРНУТЬ";
-        shelter.text = "Убежище";
-        forest.text = "Лес";
+        shelter.text = "УБЕЖИЩЕ";
+        forest.text = "ЛЕС";
         characterBtn.text = "ПЕРСОНАЖ";
         characterBtnClose.text = "ЗАКРЫТЬ";
-        inventoryBtn.text = "ИНВЕНТАРЬ";
+        inventoryBtn.text = "ЭКИПИРОВКА";
         inventoryBtnClose.text = "ЗАКРЫТЬ";
         shelterBtn.text = "УБЕЖИЩЕ";
         mapBtn.text = "КАРТА";
-        mapBtnClose.text = "ЗАКРЫТЬ";
-        btnActionExit.text = "ВЫЙТИ ИЗ ПОМЕЩЕНИЯ";
+        mapBtnClose.text = "КАРТА";
+        tabHealth.text = "ЗДОРОВЬЕ";
+        tabSkills.text = "НАВЫКИ";
+        tabInfo.text = "ИНФО";
+        WOLF.text = "ВОЛК";
+        PINE.text = "СОСНА";
+        BUSH.text = "КУСТ";
+        BIGSTONE.text = "БОЛ КАМЕНЬ";
+        STONES.text = "КАМНИ";
+        MUSHROOMS.text = "ГРИБЫ";
+        DEER.text = "ОЛЕНЬ";
+        TRADER.text = "ТОРГОВЕЦ";
+        HUT.text = "ХИЖИНА";
+        BUNKER.text = "БУНКЕР";
     }
     public void SelectEng()
     {
@@ -129,16 +144,27 @@ public class Language : MonoBehaviour
         drop2.text = "DROP";
         clothe.text = "CLOTHE";
         takeOff.text = "TAKE OFF";
-        rollUp.text = "ROLL UP";
-        shelter.text = "Shelter";
-        forest.text = "Forest";
+        shelter.text = "SHELTER";
+        forest.text = "FOREST";
         characterBtn.text = "CHARACTER";
         characterBtnClose.text = "CLOSE";
-        inventoryBtn.text = "INVENTORY";
+        inventoryBtn.text = "EQUIPMENT";
         inventoryBtnClose.text = "CLOSE";
         shelterBtn.text = "SHELTER";
         mapBtn.text = "MAP";
-        mapBtnClose.text = "CLOSE";
-        btnActionExit.text = "EXIT THE ROOM";
+        mapBtnClose.text = "MAP";
+        tabHealth.text = "HEALTH";
+        tabSkills.text = "SKILLS";
+        tabInfo.text = "INFO";
+        WOLF.text = "WOLF";
+        PINE.text = "PINE";
+        BUSH.text = "BUSH";
+        BIGSTONE.text = "BIG STONE";
+        STONES.text = "STONES";
+        MUSHROOMS.text = "MUSHROOMS";
+        DEER.text = "DEER";
+        TRADER.text = "TRADER";
+        HUT.text = "HUT";
+        BUNKER.text = "BUNKER";
     }
 }

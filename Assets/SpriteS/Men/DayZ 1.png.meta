@@ -172,7 +172,9 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      DayZ 1_0: -4248061223519484637
+      DayZ 1_1: 5980873187880536894
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
