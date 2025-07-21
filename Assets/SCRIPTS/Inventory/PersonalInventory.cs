@@ -16,6 +16,7 @@ public class PersonalInventory : Inventory
     // Сопоставление ItemType и имени объекта - это для одевания Player-а
     private string GetChildNameByItemType(ItemType type)
     {
+        //это то что в объекте Player (часов и трусов пока нет, gps и транспорта вообще не будет)
         return type switch
         {
             ItemType.Socks => "socks",
@@ -30,6 +31,8 @@ public class PersonalInventory : Inventory
             ItemType.Glasses => "glasses",
             ItemType.TShirt => "light_clothing",
             ItemType.Weapon => "weapon",
+            //ItemType.Clock => "",
+            //ItemType.Underwear => "",
             // ... и так далее ...
             _ => null
         };

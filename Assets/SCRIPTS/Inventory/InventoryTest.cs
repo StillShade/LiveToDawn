@@ -21,7 +21,7 @@ public class InventoryTest : MonoBehaviour
         // Выбираем случайный индекс
         TargetType randomType = allTypes[Random.Range(0, allTypes.Length)];
         //вызываем уничтожаемый объект
-        DamageableObjectFactory.Instance.CreateRandom(randomType, new Vector3(0, 0, 0));
+        //DamageableObjectFactory.Instance.CreateRandom(randomType, new Vector3(0, 0, 0));
 
         inventory2.AddItemToSlot(0, socks_white, 1);
         inventory.AddItemToSlot(0, socks_white, 1);
