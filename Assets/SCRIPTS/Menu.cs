@@ -7,13 +7,13 @@ public class Menu : MonoBehaviour
     public GameObject myCamera;
     public AudioSource[] audios;
     public GameObject CharacterPnl;
-    public Animator animCharactPnl;
-    public GameObject BtnCharacterPnl, BtnInventory, BtnMapClose;
-    public GameObject CharacterDownPnl;
+    public Animator animCharactPnl, ANIMinventory;
+    public GameObject BtnPlayerPnl, BtnEquipment, BtnCloseInventory, BtnMapClose, BtnMap, BtnShelter, BtnCloseSearch;
+    public GameObject CharacterDownPnl, tabHealth, tabSkills, tabInfo;
     public GameObject pnlOptions;
-    public GameObject btnLeftPnl;
     public GameObject pnlMap;
     public GameObject locationForest;
+    public int mapMode = 0;
 
     //public void OpenCharacterPnl()
     //{
@@ -24,6 +24,39 @@ public class Menu : MonoBehaviour
     //{
     //    CharacterDownPnl.SetActive(false);
     //}
+
+    public void OpenTabHeat()
+    {
+        audios[2].Play();
+        tabHealth.SetActive(true);
+        tabSkills.SetActive(false);
+        tabInfo.SetActive(false);
+    }
+
+    public void OpenTabSkill()
+    {
+        audios[2].Play();
+        tabHealth.SetActive(false);
+        tabSkills.SetActive(true);
+        tabInfo.SetActive(false);
+    }
+
+    public void OpenTabInfo()
+    {
+        audios[2].Play();
+        tabHealth.SetActive(false);
+        tabSkills.SetActive(false);
+        tabInfo.SetActive(true);
+    }
+
+    public void OpenShelter()
+    {
+        audios[0].Play();
+        pnlMap.SetActive(false);
+        locationForest.SetActive(false);
+        BtnMapClose.SetActive(false);
+        mapMode = 0;
+    }
 
     public void OpenPnlOptions()
     {
@@ -38,11 +71,13 @@ public class Menu : MonoBehaviour
 
     public void OpenPnlMap()
     {
+        mapMode = 1;
         audios[0].Play();
         pnlMap.SetActive(true);
         BtnMapClose.SetActive(true);
         CloseCharacterPnl();
-        CloseInventory();
+        OpenInventory();
+        CloseLeftPnl();
     }
 
     public void ClosePnlMap()
@@ -56,7 +91,11 @@ public class Menu : MonoBehaviour
         audios[0].Play();
         pnlMap.SetActive(false);
         locationForest.SetActive(true);
+        BtnMap.SetActive(false);
         BtnMapClose.SetActive(false);
+        BtnShelter.SetActive(false);
+        CloseInventory();
+        mapMode = 1;
     }
 
     public void CloseLocationForest()
@@ -69,44 +108,62 @@ public class Menu : MonoBehaviour
     {
         audios[1].Play();
         animCharactPnl.SetTrigger("unwrap");
-        btnLeftPnl.SetActive(false);
+        BtnEquipment.SetActive(true);
+        BtnPlayerPnl.SetActive(false);
+        CharacterPnl.SetActive(false);
     }
     public void CloseLeftPnl()
     {
         audios[1].Play();
         animCharactPnl.SetTrigger("rollup");
-        btnLeftPnl.SetActive(true);
+        BtnEquipment.SetActive(false);
+        BtnPlayerPnl.SetActive(false);
+        CharacterPnl.SetActive(false);
     }
 
     public void OpenCharacterPnl()
     {
-        audios[1].Play();
-        BtnCharacterPnl.SetActive(true);
-        animCharactPnl.SetTrigger("openingChar");
-        btnLeftPnl.SetActive(true);
-        BtnInventory.SetActive(false);
-        ClosePnlMap();
+        audios[0].Play();
+        BtnPlayerPnl.SetActive(true);
+        CharacterPnl.SetActive(true);
     }
 
     public void CloseCharacterPnl()
     {
-        BtnCharacterPnl.SetActive(false);
-        animCharactPnl.SetTrigger("closeChar");
+        audios[0].Play();
+        BtnPlayerPnl.SetActive(false);
+        CharacterPnl.SetActive(false);
     }
 
     public void OpenInventory()
     {
         audios[1].Play();
-        BtnInventory.SetActive(true);
-        animCharactPnl.SetTrigger("openInventory");
-        BtnCharacterPnl.SetActive(false);
-        ClosePnlMap();
+        ANIMinventory.SetTrigger("OpenInventory");
+        BtnCloseInventory.SetActive(true);
     }
     public void CloseInventory()
     {
-        BtnInventory.SetActive(false);
-        animCharactPnl.SetTrigger("closeInventory");
-        BtnCharacterPnl.SetActive(false);
+        audios[1].Play();
+        ANIMinventory.SetTrigger("CloseInventory");
+        BtnCloseInventory.SetActive(false);
+    }
+
+    public void OpenSearch()
+    {
+        audios[0].Play();
+        ANIMinventory.SetTrigger("OpenSearchInventory");
+        animCharactPnl.SetTrigger("OpenSearch");
+        BtnCloseSearch.SetActive(true);
+    }
+
+    public void CloseSearch()
+    {
+        audios[1].Play();
+        ANIMinventory.SetTrigger("CloseSearchInventory");
+        animCharactPnl.SetTrigger("CloseSearch");
+        BtnCloseSearch.SetActive(false);
+        BtnCloseInventory.SetActive(true);
+        BtnEquipment.SetActive(false);
     }
 
     void Start()
