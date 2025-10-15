@@ -160,7 +160,7 @@ TextureImporter:
         serializedVersion: 2
         x: 84
         y: 37
-        width: 128
+        width: 392
         height: 248
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
@@ -172,28 +172,6 @@ TextureImporter:
       bones: []
       spriteID: 4e1bb47cc88bcd620800000000000000
       internalID: 2800315983096164836
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: boots1_1
-      rect:
-        serializedVersion: 2
-        x: 348
-        y: 37
-        width: 128
-        height: 247
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: f8da4a6fb47432780800000000000000
-      internalID: -8709038862818300529
       vertices: []
       indices: 
       edges: []
