@@ -19,9 +19,9 @@ MonoBehaviour:
   itemType: 8
   stats:
     armor: 0
-    weight: 2
+    weight: 0
     radiationResistance: 0
-    coldResistance: 4
+    coldResistance: 2
     strength: 0
     damage: 0
     speed: 0

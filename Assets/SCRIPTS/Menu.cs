@@ -7,8 +7,8 @@ public class Menu : MonoBehaviour
     public GameObject myCamera;
     public AudioSource[] audios;
     public GameObject CharacterPnl;
-    public Animator animCharactPnl, ANIMinventory;
-    public GameObject BtnPlayerPnl, BtnEquipment, BtnCloseInventory, BtnMapClose, BtnMap, BtnShelter, BtnCloseSearch;
+    public Animator animCharactPnl /*ANIMinventory*/;
+    public GameObject BtnPlayerPnl, BtnEquipment, /*BtnCloseInventory,*/ BtnMapClose, BtnMap, BtnShelter, BtnCloseSearch;
     public GameObject CharacterDownPnl, tabHealth, tabSkills, tabInfo;
     public GameObject pnlOptions;
     public GameObject pnlMap;
@@ -76,8 +76,6 @@ public class Menu : MonoBehaviour
         pnlMap.SetActive(true);
         BtnMapClose.SetActive(true);
         CloseCharacterPnl();
-        OpenInventory();
-        CloseLeftPnl();
     }
 
     public void ClosePnlMap()
@@ -94,7 +92,7 @@ public class Menu : MonoBehaviour
         BtnMap.SetActive(false);
         BtnMapClose.SetActive(false);
         BtnShelter.SetActive(false);
-        CloseInventory();
+        CloseLeftPnl();
         mapMode = 1;
     }
 
@@ -133,38 +131,7 @@ public class Menu : MonoBehaviour
         audios[0].Play();
         BtnPlayerPnl.SetActive(false);
         CharacterPnl.SetActive(false);
-    }
-
-    public void OpenInventory()
-    {
-        audios[1].Play();
-        ANIMinventory.SetTrigger("OpenInventory");
-        BtnCloseInventory.SetActive(true);
-    }
-    public void CloseInventory()
-    {
-        audios[1].Play();
-        ANIMinventory.SetTrigger("CloseInventory");
-        BtnCloseInventory.SetActive(false);
-    }
-
-    public void OpenSearch()
-    {
-        audios[0].Play();
-        ANIMinventory.SetTrigger("OpenSearchInventory");
-        animCharactPnl.SetTrigger("OpenSearch");
-        BtnCloseSearch.SetActive(true);
-    }
-
-    public void CloseSearch()
-    {
-        audios[1].Play();
-        ANIMinventory.SetTrigger("CloseSearchInventory");
-        animCharactPnl.SetTrigger("CloseSearch");
-        BtnCloseSearch.SetActive(false);
-        BtnCloseInventory.SetActive(true);
-        BtnEquipment.SetActive(false);
-    }
+    }      
 
     void Start()
     {
