@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class CharacterStats : MonoBehaviour
 {
+    private int inventorySlotsCount = 2;
     public int armor;
     public int weight;
     public int radiationResistance;
@@ -12,6 +13,7 @@ public class CharacterStats : MonoBehaviour
 
     public void Add(ItemStats stats)
     {
+        inventorySlotsCount += stats.inventorySlotsCount;
         armor += stats.armor;
         weight += stats.weight;
         radiationResistance += stats.radiationResistance;
@@ -23,6 +25,7 @@ public class CharacterStats : MonoBehaviour
 
     public void Remove(ItemStats stats)
     {
+        inventorySlotsCount -= stats.inventorySlotsCount;
         armor -= stats.armor;
         weight -= stats.weight;
         radiationResistance -= stats.radiationResistance;

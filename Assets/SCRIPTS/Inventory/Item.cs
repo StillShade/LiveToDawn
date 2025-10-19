@@ -29,6 +29,7 @@ public enum ItemType
 [System.Serializable]
 public struct ItemStats
 {
+    public int inventorySlotsCount;
     public int armor;
     public int weight;
     public int radiationResistance;
