@@ -2,33 +2,34 @@ using UnityEngine;
 
 public enum ItemType
 {
-    Weapon = 0,      // Оружие
-    Helmet = 1,      // Шлем
-    Armor = 2,       // Броня
-    Pants = 3,       // Штаны
-    Boots = 4,       // Ботинки
-    Gloves = 5,      // Перчатки
-    Mask = 6,        // Маска
-    Backpack = 7,    // Рюкзак
-    Socks = 8,       // Носки
-    Jacket = 9,      // Куртка
-    Sweater = 10,     // Кофта
-    TShirt = 11,      // Футболка
-    Car = 12,          // Машина
-    Food = 13,       //еда
-    Glasses = 14,    //очки
-    Unloading_vest = 15, //разгрузка
-    Clock = 16, //часы
-    Underwear = 17, //нижнее белье
+    Weapon = 0,      // ??????
+    Helmet = 1,      // ????
+    Armor = 2,       // ?????
+    Pants = 3,       // ?????
+    Boots = 4,       // ???????
+    Gloves = 5,      // ????????
+    Mask = 6,        // ?????
+    Backpack = 7,    // ??????
+    Socks = 8,       // ?????
+    Jacket = 9,      // ??????
+    Sweater = 10,     // ?????
+    TShirt = 11,      // ????????
+    Car = 12,          // ??????
+    Food = 13,       //???
+    Glasses = 14,    //????
+    Unloading_vest = 15, //?????????
+    Clock = 16, //????
+    Underwear = 17, //?????? ?????
     GPS = 18,
-    Flashlight = 19, //фонарик
+    Flashlight = 19, //???????
 
-    // Добавить другие типы
+    // ???????? ?????? ????
 }
 
 [System.Serializable]
 public struct ItemStats
 {
+    public int inventorySlotsCount;
     public int armor;
     public int weight;
     public int radiationResistance;
@@ -44,7 +45,7 @@ public class Item : ScriptableObject
     public string itemName;
     public Sprite icon;
     public bool isStackable;
-    public int maxStack; // Максимальное количество в стаке
+    public int maxStack; // ???????????? ?????????? ? ?????
 
     public ItemType itemType;
     public ItemStats stats;
@@ -53,7 +54,7 @@ public class Item : ScriptableObject
     {
         if (obj is Item otherItem)
         {
-            return itemName == otherItem.itemName; // Сравниваем по имени
+            return itemName == otherItem.itemName; // ?????????? ?? ?????
         }
         return false;
     }

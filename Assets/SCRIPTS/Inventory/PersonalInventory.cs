@@ -61,6 +61,12 @@ public class PersonalInventory : Inventory
         // Получаем имя спрайта из item.icon
         string spriteName = item.icon != null ? item.icon.name : null;
         if (string.IsNullOrEmpty(spriteName)) return;
+        
+        // Если имя заканчивается на "_0", обрезаем это окончание
+        if (spriteName.EndsWith("_0"))
+        {
+            spriteName = spriteName.Substring(0, spriteName.Length - 2);
+        }
 
         // Загружаем спрайт из папки Resources/Men/
         Sprite sprite = LoadSpriteByName(spriteName);
@@ -180,7 +186,6 @@ public class PersonalInventory : Inventory
         RaiseInventoryChanged();
         // Сбросить одежду
         UpdatePlayerVisual(equipSlot.acceptedType);
-        return;
     }
 
     public EquipmentSlot GetEquipmentSlot(ItemType type)

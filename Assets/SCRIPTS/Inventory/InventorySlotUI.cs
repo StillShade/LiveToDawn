@@ -395,9 +395,17 @@ public class InventorySlotUI : MonoBehaviour, IBeginDragHandler, IDragHandler, I
 
         if (inventory.slots[thisIndex] == null || inventory.slots[thisIndex].item == null)
         {
-            // Слот пустой, просто забираем предмет
-            inventory.AddItemToSlot(thisIndex, equipmentInventory.equipmentSlots[otherIndex].slot.item, equipmentInventory.equipmentSlots[otherIndex].slot.Quantity);
-            equipmentInventory.UnEquip(otherIndex);
+            if (inventory.CountEmptySlots() >=
+                equipmentInventory.equipmentSlots[otherIndex].slot.item.stats.inventorySlotsCount)
+            {
+                // Слот пустой, просто забираем предмет
+                inventory.AddItemToSlot(thisIndex, equipmentInventory.equipmentSlots[otherIndex].slot.item, equipmentInventory.equipmentSlots[otherIndex].slot.Quantity);
+                equipmentInventory.UnEquip(otherIndex);
+            }
+            else
+            {
+                Debug.LogWarning("❌ НУЖНО ОСВОБОДИТЬ СЛОТЫ ДЛЯ СНЯТИЯ ЭКИПИРОВКИ.");
+            }
         }
         else
         {

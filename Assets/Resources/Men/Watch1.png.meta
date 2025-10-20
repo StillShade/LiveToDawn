@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 9248595029281914f86c8414a49ccdfe
+guid: 7f48aab67a1c37347ba102b915f7487e
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -8021862539860591915
-    second: armor1_0
+      213: 5598075453621382526
+    second: Watch1_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -24,7 +24,7 @@ TextureImporter:
     heightScale: 0.25
     normalMapFilter: 0
     flipGreenChannel: 0
-  isReadable: 0
+  isReadable: 1
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
   vTOnly: 0
@@ -53,7 +53,7 @@ TextureImporter:
   spritePivot: {x: 0.5, y: 0.5}
   spritePixelsToUnits: 100
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
-  spriteGenerateFallbackPhysicsShape: 0
+  spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
   alphaIsTransparency: 1
   spriteTessellationDetail: -1
@@ -152,13 +152,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: armor1_0
+      name: Watch1_0
       rect:
         serializedVersion: 2
-        x: 138
-        y: 971
-        width: 283
-        height: 435
+        x: 492
+        y: 835
+        width: 68
+        height: 56
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -167,14 +167,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 5dab89a858e9ca090800000000000000
-      internalID: -8021862539860591915
+      spriteID: e7dafe617fb50bd40800000000000000
+      internalID: 5598075453621382526
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: armor1
+      name: Watch1
       rect:
         serializedVersion: 2
         x: 0
@@ -189,8 +189,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: b8edbd7d9ea4e794287530216f6c15e9
-      internalID: -1394174390
+      spriteID: 5e3c1a0e6362c6b49bd578057afc5daf
+      internalID: -113329587
       vertices: []
       indices: 
       edges: []
@@ -199,7 +199,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 1035b89f2d2a6344b9f77c76448b0814
+    spriteID: d59444111d55128419f4f0a8dfd69e4d
     internalID: 0
     vertices: []
     indices: 
@@ -209,8 +209,8 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      armor1: -1394174390
-      armor1_0: -8021862539860591915
+      Watch1: -113329587
+      Watch1_0: 5598075453621382526
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
