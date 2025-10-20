@@ -237,13 +237,13 @@ public class CharPlayer : MonoBehaviour
     void Update()
     {
         hpTx.text = "" + HP;
-        maxhpTx.text = "" + maxHP;
+        //maxhpTx.text = "" + maxHP;
         fdTx.text = "" + FD;
-        maxfdTx.text = "" + maxFD;
+        //maxfdTx.text = "" + maxFD;
         wrTx.text = "" + WR;
-        maxwrTx.text = "" + maxWR;
+        //maxwrTx.text = "" + maxWR;
         egTx.text = "" + EG;
-        maxegTx.text = "" + maxEG;
+        //maxegTx.text = "" + maxEG;
         rdTx.text = "" + RD;
         afTx.text = "" + AF;
         atTx.text = "" + AT;

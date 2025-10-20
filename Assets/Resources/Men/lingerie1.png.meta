@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 9248595029281914f86c8414a49ccdfe
+guid: be11b6cfb41779d4f8577b7e95cc66be
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -8021862539860591915
-    second: armor1_0
+      213: -3320145581157578351
+    second: lingerie1_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -24,7 +24,7 @@ TextureImporter:
     heightScale: 0.25
     normalMapFilter: 0
     flipGreenChannel: 0
-  isReadable: 0
+  isReadable: 1
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
   vTOnly: 0
@@ -53,7 +53,7 @@ TextureImporter:
   spritePivot: {x: 0.5, y: 0.5}
   spritePixelsToUnits: 100
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
-  spriteGenerateFallbackPhysicsShape: 0
+  spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
   alphaIsTransparency: 1
   spriteTessellationDetail: -1
@@ -152,13 +152,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: armor1_0
+      name: lingerie1_0
       rect:
         serializedVersion: 2
-        x: 138
-        y: 971
-        width: 283
-        height: 435
+        x: 108
+        y: 742
+        width: 343
+        height: 235
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -167,14 +167,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 5dab89a858e9ca090800000000000000
-      internalID: -8021862539860591915
+      spriteID: 19905805f297ce1d0800000000000000
+      internalID: -3320145581157578351
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: armor1
+      name: lingerie1
       rect:
         serializedVersion: 2
         x: 0
@@ -182,15 +182,15 @@ TextureImporter:
         width: 560
         height: 1700
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: b8edbd7d9ea4e794287530216f6c15e9
-      internalID: -1394174390
+      spriteID: 0a80133dda8ffac4e954dcab4615b417
+      internalID: -1761177297
       vertices: []
       indices: 
       edges: []
@@ -199,7 +199,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 1035b89f2d2a6344b9f77c76448b0814
+    spriteID: 9aa6e22b174df00419a8ccff22ec1523
     internalID: 0
     vertices: []
     indices: 
@@ -209,8 +209,8 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      armor1: -1394174390
-      armor1_0: -8021862539860591915
+      lingerie1: -1761177297
+      lingerie1_0: -3320145581157578351
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

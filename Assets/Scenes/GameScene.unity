@@ -10647,7 +10647,7 @@ GameObject:
   - component: {fileID: 325214076}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -10751,7 +10751,7 @@ MonoBehaviour:
   mvP: 0
   fvP: 0
   clP: 0
-  hpTx: {fileID: 0}
+  hpTx: {fileID: 1021788454}
   maxhpTx: {fileID: 0}
   fdTx: {fileID: 1637834016}
   maxfdTx: {fileID: 0}
@@ -10791,6 +10791,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 97571580c3bde2045977bbafed831cb5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  inventorySlotsCount: 2
   armor: 0
   weight: 0
   radiationResistance: 0
@@ -13760,6 +13761,9 @@ MonoBehaviour:
   - acceptedType: 9
     slot:
       item: {fileID: 0}
+  - acceptedType: 7
+    slot:
+      item: {fileID: 0}
   - acceptedType: 2
     slot:
       item: {fileID: 0}
@@ -13779,6 +13783,9 @@ MonoBehaviour:
     slot:
       item: {fileID: 0}
   - acceptedType: 18
+    slot:
+      item: {fileID: 0}
+  - acceptedType: 19
     slot:
       item: {fileID: 0}
   - acceptedType: 8
@@ -28898,7 +28905,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 960.00006, y: -539.73334}
+  m_AnchoredPosition: {x: 960, y: -539.73334}
   m_SizeDelta: {x: 600, y: 830}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &877996164
@@ -38776,7 +38783,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -318.16016}
+  m_AnchoredPosition: {x: 0, y: -318.16022}
   m_SizeDelta: {x: 0, y: -24.025}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1196896080
@@ -39231,7 +39238,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0.28100002, y: 0.94}
-  m_AnchoredPosition: {x: -539.52, y: 0}
+  m_AnchoredPosition: {x: -539.5201, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1204288737
@@ -40389,6 +40396,8 @@ MonoBehaviour:
   topor: {fileID: 11400000, guid: 634e4c56cf36b0e45a30616ab1aa7490, type: 2}
   kirka: {fileID: 11400000, guid: acd62aa31d1af3a409820a3491206d7e, type: 2}
   pistolet: {fileID: 11400000, guid: 1696a25a9bd33f64391f99a3c0ba1c58, type: 2}
+  armor: {fileID: 11400000, guid: e4d723e1e53135d4787e4e3ada6e7e12, type: 2}
+  pants: {fileID: 11400000, guid: 615d8253ecb606942b1cbb06793ca672, type: 2}
 --- !u!1 &1227760803
 GameObject:
   m_ObjectHideFlags: 0
@@ -50568,6 +50577,7 @@ GameObject:
   - component: {fileID: 1565162117}
   - component: {fileID: 1565162119}
   - component: {fileID: 1565162118}
+  - component: {fileID: 1565162120}
   m_Layer: 0
   m_Name: WeaponPnl
   m_TagString: Untagged
@@ -50636,6 +50646,22 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1565162116}
   m_CullTransparentMesh: 1
+--- !u!114 &1565162120
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1565162116}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d75b4019029bd0046bffdb28e9bfbd73, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PersonalInventoryUI
+  inventory: {fileID: 1969298148}
+  equipmentSlots:
+  - {fileID: 1791400248}
+  - {fileID: 918333911}
 --- !u!1 &1568065447
 GameObject:
   m_ObjectHideFlags: 0
@@ -65875,7 +65901,6 @@ GameObject:
   - component: {fileID: 1955208506}
   - component: {fileID: 1955208508}
   - component: {fileID: 1955208507}
-  - component: {fileID: 1955208509}
   m_Layer: 0
   m_Name: RightEcipPnl
   m_TagString: Untagged
@@ -65943,24 +65968,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1955208505}
   m_CullTransparentMesh: 1
---- !u!114 &1955208509
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1955208505}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d75b4019029bd0046bffdb28e9bfbd73, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  inventory: {fileID: 1969298148}
-  equipmentSlots:
-  - {fileID: 1791400248}
-  - {fileID: 918333911}
-  - {fileID: 213569080}
-  - {fileID: 1602946140}
 --- !u!1 &1956934990
 GameObject:
   m_ObjectHideFlags: 0
@@ -66878,12 +66885,6 @@ MonoBehaviour:
     slot:
       item: {fileID: 0}
   - acceptedType: 0
-    slot:
-      item: {fileID: 0}
-  - acceptedType: 7
-    slot:
-      item: {fileID: 0}
-  - acceptedType: 19
     slot:
       item: {fileID: 0}
   characterStats: {fileID: 0}

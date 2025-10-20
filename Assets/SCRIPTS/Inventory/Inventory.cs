@@ -4,10 +4,12 @@ using UnityEngine;
 public class Inventory : MonoBehaviour
 {
     [SerializeField]
-    private int maxSlots = 10; // Теперь приватное
+    private int maxSlots = 0; // Теперь приватное
     public int MaxSlots => maxSlots; // Геттер для чтения
 
     public List<InventorySlot> slots = new List<InventorySlot>();
+
+    private CharacterStats stats;
     //public InventoryUI inventoryUI;
 
     public event System.Action OnInventoryChanged;
@@ -24,7 +26,30 @@ public class Inventory : MonoBehaviour
 
     private void Awake()
     {
+        // Найдём объект Player (можно по тегу или ссылке)
+        GameObject player = GameObject.FindWithTag("Player");
+        if (player != null)
+        {
+            stats = player.GetComponent<CharacterStats>();
+            if (stats != null)
+            {
+                maxSlots = stats.InventorySlotsCount;
+                stats.OnInventorySlotsChanged += HandleInventorySlotChange;
+            }
+        }
         InitializeSlots();
+    }
+
+    private void HandleInventorySlotChange(int delta)
+    {
+        if (delta > 0)
+        {
+            ExpandInventory(delta);
+        }
+        else if (delta < 0)
+        {
+            ShrinkInventory(-delta); // передаём положительное число
+        }
     }
 
     private void InitializeSlots()
@@ -285,47 +310,54 @@ public class Inventory : MonoBehaviour
     public void ShrinkInventory(int amount)
     {
         if (amount <= 0) return;
-        if (maxSlots - amount < 1) // Предотвращаем удаление всех слотов
+        if (maxSlots - amount < 1)
         {
             Debug.LogWarning("Нельзя уменьшить инвентарь до 0 слотов!");
             return;
         }
 
-        // 1️ Подсчитываем пустые слоты
-        int emptySlots = 0;
-        foreach (var slot in slots)
-        {
-            if (slot.IsEmpty()) emptySlots++;
-        }
-
-        // 2️ Проверяем, хватает ли пустых слотов для удаления
+        int emptySlots = CountEmptySlots();
         if (emptySlots < amount)
         {
             int needed = amount - emptySlots;
-            Debug.LogWarning($"Всего слотов {maxSlots}. Недостаточно пустых слотов ({emptySlots})! Освободите еще {needed} слотов, чтобы уменьшить инвентарь на {amount} слотов.");
+            Debug.LogWarning($"Недостаточно пустых слотов ({emptySlots})! Освободите еще {needed}.");
             return;
         }
 
-        // 3️ Удаляем только пустые слоты (не обязательно подряд)
-        int removedSlots = 0;
-        for (int i = slots.Count - 1; i >= 0 && removedSlots < amount; i--)
+        int removedSlots = RemoveEmptySlots(amount);
+        maxSlots -= removedSlots;
+
+        Debug.Log($"Инвентарь уменьшен на {removedSlots} слотов. Новое количество: {maxSlots}");
+        OnInventoryShrunk?.Invoke(removedSlots);
+    }
+    
+    private int RemoveEmptySlots(int amount)
+    {
+        int removed = 0;
+        for (int i = slots.Count - 1; i >= 0 && removed < amount; i--)
         {
             if (slots[i].IsEmpty())
             {
                 slots.RemoveAt(i);
-                removedSlots++;
+                removed++;
             }
         }
-
-        maxSlots -= removedSlots;
-
-        Debug.Log($"Инвентарь уменьшен на {removedSlots} слотов. Новое количество слотов: {maxSlots}");
-        //inventoryUI.ShrinkUI(removedSlots);
-        OnInventoryShrunk?.Invoke(removedSlots);
+        return removed;
     }
 
     public virtual bool TryEquip(Item item)
     {
         return false;
+    }
+    
+    public int CountEmptySlots()
+    {
+        int count = 0;
+        foreach (var slot in slots)
+        {
+            if (slot.IsEmpty()) count++;
+        }
+        Debug.Log($"Пустых слотов {count}");
+        return count;
     }
 }
