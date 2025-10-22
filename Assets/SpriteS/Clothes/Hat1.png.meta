@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 212a5d9ab861a8345964a778c02fc971
+guid: 75af75735ff66e04791426b9417cc870
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -2624617296646630370
-    second: Men2v2_0
+      213: -8419589554073728440
+    second: Hat1_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -152,13 +152,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Men3_0
+      name: Hat1_0
       rect:
         serializedVersion: 2
-        x: 4
-        y: 36
-        width: 552
-        height: 1608
+        x: 178
+        y: 1278
+        width: 211
+        height: 368
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -167,14 +167,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: e14180a797c739bd0800000000000000
-      internalID: -2624617296646630370
+      spriteID: 84a88d2d8eb972b80800000000000000
+      internalID: -8419589554073728440
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Men3_1
+      name: Hat1
       rect:
         serializedVersion: 2
         x: 0
@@ -182,15 +182,15 @@ TextureImporter:
         width: 560
         height: 1700
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 0cbdb73270dc14e4cb0b98954f5e7b71
-      internalID: -1126311793
+      spriteID: 94cfa41df28ff5b409d721699853d014
+      internalID: 428852563
       vertices: []
       indices: 
       edges: []
@@ -199,7 +199,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: b1974a75f2e76ad41a283186dbef2c85
+    spriteID: 6e4dc1ca6e344d144b650b0c2eaadbfb
     internalID: 0
     vertices: []
     indices: 
@@ -209,8 +209,8 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Men3_0: -2624617296646630370
-      Men3_1: -1126311793
+      Hat1: 428852563
+      Hat1_0: -8419589554073728440
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

@@ -1,10 +1,16 @@
 fileFormatVersion: 2
-guid: 212a5d9ab861a8345964a778c02fc971
+guid: ed33b5e109fc5ae4399a0271f584332f
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -2624617296646630370
-    second: Men2v2_0
+      213: -7493116448112169103
+    second: boots3_0
+  - first:
+      213: -8464922065703693785
+    second: boots3_1
+  - first:
+      213: 4826767596015408762
+    second: boots3_2
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -152,13 +158,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Men3_0
+      name: boots3_0
       rect:
         serializedVersion: 2
-        x: 4
-        y: 36
-        width: 552
-        height: 1608
+        x: 66
+        y: 23
+        width: 425
+        height: 172
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -167,14 +173,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: e14180a797c739bd0800000000000000
-      internalID: -2624617296646630370
+      spriteID: 17f23a96a4a130890800000000000000
+      internalID: -7493116448112169103
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Men3_1
+      name: boots3
       rect:
         serializedVersion: 2
         x: 0
@@ -189,8 +195,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 0cbdb73270dc14e4cb0b98954f5e7b71
-      internalID: -1126311793
+      spriteID: 4192fbe7e818e0f47b0253bc625547e7
+      internalID: 1806419607
       vertices: []
       indices: 
       edges: []
@@ -199,7 +205,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: b1974a75f2e76ad41a283186dbef2c85
+    spriteID: 182319c2c620f234d9f4afa9a0da6acc
     internalID: 0
     vertices: []
     indices: 
@@ -209,8 +215,10 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Men3_0: -2624617296646630370
-      Men3_1: -1126311793
+      boots3: 1806419607
+      boots3_0: -7493116448112169103
+      boots3_1: -8464922065703693785
+      boots3_2: 4826767596015408762
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

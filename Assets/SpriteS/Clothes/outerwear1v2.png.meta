@@ -1,10 +1,13 @@
 fileFormatVersion: 2
-guid: 212a5d9ab861a8345964a778c02fc971
+guid: 3fc72f94782fcd34d98ce4f3378b0f2f
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -2624617296646630370
-    second: Men2v2_0
+      213: -1436934918241717206
+    second: outerwear1v2_0
+  - first:
+      213: -7406001756758502066
+    second: outerwear1v2_1
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -152,13 +155,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Men3_0
+      name: outerwear1v2_0
       rect:
         serializedVersion: 2
-        x: 4
-        y: 36
-        width: 552
-        height: 1608
+        x: 0
+        y: 769
+        width: 560
+        height: 688
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -167,14 +170,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: e14180a797c739bd0800000000000000
-      internalID: -2624617296646630370
+      spriteID: a24f8d81e4bfe0ce0800000000000000
+      internalID: -1436934918241717206
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Men3_1
+      name: outerwear1v2
       rect:
         serializedVersion: 2
         x: 0
@@ -182,15 +185,15 @@ TextureImporter:
         width: 560
         height: 1700
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: 0
+      tessellationDetail: -1
       bones: []
-      spriteID: 0cbdb73270dc14e4cb0b98954f5e7b71
-      internalID: -1126311793
+      spriteID: e459d7214a8983990800000000000000
+      internalID: -7406001756758502066
       vertices: []
       indices: 
       edges: []
@@ -199,7 +202,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: b1974a75f2e76ad41a283186dbef2c85
+    spriteID: 4ca020f8b40e5934aad6d7216ed31042
     internalID: 0
     vertices: []
     indices: 
@@ -209,8 +212,8 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Men3_0: -2624617296646630370
-      Men3_1: -1126311793
+      outerwear1v2: -7406001756758502066
+      outerwear1v2_0: -1436934918241717206
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
