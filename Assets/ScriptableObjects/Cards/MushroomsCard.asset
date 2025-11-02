@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7344ef6678a235f4b8292ddde3aab3a8, type: 3}
+  m_Name: MushroomsCard
+  m_EditorClassIdentifier: Assembly-CSharp::CardData
+  cardName: MUSHROOMS
+  icon: {fileID: 1432810914, guid: 9a754db5caf427543a9299ff1f9c2c06, type: 3}
+  time: 2
+  energy: 2
+  rewardIcon: {fileID: -4431494890709657585, guid: ac46f4a196a6b0143960cf201ce816b7, type: 3}
+  backgroundColor: {r: 0.5921569, g: 0.59607846, b: 0.43529412, a: 1}
+  spawnChance: 0.5

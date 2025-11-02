@@ -13,6 +13,8 @@ public class Menu : MonoBehaviour
     public GameObject pnlOptions;
     public GameObject pnlMap;
     public GameObject locationForest;
+    public GameObject panelAction;
+    public GameObject forester;
     public int mapMode = 0;
 
     //public void OpenCharacterPnl()
@@ -24,7 +26,16 @@ public class Menu : MonoBehaviour
     //{
     //    CharacterDownPnl.SetActive(false);
     //}
+    private void OnEnable()
+    {
+        CardManager.OnStepsCompleted += CloseLocationForest;
+    }
 
+    private void OnDisable()
+    {
+        CardManager.OnStepsCompleted -= CloseLocationForest;
+    }
+    
     public void OpenTabHeat()
     {
         audios[2].Play();
@@ -93,6 +104,8 @@ public class Menu : MonoBehaviour
         BtnMapClose.SetActive(false);
         BtnShelter.SetActive(false);
         CloseLeftPnl();
+        panelAction.SetActive(true);
+        forester.SetActive(true);
         mapMode = 1;
     }
 
@@ -100,6 +113,8 @@ public class Menu : MonoBehaviour
     {
         audios[0].Play();
         locationForest.SetActive(false);
+        panelAction.SetActive(false);
+        forester.SetActive(false);
     }
 
     public void OpenLeftPnl()
