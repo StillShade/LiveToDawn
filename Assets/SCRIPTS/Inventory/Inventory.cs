@@ -41,7 +41,14 @@ namespace Inventory
             OnInventoryChanged += SaveInventory;
             OnInventoryExpanded += _ => SaveInventory();
             OnInventoryShrunk += _ => SaveInventory();
-            //InitializeSlots();
+            if (itemDatabase == null)
+            {
+                Debug.LogError("❌ itemDatabase не назначен в инспекторе (на родителе Inventory)!");
+                return;
+            }
+
+            itemDatabase.Initialize();
+            
             LoadInventory();
         }
         
@@ -60,17 +67,19 @@ namespace Inventory
                 return;
             }
 
-            slots.Clear();
+            //slots.Clear();
 
             foreach (var slotData in loadedSlots)
             {
                 if (!string.IsNullOrEmpty(slotData.itemName))
                 {
+                    Debug.Log($"ЗАГРУЖАЮ ОБЪЕКТ {slotData.itemName}.");
                     Item item = itemDatabase.GetItemByName(slotData.itemName); 
                     slots.Add(new InventorySlot(item, slotData.quantity));
                 }
                 else
                 {
+                    Debug.Log("ИМЯ ОБЪЕКТА ПУСТОЕ загружаю пустой объект");
                     slots.Add(new InventorySlot(null, 0));
                 }
             }

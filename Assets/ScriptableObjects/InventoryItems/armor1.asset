@@ -26,3 +26,5 @@ MonoBehaviour:
     value: 1
   - stat: 10
     value: -1
+  - stat: 0
+    value: 10
