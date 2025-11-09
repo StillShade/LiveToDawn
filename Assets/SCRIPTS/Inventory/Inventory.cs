@@ -1,156 +1,195 @@
 ﻿using System.Collections.Generic;
+using Character;
 using UnityEngine;
 
-public class Inventory : MonoBehaviour
+namespace Inventory
 {
-    [SerializeField]
-    private int maxSlots = 0; // Теперь приватное
-    public int MaxSlots => maxSlots; // Геттер для чтения
-
-    public List<InventorySlot> slots = new List<InventorySlot>();
-
-    private CharacterStats stats;
-    //public InventoryUI inventoryUI;
-
-    public event System.Action OnInventoryChanged;
-    public event System.Action<int> OnSlotChanged;
-    public event System.Action<int> OnInventoryExpanded;
-    public event System.Action<int> OnInventoryShrunk;
-
-    //это для того, чтобы в наследнике можно было вызвать
-    protected void RaiseInventoryChanged()
+    public class Inventory : MonoBehaviour
     {
-        OnInventoryChanged?.Invoke();
-    }
+        [SerializeField]
+        private int maxSlots = 0; // Теперь приватное
+        public int MaxSlots => maxSlots; // Геттер для чтения
+        public List<InventorySlot> slots = new List<InventorySlot>();
+        private CharacterStats stats;
+        
+        [SerializeField] protected ItemDatabase itemDatabase;
+        
+        public event System.Action OnInventoryChanged;
+        public event System.Action<int> OnSlotChanged;
+        public event System.Action<int> OnInventoryExpanded;
+        public event System.Action<int> OnInventoryShrunk;
 
-
-    private void Awake()
-    {
-        // Найдём объект Player (можно по тегу или ссылке)
-        GameObject player = GameObject.FindWithTag("Player");
-        if (player != null)
+        //это для того, чтобы в наследнике можно было вызвать
+        protected void RaiseInventoryChanged()
         {
-            stats = player.GetComponent<CharacterStats>();
-            if (stats != null)
+            OnInventoryChanged?.Invoke();
+        }
+        
+        private void Awake()
+        {
+            // Найдём объект Player (можно по тегу или ссылке)
+            GameObject player = GameObject.FindWithTag("Player");
+            if (player != null)
             {
-                maxSlots = stats.InventorySlotsCount;
-                stats.OnInventorySlotsChanged += HandleInventorySlotChange;
-            }
-        }
-        InitializeSlots();
-    }
-
-    private void HandleInventorySlotChange(int delta)
-    {
-        if (delta > 0)
-        {
-            ExpandInventory(delta);
-        }
-        else if (delta < 0)
-        {
-            ShrinkInventory(-delta); // передаём положительное число
-        }
-    }
-
-    private void InitializeSlots()
-    {
-        Debug.Log($"Инициализация инвентаря. Создаем {maxSlots} слотов.");
-
-        for (int i = 0; i < maxSlots; i++)
-        {
-            slots.Add(new InventorySlot(null, 0)); // Создаем пустой слот
-        }
-    }
-
-    public bool TryAddItem(Item item, int quantity)
-    {
-        for (int i = 0; i < slots.Count; i++)
-        {
-            var slot = slots[i];
-            if (slot.IsEmpty())
-                return true;
-
-            if (slot.item.Equals(item) && item.isStackable && slot.Quantity < item.maxStack)
-                return true;
-        }
-
-        return false;
-    }
-
-    public void AddItem(Item item, int quantity)
-    {
-        int initialQuantity = quantity; // Сохраняем изначальное количество для логирования
-
-        // 1. Попытка сложить предмет в уже существующий слот
-        for (int i = 0; i < slots.Count; i++)
-        {
-            if (!slots[i].IsEmpty() && slots[i].item.Equals(item) && item.isStackable)
-            {
-                int spaceLeft = item.maxStack - slots[i].Quantity;
-                if (spaceLeft > 0)
+                stats = player.GetComponent<CharacterStats>();
+                if (stats != null)
                 {
-                    int amountToAdd = Mathf.Min(quantity, spaceLeft);
-                    slots[i].SetQuantity(slots[i].Quantity + amountToAdd);
-                    quantity -= amountToAdd;
-
-                    Debug.Log($"Добавлено {amountToAdd} штук предмета {item.itemName} в существующий слот [{i}]");
-
-                    if (quantity <= 0)
-                    {
-                        Debug.Log($"Успешно добавлено {initialQuantity} предметов {item.itemName}.");
-                        //inventoryUI.UpdateUI(); // Обновляем UI и выходим
-                        return;
-                    }
+                    maxSlots = stats.InventorySlotsCount;
+                    stats.OnInventorySlotsChanged += HandleInventorySlotChange;
                 }
             }
+            OnInventoryChanged += SaveInventory;
+            OnInventoryExpanded += _ => SaveInventory();
+            OnInventoryShrunk += _ => SaveInventory();
+            //InitializeSlots();
+            LoadInventory();
+        }
+        
+        public void SaveInventory()
+        {
+            InventorySaver.Save(slots);
         }
 
-        // 2. Добавление в пустой слот (только если еще есть предметы для добавления)
-        if (quantity > 0)
+        public void LoadInventory()
+        {
+            var loadedSlots = InventorySaver.Load();
+            if (loadedSlots == null)
+            {
+                Debug.Log("Нет сохранённого инвентаря.");
+                InitializeSlots();
+                return;
+            }
+
+            slots.Clear();
+
+            foreach (var slotData in loadedSlots)
+            {
+                if (!string.IsNullOrEmpty(slotData.itemName))
+                {
+                    Item item = itemDatabase.GetItemByName(slotData.itemName); 
+                    slots.Add(new InventorySlot(item, slotData.quantity));
+                }
+                else
+                {
+                    slots.Add(new InventorySlot(null, 0));
+                }
+            }
+
+            Debug.Log("Инвентарь успешно загружен.");
+            OnInventoryChanged?.Invoke();
+        }
+
+        private void HandleInventorySlotChange(int delta)
+        {
+            if (delta > 0)
+            {
+                ExpandInventory(delta);
+            }
+            else if (delta < 0)
+            {
+                ShrinkInventory(-delta); // передаём положительное число
+            }
+        }
+
+        private void InitializeSlots()
+        {
+            Debug.Log($"Инициализация инвентаря. Создаем {maxSlots} слотов.");
+
+            for (int i = 0; i < maxSlots; i++)
+            {
+                slots.Add(new InventorySlot(null, 0)); // Создаем пустой слот
+            }
+        }
+
+        public bool TryAddItem(Item item, int quantity)
         {
             for (int i = 0; i < slots.Count; i++)
             {
-                if (slots[i].IsEmpty())
+                var slot = slots[i];
+                if (slot.IsEmpty())
+                    return true;
+
+                if (slot.item.Equals(item) && item.isStackable && slot.Quantity < item.maxStack)
+                    return true;
+            }
+
+            return false;
+        }
+
+        public void AddItem(Item item, int quantity)
+        {
+            int initialQuantity = quantity; // Сохраняем изначальное количество для логирования
+
+            // 1. Попытка сложить предмет в уже существующий слот
+            for (int i = 0; i < slots.Count; i++)
+            {
+                if (!slots[i].IsEmpty() && slots[i].item.Equals(item) && item.isStackable)
                 {
-                    int amountToAdd = Mathf.Min(quantity, item.isStackable ? item.maxStack : 1);
-                    slots[i].SetItem(item, amountToAdd);
-                    quantity -= amountToAdd;
-
-                    Debug.Log($"Добавлен новый предмет {item.itemName} ({amountToAdd} шт.) в слот [{i}]");
-
-                    if (quantity <= 0)
+                    int spaceLeft = item.maxStack - slots[i].Quantity;
+                    if (spaceLeft > 0)
                     {
-                        break;  // Все предметы добавлены, выходим
+                        int amountToAdd = Mathf.Min(quantity, spaceLeft);
+                        slots[i].SetQuantity(slots[i].Quantity + amountToAdd);
+                        quantity -= amountToAdd;
+
+                        Debug.Log($"Добавлено {amountToAdd} штук предмета {item.itemName} в существующий слот [{i}]");
+
+                        if (quantity <= 0)
+                        {
+                            Debug.Log($"Успешно добавлено {initialQuantity} предметов {item.itemName}.");
+                            //inventoryUI.UpdateUI(); // Обновляем UI и выходим
+                            return;
+                        }
                     }
                 }
             }
+
+            // 2. Добавление в пустой слот (только если еще есть предметы для добавления)
+            if (quantity > 0)
+            {
+                for (int i = 0; i < slots.Count; i++)
+                {
+                    if (slots[i].IsEmpty())
+                    {
+                        int amountToAdd = Mathf.Min(quantity, item.isStackable ? item.maxStack : 1);
+                        slots[i].SetItem(item, amountToAdd);
+                        quantity -= amountToAdd;
+
+                        Debug.Log($"Добавлен новый предмет {item.itemName} ({amountToAdd} шт.) в слот [{i}]");
+
+                        if (quantity <= 0)
+                        {
+                            break;  // Все предметы добавлены, выходим
+                        }
+                    }
+                }
+            }
+
+            // 3. Если не удалось добавить все предметы
+            if (quantity > 0)
+            {
+                Debug.Log($"Инвентарь полон! Осталось {quantity} предметов {item.itemName}, которые не поместились.");
+            }
+            else
+            {
+                Debug.Log($"Успешно добавлено {initialQuantity} предметов {item.itemName}.");
+            }
+
+            // Обновляем UI один раз в конце - раньше было: inventoryUI.UpdateUI(); переходим на делеагаты и события
+            OnInventoryChanged?.Invoke();
         }
 
-        // 3. Если не удалось добавить все предметы
-        if (quantity > 0)
+        public void AddItemToSlot(int slotIndex, Item item, int quantity)
         {
-            Debug.Log($"Инвентарь полон! Осталось {quantity} предметов {item.itemName}, которые не поместились.");
-        }
-        else
-        {
-            Debug.Log($"Успешно добавлено {initialQuantity} предметов {item.itemName}.");
-        }
+            Debug.Log($"Пытаюсь добавить item {item} в количестве {quantity} в слот {slotIndex}");
+            // Проверка валидности
+            if (item == null)
+            {
+                Debug.LogWarning("Попытка добавить null-предмет.");
+                return;
+            }
 
-        // Обновляем UI один раз в конце - раньше было: inventoryUI.UpdateUI(); переходим на делеагаты и события
-        OnInventoryChanged?.Invoke();
-    }
-
-    public void AddItemToSlot(int slotIndex, Item item, int quantity)
-    {
-        Debug.Log($"Пытаюсь добавить item {item} в количестве {quantity} в слот {slotIndex}");
-        // Проверка валидности
-        if (item == null)
-        {
-            Debug.LogWarning("Попытка добавить null-предмет.");
-            return;
-        }
-
-        if (quantity <= 0)
+            if (quantity <= 0)
         {
             Debug.LogWarning("Количество должно быть положительным.");
             return;
@@ -215,149 +254,155 @@ public class Inventory : MonoBehaviour
 
         // Если в слоте другой предмет или предмет не стакается
         Debug.LogWarning($"Слот [{slotIndex}] уже занят другим предметом или предмет не может быть добавлен.");
-    }
-
-    private void DebugInventorySlots()
-    {
-        Debug.Log("=== Порядок слотов в Inventory ===");
-        for (int i = 0; i < slots.Count; i++)
-        {
-            string itemName = slots[i].IsEmpty() ? "ПУСТОЙ" : slots[i].item.itemName;
-            Debug.Log($"Слот {i}: {itemName} ({slots[i].Quantity})");
         }
-    }
 
-    public void RemoveItem(Item item, int quantity)
-    {
-        for (int i = slots.Count - 1; i >= 0; i--)
+        private void DebugInventorySlots()
         {
-            if (slots[i].item == item)
+            Debug.Log("=== Порядок слотов в Inventory ===");
+            for (int i = 0; i < slots.Count; i++)
             {
-                if (slots[i].Quantity > quantity)
-                {
-                    slots[i].SetQuantity(slots[i].Quantity - quantity);
-                    OnInventoryChanged?.Invoke();
-                    return;
-                }
-                else
-                {
-                    quantity -= slots[i].Quantity;
+                string itemName = slots[i].IsEmpty() ? "ПУСТОЙ" : slots[i].item.itemName;
+                Debug.Log($"Слот {i}: {itemName} ({slots[i].Quantity})");
+            }
+        }
 
-                    // ✅ Вместо удаления — очищаем слот
-                    slots[i].Clear();
-
-                    if (quantity <= 0)
+        public void RemoveItem(Item item, int quantity)
+        {
+            for (int i = slots.Count - 1; i >= 0; i--)
+            {
+                if (slots[i].item == item)
+                {
+                    if (slots[i].Quantity > quantity)
                     {
+                        slots[i].SetQuantity(slots[i].Quantity - quantity);
                         OnInventoryChanged?.Invoke();
                         return;
                     }
+                    else
+                    {
+                        quantity -= slots[i].Quantity;
+
+                        // ✅ Вместо удаления — очищаем слот
+                        slots[i].Clear();
+
+                        if (quantity <= 0)
+                        {
+                            OnInventoryChanged?.Invoke();
+                            return;
+                        }
+                    }
                 }
             }
+
+            Debug.Log("❗ Предмет не найден в инвентаре!");
         }
 
-        Debug.Log("❗ Предмет не найден в инвентаре!");
-    }
 
 
-
-    public void RemoveItemFromSlot(int slotIndex, int quantity)
-    {
-        if (slotIndex < 0 || slotIndex >= slots.Count)
+        public void RemoveItemFromSlot(int slotIndex, int quantity)
         {
-            Debug.LogWarning("Недопустимый индекс слота!");
-            return;
-        }
-
-        InventorySlot slot = slots[slotIndex];
-
-        if (slot.item == null)
-        {
-            Debug.LogWarning("Слот пуст!");
-            return;
-        }
-
-        if (slot.Quantity > quantity)
-        {
-            slot.SetQuantity(slot.Quantity - quantity);
-        }
-        else
-        {
-            // Удаляем весь предмет, если quantity >= slot.Quantity
-            slots[slotIndex] = new InventorySlot();
-        }
-
-        //inventoryUI.UpdateUI(slotIndex);
-        OnSlotChanged?.Invoke(slotIndex);
-    }
-
-    public void ExpandInventory(int amount)
-    {
-        if (amount <= 0) return; // Защита от некорректных значений
-
-        maxSlots += amount;
-        for (int i = 0; i < amount; i++)
-        {
-            slots.Add(new InventorySlot(null, 0)); // Создаем пустой слот
-        }
-
-        Debug.Log("Инвентарь расширен! Новое количество слоты: " + maxSlots);
-        DebugInventorySlots();
-        //inventoryUI.ExpandUI(amount);
-        OnInventoryExpanded?.Invoke(amount);
-    }
-
-    //уменьшаем количество слотов если возможно
-    public void ShrinkInventory(int amount)
-    {
-        if (amount <= 0) return;
-        if (maxSlots - amount < 1)
-        {
-            Debug.LogWarning("Нельзя уменьшить инвентарь до 0 слотов!");
-            return;
-        }
-
-        int emptySlots = CountEmptySlots();
-        if (emptySlots < amount)
-        {
-            int needed = amount - emptySlots;
-            Debug.LogWarning($"Недостаточно пустых слотов ({emptySlots})! Освободите еще {needed}.");
-            return;
-        }
-
-        int removedSlots = RemoveEmptySlots(amount);
-        maxSlots -= removedSlots;
-
-        Debug.Log($"Инвентарь уменьшен на {removedSlots} слотов. Новое количество: {maxSlots}");
-        OnInventoryShrunk?.Invoke(removedSlots);
-    }
-    
-    private int RemoveEmptySlots(int amount)
-    {
-        int removed = 0;
-        for (int i = slots.Count - 1; i >= 0 && removed < amount; i--)
-        {
-            if (slots[i].IsEmpty())
+            if (slotIndex < 0 || slotIndex >= slots.Count)
             {
-                slots.RemoveAt(i);
-                removed++;
+                Debug.LogWarning("Недопустимый индекс слота!");
+                return;
             }
-        }
-        return removed;
-    }
 
-    public virtual bool TryEquip(Item item)
-    {
-        return false;
-    }
-    
-    public int CountEmptySlots()
-    {
-        int count = 0;
-        foreach (var slot in slots)
-        {
-            if (slot.IsEmpty()) count++;
+            InventorySlot slot = slots[slotIndex];
+
+            if (slot.item == null)
+            {
+                Debug.LogWarning("Слот пуст!");
+                return;
+            }
+
+            if (slot.Quantity > quantity)
+            {
+                slot.SetQuantity(slot.Quantity - quantity);
+            }
+            else
+            {
+                // Удаляем весь предмет, если quantity >= slot.Quantity
+                slots[slotIndex] = new InventorySlot();
+            }
+
+            //inventoryUI.UpdateUI(slotIndex);
+            OnSlotChanged?.Invoke(slotIndex);
         }
-        Debug.Log($"Пустых слотов {count}");
-        return count;
+
+        public void ExpandInventory(int amount)
+        {
+            if (amount <= 0) return; // Защита от некорректных значений
+
+            maxSlots += amount;
+            for (int i = 0; i < amount; i++)
+            {
+                slots.Add(new InventorySlot(null, 0)); // Создаем пустой слот
+            }
+
+            Debug.Log("Инвентарь расширен! Новое количество слоты: " + maxSlots);
+            DebugInventorySlots();
+            //inventoryUI.ExpandUI(amount);
+            OnInventoryExpanded?.Invoke(amount);
+        }
+
+        //уменьшаем количество слотов если возможно
+        public void ShrinkInventory(int amount)
+        {
+            if (amount <= 0) return;
+            if (maxSlots - amount < 1)
+            {
+                Debug.LogWarning("Нельзя уменьшить инвентарь до 0 слотов!");
+                return;
+            }
+
+            int emptySlots = CountEmptySlots();
+            if (emptySlots < amount)
+            {
+                int needed = amount - emptySlots;
+                Debug.LogWarning($"Недостаточно пустых слотов ({emptySlots})! Освободите еще {needed}.");
+                return;
+            }
+
+            int removedSlots = RemoveEmptySlots(amount);
+            maxSlots -= removedSlots;
+
+            Debug.Log($"Инвентарь уменьшен на {removedSlots} слотов. Новое количество: {maxSlots}");
+            OnInventoryShrunk?.Invoke(removedSlots);
+        }
+        
+        private int RemoveEmptySlots(int amount)
+        {
+            int removed = 0;
+            for (int i = slots.Count - 1; i >= 0 && removed < amount; i--)
+            {
+                if (slots[i].IsEmpty())
+                {
+                    slots.RemoveAt(i);
+                    removed++;
+                }
+            }
+            return removed;
+        }
+
+        public virtual bool TryEquip(Item item)
+        {
+            return false;
+        }
+        
+        public int CountEmptySlots()
+        {
+            int count = 0;
+            foreach (var slot in slots)
+            {
+                if (slot.IsEmpty()) count++;
+            }
+            Debug.Log($"Пустых слотов {count}");
+            return count;
+        }
+        
+        private void OnDestroy()
+        {
+            OnInventoryChanged -= SaveInventory;
+        }
     }
 }

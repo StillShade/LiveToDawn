@@ -17,12 +17,16 @@ MonoBehaviour:
   isStackable: 0
   maxStack: 0
   itemType: 3
+  inventorySlotsCount: 2
+  weight: 0
   stats:
-    inventorySlotsCount: 2
-    armor: 1
-    weight: 1
-    radiationResistance: 1
-    coldResistance: 1
-    strength: 0
-    damage: 0
-    speed: 0
+  - stat: 0
+    value: 1
+  - stat: 2
+    value: 1
+  - stat: 3
+    value: 5
+  - stat: 5
+    value: 1
+  - stat: 11
+    value: 1

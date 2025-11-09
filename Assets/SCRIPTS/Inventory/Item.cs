@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+using Character;
 using UnityEngine;
 
 public enum ItemType
@@ -26,35 +28,41 @@ public enum ItemType
     // ???????? ?????? ????
 }
 
-[System.Serializable]
-public struct ItemStats
-{
-    public int inventorySlotsCount;
-    public int armor;
-    public int weight;
-    public int radiationResistance;
-    public int coldResistance;
-    public int strength;
-    public int damage;
-    public int speed;
-}
-
 [CreateAssetMenu(fileName = "New Item", menuName = "Inventory/Item")]
 public class Item : ScriptableObject
 {
     public string itemName;
     public Sprite icon;
     public bool isStackable;
-    public int maxStack; // ???????????? ?????????? ? ?????
+    public int maxStack;
 
     public ItemType itemType;
-    public ItemStats stats;
+
+    [Header("Инвентарь и вес")]
+    public int inventorySlotsCount;
+    public int weight;
+
+    [Header("Характеристики")]
+    public List<StatEntry> stats = new();
+
+    public Dictionary<CharacterStatType, int> GetStatModifiers()
+    {
+        Dictionary<CharacterStatType, int> result = new();
+        foreach (var entry in stats)
+        {
+            if (result.ContainsKey(entry.stat))
+                result[entry.stat] += entry.value;
+            else
+                result[entry.stat] = entry.value;
+        }
+        return result;
+    }
 
     public override bool Equals(object obj)
     {
         if (obj is Item otherItem)
         {
-            return itemName == otherItem.itemName; // ?????????? ?? ?????
+            return itemName == otherItem.itemName;
         }
         return false;
     }
