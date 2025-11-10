@@ -51,7 +51,7 @@ namespace Inventory
 
             foreach (var data in loadedData)
             {
-                Item item = itemDatabase.GetItemByName(data.itemName);
+                Item item = itemDatabase.GetItemByName(data.itemName); //проблема в доступе к itemDatabase
                 if (item != null)
                 {
                     var slot = GetEquipmentSlot(data.itemType);
@@ -70,13 +70,13 @@ namespace Inventory
         
         private void Awake()
         {
-            LoadEquipment();
             characterStats = GetComponentInParent<CharacterStats>();
 
             if (characterStats == null)
             {
                 Debug.LogError("❌ CharacterStats не найден на родительском объекте!");
             }
+            LoadEquipment();
         }
 
         private Sprite LoadSpriteByName(string spriteName)
