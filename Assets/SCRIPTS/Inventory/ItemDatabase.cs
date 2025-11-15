@@ -29,8 +29,13 @@ namespace Inventory
             if (lookup == null)
                 Initialize();
 
-            lookup.TryGetValue(itemName, out var item);
-            return item;
+            if (lookup != null)
+            {
+                if (lookup.TryGetValue(itemName, out var item))
+                    return item;
+            }
+
+            return null;
         }
     }
 }

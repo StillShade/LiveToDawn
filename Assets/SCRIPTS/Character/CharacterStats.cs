@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Character;
+using Inventory;
 using UnityEngine;
 
 namespace Character

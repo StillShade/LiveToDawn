@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Inventory
 {
-    public class Inventory : MonoBehaviour
+    public abstract class Inventory : MonoBehaviour
     {
         [SerializeField]
         private int maxSlots = 0; // Теперь приватное

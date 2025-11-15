@@ -71,11 +71,16 @@ namespace Inventory
         private void Awake()
         {
             characterStats = GetComponentInParent<CharacterStats>();
-
+            
             if (characterStats == null)
             {
                 Debug.LogError("❌ CharacterStats не найден на родительском объекте!");
             }
+            
+        }
+
+        private void Start()
+        {
             LoadEquipment();
         }
 
