@@ -1,27 +1,30 @@
 using UnityEngine;
 
-[System.Serializable]
-public class EquipmentSlot
+namespace Inventory
 {
-    public ItemType acceptedType;
-    public InventorySlot slot = new InventorySlot();
-
-    public bool CanAccept(Item item)
+    [System.Serializable]
+    public class EquipmentSlot
     {
-        Debug.Log($"item.itemType: {item.itemType} ({(int)item.itemType}), acceptedType: {acceptedType} ({(int)acceptedType})");
-        return item != null && item.itemType == acceptedType;
-    }
+        public ItemType acceptedType;
+        public InventorySlot slot = new InventorySlot();
 
-    public void SetItem(Item item)
-    {
-        if (CanAccept(item))
-            slot.SetItem(item, 1);
-    }
+        public bool CanAccept(Item item)
+        {
+            Debug.Log($"item.itemType: {item.itemType} ({(int)item.itemType}), acceptedType: {acceptedType} ({(int)acceptedType})");
+            return item != null && item.itemType == acceptedType;
+        }
 
-    public void Clear()
-    {
-        slot = new InventorySlot();
-    }
+        public void SetItem(Item item)
+        {
+            if (CanAccept(item))
+                slot.SetItem(item, 1);
+        }
 
-    public Item EquippedItem => slot.item;
+        public void Clear()
+        {
+            slot = new InventorySlot();
+        }
+
+        public Item EquippedItem => slot.item;
+    }
 }

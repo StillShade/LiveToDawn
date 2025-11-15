@@ -10574,13 +10574,35 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   inventorySlotsCount: 2
-  armor: 0
-  weight: 0
-  radiationResistance: 0
-  coldResistance: 0
-  strength: 0
-  damage: 0
-  speed: 0
+  defaultStats:
+  - stat: 0
+    value: 0
+  - stat: 1
+    value: 20
+  - stat: 2
+    value: 0
+  - stat: 3
+    value: 0
+  - stat: 4
+    value: 5
+  - stat: 5
+    value: 5
+  - stat: 6
+    value: 50
+  - stat: 7
+    value: 30
+  - stat: 8
+    value: 30
+  - stat: 9
+    value: 20
+  - stat: 10
+    value: 30
+  - stat: 11
+    value: 30
+  - stat: 12
+    value: 100
+  - stat: 13
+    value: 50
 --- !u!95 &325214076
 Animator:
   serializedVersion: 7
@@ -12963,8 +12985,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e212b78e0cbf3ed4a89425ae7730bd16, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxSlots: 10
-  slots: []
 --- !u!1 &393740664
 GameObject:
   m_ObjectHideFlags: 0
@@ -13447,6 +13467,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxSlots: 10
   slots: []
+  itemDatabase: {fileID: 11400000, guid: 70194012f56d46b41b80fcfad5573b6a, type: 2}
   equipmentSlots:
   - acceptedType: 1
     slot:
@@ -17849,7 +17870,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1150341705}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: Inventory, Assembly-CSharp
         m_MethodName: ExpandInventory
         m_Mode: 3
@@ -27428,7 +27449,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -242.7402}
+  m_AnchoredPosition: {x: 0, y: -242.74022}
   m_SizeDelta: {x: 0, y: -437.56}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &847565489
@@ -35638,11 +35659,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 1150341703}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e212b78e0cbf3ed4a89425ae7730bd16, type: 3}
+  m_Script: {fileID: 11500000, guid: 1658f59888634b07a22a169f326efcbb, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: 
+  m_EditorClassIdentifier: Assembly-CSharp::Inventory.SimpleInventory
   maxSlots: 10
   slots: []
+  itemDatabase: {fileID: 11400000, guid: 70194012f56d46b41b80fcfad5573b6a, type: 2}
 --- !u!1 &1152993181
 GameObject:
   m_ObjectHideFlags: 0
@@ -37911,7 +37933,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -318.16025}
+  m_AnchoredPosition: {x: 0, y: -318.16028}
   m_SizeDelta: {x: 0, y: -24.025}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1196896080
@@ -39487,7 +39509,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1227525217
 Transform:
   m_ObjectHideFlags: 0
@@ -39515,8 +39537,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 990c66fd83fc9094d851edc03fffe2e7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inventory: {fileID: 1150341705}
-  inventory2: {fileID: 391107506}
+  inventory: {fileID: 0}
+  inventory2: {fileID: 0}
   bread: {fileID: 11400000, guid: 1c2e3ce18b9ca1c4bad44cf6643e766b, type: 2}
   socks_white: {fileID: 11400000, guid: 22ca28930574f6c44b32570b3ab8cccc, type: 2}
   socks_red: {fileID: 11400000, guid: 8469f21877f10a849b073ee3958fa415, type: 2}
@@ -48906,7 +48928,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 053e4166e70648f4c89348cdf0f71445, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inventory: {fileID: 391107506}
+  inventory: {fileID: 0}
   slotPrefab: {fileID: 2098340020666813772, guid: 98f33ef76a26ad14b992eec2a07350da, type: 3}
   slotParent: {fileID: 1855245064}
   scrollRect: {fileID: 0}
@@ -64563,7 +64585,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.28100002, y: 0}
   m_AnchorMax: {x: 0.562, y: 1}
-  m_AnchoredPosition: {x: -1079, y: 0}
+  m_AnchoredPosition: {x: -1079.0001, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1955208507
@@ -65409,6 +65431,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxSlots: 10
   slots: []
+  itemDatabase: {fileID: 11400000, guid: 70194012f56d46b41b80fcfad5573b6a, type: 2}
   equipmentSlots:
   - acceptedType: 0
     slot:
@@ -70189,7 +70212,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 268095555}
   m_HandleRect: {fileID: 268095553}
   m_Direction: 2
-  m_Value: 1
+  m_Value: 0
   m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
@@ -70629,7 +70652,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1150341705}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: Inventory, Assembly-CSharp
         m_MethodName: ShrinkInventory
         m_Mode: 3

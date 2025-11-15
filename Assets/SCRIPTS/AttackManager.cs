@@ -1,9 +1,10 @@
+using Inventory;
 using UnityEngine;
 
 public class AttackManager : MonoBehaviour
 {
     public static AttackManager Instance { get; private set; }
-    public AttackZone attackZone; // Присвой через инспектор
+    public AttackZone attackZone; // пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 
     private void Awake()
     {
@@ -14,40 +15,40 @@ public class AttackManager : MonoBehaviour
     public void AttackWithWeapon(Item weapon)
     {
         var target = attackZone.currentTarget;
-        Debug.Log("Пробуем атаковать. Текущая цель: " + (target != null ? target.name : "null"));
+        Debug.Log("пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ. пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ: " + (target != null ? target.name : "null"));
         if (target == null || weapon == null)
         {
-            Debug.Log("Нет цели или оружия для атаки!");
+            Debug.Log("пїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ!");
             return;
         }
 
         if (weapon is WeaponItem weaponItem)
         {
             int damage = weaponItem.damageProfile.GetDamageForTarget(target.data.targetType);
-            Debug.Log($"Наносим {damage} урона по {target.name}");
+            Debug.Log($"пїЅпїЅпїЅпїЅпїЅпїЅпїЅ {damage} пїЅпїЅпїЅпїЅпїЅ пїЅпїЅ {target.name}");
             target.TakeDamage(damage);
 
-            // --- Применяем эффекты с вероятностью ---
-            // Например, только если цель — плоть (Flesh)
+            // --- пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ ---
+            // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅ (Flesh)
             if (target.data.targetType == TargetType.Flesh && weaponItem.effectsOnFlesh != null)
             {
                 foreach (var effectWithChance in weaponItem.effectsOnFlesh)
                 {
                     if (effectWithChance.effect == null) continue;
-                    float roll = Random.value; // от 0 до 1
+                    float roll = Random.value; // пїЅпїЅ 0 пїЅпїЅ 1
                     if (roll <= effectWithChance.chance)
                     {
                         target.AddEffect(effectWithChance.effect);
-                        Debug.Log($"Наложен эффект: {effectWithChance.effect.effectName} на {target.name}");
+                        Debug.Log($"пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ: {effectWithChance.effect.effectName} пїЅпїЅ {target.name}");
                     }
                 }
             }
 
-            // --- Здесь можно добавить анимацию удара, звук и т.д. ---
+            // --- пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅпїЅ пїЅ пїЅ.пїЅ. ---
         }
         else
         {
-            Debug.LogWarning("Попытка атаковать неоружием!");
+            Debug.LogWarning("пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ!");
         }
     }
 }

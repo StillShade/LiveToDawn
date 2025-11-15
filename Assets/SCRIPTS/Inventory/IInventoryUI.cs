@@ -1,4 +1,7 @@
-public interface IInventoryUI
+namespace Inventory
 {
-    Inventory inventory { get; }
+    public interface IInventoryUI
+    {
+        Inventory inventory { get; }
+    }
 }

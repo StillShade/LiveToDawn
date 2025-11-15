@@ -2,10 +2,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class InventoryUI : MonoBehaviour, IInventoryUI
+namespace Inventory
+{
+    public class InventoryUI : MonoBehaviour, IInventoryUI
 {
     public Inventory inventory;
-    // Реализация интерфейса
+    // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
     Inventory IInventoryUI.inventory => inventory;
     public GameObject slotPrefab;
     public Transform slotParent;
@@ -33,8 +35,8 @@ public class InventoryUI : MonoBehaviour, IInventoryUI
 
     public void ScrollToBottom()
     {
-        Canvas.ForceUpdateCanvases(); // Обновляем UI перед прокруткой
-        scrollRect.verticalNormalizedPosition = 0f; // Скроллим вниз
+        Canvas.ForceUpdateCanvases(); // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ UI пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
+        scrollRect.verticalNormalizedPosition = 0f; // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ
     }
 
     private void Start()
@@ -46,27 +48,27 @@ public class InventoryUI : MonoBehaviour, IInventoryUI
     {
         if (inventory == null)
         {
-            Debug.LogError("Inventory не назначен в InventoryUI!");
+            Debug.LogError("Inventory пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ InventoryUI!");
             return;
         }
 
-        Debug.Log("Инициализация слотов...");
+        Debug.Log("пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ...");
 
         for (int i = 0; i < inventory.MaxSlots; i++)
         {
-            int currentSlots = slotParent.childCount; // Количество UI-слотов
-            int maxSlots = inventory.slots.Count; // Количество слотов в Inventory
+            int currentSlots = slotParent.childCount; // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ UI-пїЅпїЅпїЅпїЅпїЅпїЅ
+            int maxSlots = inventory.slots.Count; // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅ Inventory
 
             if (currentSlots >= maxSlots)
             {
-                Debug.Log("UI-слоты уже соответствуют количеству слотов в Inventory. Останавливаем создание.");
-                break; // Прерываем создание, если достигнуто максимальное количество
+                Debug.Log("UI-пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅ Inventory. пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ.");
+                break; // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
             }
 
             GameObject slotObject = Instantiate(slotPrefab, slotParent);
             InventorySlotUI slotUI = slotObject.GetComponent<InventorySlotUI>();
-            slotUI.slotIndex = i; // Устанавливаем индекс
-            slotUI.SetSlot(inventory.slots[i]); // Привязываем слот
+            slotUI.slotIndex = i; // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
+            slotUI.SetSlot(inventory.slots[i]); // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ
         }
 
         UpdateUI();
@@ -74,36 +76,36 @@ public class InventoryUI : MonoBehaviour, IInventoryUI
 
     public void UpdateUI()
     {
-        Debug.Log($"Вызов UpdateUI. Количество слотов в инвентаре: {inventory.slots.Count}");
+        Debug.Log($"пїЅпїЅпїЅпїЅпїЅ UpdateUI. пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ: {inventory.slots.Count}");
 
         for (int i = 0; i < slotParent.childCount; i++)
         {
             InventorySlotUI slotUI = slotParent.GetChild(i).GetComponent<InventorySlotUI>();
 
-            //Debug.Log($"Обновление слота UI [{i}]: Проверяем, есть ли соответствующий слот в инвентаре...");
+            //Debug.Log($"пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ UI [{i}]: пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ...");
 
             if (i < inventory.slots.Count)
             {
                 InventorySlot slot = inventory.slots[i];
 
-                //Debug.Log($"Слот [{i}] найден. Проверяем IsEmpty()...");
+                //Debug.Log($"пїЅпїЅпїЅпїЅ [{i}] пїЅпїЅпїЅпїЅпїЅпїЅ. пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ IsEmpty()...");
                 bool isEmpty = slot.IsEmpty();
-                //Debug.Log($"Результат IsEmpty() для слота [{i}]: {isEmpty}");
+                //Debug.Log($"пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ IsEmpty() пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ [{i}]: {isEmpty}");
 
                 if (isEmpty)
                 {
-                    //Debug.Log($"Слот [{i}] пуст, вызываем ClearSlot().");
+                    //Debug.Log($"пїЅпїЅпїЅпїЅ [{i}] пїЅпїЅпїЅпїЅ, пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ ClearSlot().");
                     slotUI.ClearSlot();
                 }
                 else
                 {
-                    //Debug.Log($"Слот [{i}] содержит предмет {slot.item.itemName} ({slot.Quantity} шт.), вызываем SetSlot().");
+                    //Debug.Log($"пїЅпїЅпїЅпїЅ [{i}] пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ {slot.item.itemName} ({slot.Quantity} пїЅпїЅ.), пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ SetSlot().");
                     slotUI.SetSlot(slot);
                 }
             }
             else
             {
-                //Debug.Log($"Слот [{i}] отсутствует в inventory.slots (index выходит за границы).");
+                //Debug.Log($"пїЅпїЅпїЅпїЅ [{i}] пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ inventory.slots (index пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ).");
             }
         }
        // DebugUISlots();
@@ -113,7 +115,7 @@ public class InventoryUI : MonoBehaviour, IInventoryUI
     {
         if (index < 0 || index >= slotParent.childCount)
         {
-            Debug.LogWarning($"UpdateUI: индекс {index} вне допустимых границ.");
+            Debug.LogWarning($"UpdateUI: пїЅпїЅпїЅпїЅпїЅпїЅ {index} пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ.");
             return;
         }
 
@@ -134,51 +136,51 @@ public class InventoryUI : MonoBehaviour, IInventoryUI
         }
         else
         {
-            // Если в inventory.slots нет слота с таким индексом, очищаем UI-ячейку
+            // пїЅпїЅпїЅпїЅ пїЅ inventory.slots пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅпїЅпїЅпїЅпїЅ UI-пїЅпїЅпїЅпїЅпїЅпїЅ
             slotUI.ClearSlot();
         }
     }
 
     private void DebugUISlots()
     {
-        Debug.Log("=== Порядок UI-слотов (InventoryUI) ===");
+        Debug.Log("=== пїЅпїЅпїЅпїЅпїЅпїЅпїЅ UI-пїЅпїЅпїЅпїЅпїЅпїЅ (InventoryUI) ===");
         for (int i = 0; i < slotParent.childCount; i++)
         {
             InventorySlotUI slotUI = slotParent.GetChild(i).GetComponent<InventorySlotUI>();
             if (i < inventory.slots.Count)
             {
                 InventorySlot slot = inventory.slots[i];
-                string itemName = (slot != null && slot.item != null) ? slot.item.itemName : "ПУСТОЙ";
-                Debug.Log($"UI-слот {i}: {itemName}");
+                string itemName = (slot != null && slot.item != null) ? slot.item.itemName : "пїЅпїЅпїЅпїЅпїЅпїЅ";
+                Debug.Log($"UI-пїЅпїЅпїЅпїЅ {i}: {itemName}");
             }
         }
     }
 
     public void ExpandUI(int newSlots)
     {
-        Debug.Log("ExpandUI вызван с newSlots: " + newSlots);
+        Debug.Log("ExpandUI пїЅпїЅпїЅпїЅпїЅпїЅ пїЅ newSlots: " + newSlots);
 
         if (inventory == null)
         {
-            Debug.LogError("Inventory не назначен в InventoryUI!");
+            Debug.LogError("Inventory пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ InventoryUI!");
             return;
         }
 
         for (int i = 0; i < newSlots; i++)
         {
-            int currentSlots = slotParent.childCount; // Количество UI-слотов
-            int maxSlots = inventory.slots.Count; // Количество слотов в Inventory
+            int currentSlots = slotParent.childCount; // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ UI-пїЅпїЅпїЅпїЅпїЅпїЅ
+            int maxSlots = inventory.slots.Count; // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅ Inventory
 
             if (currentSlots >= maxSlots)
             {
-                Debug.Log("Достигнуто максимальное количество UI-слотов. Останавливаем создание.");
-                break; // Прерываем цикл, если UI-слотов уже достаточно
+                Debug.Log("пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ UI-пїЅпїЅпїЅпїЅпїЅпїЅ. пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ.");
+                break; // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ, пїЅпїЅпїЅпїЅ UI-пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
             }
 
             GameObject slotObject = Instantiate(slotPrefab, slotParent);
             InventorySlotUI slotUI = slotObject.GetComponent<InventorySlotUI>();
-            slotUI.slotIndex = i; // Устанавливаем индекс
-            slotUI.SetSlot(inventory.slots[i]); // Привязываем слот
+            slotUI.slotIndex = i; // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
+            slotUI.SetSlot(inventory.slots[i]); // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ
         }
 
         UpdateUI();
@@ -186,7 +188,7 @@ public class InventoryUI : MonoBehaviour, IInventoryUI
 
     public void ShrinkUI(int amount)
     {
-        Debug.Log("ShrinkUI вызван с amount: " + amount);
+        Debug.Log("ShrinkUI пїЅпїЅпїЅпїЅпїЅпїЅ пїЅ amount: " + amount);
 
         int removedSlots = 0;
 
@@ -196,7 +198,8 @@ public class InventoryUI : MonoBehaviour, IInventoryUI
             removedSlots++;
         }
 
-        Debug.Log($"Удалено {removedSlots} UI-слотов.");
+        Debug.Log($"пїЅпїЅпїЅпїЅпїЅпїЅпїЅ {removedSlots} UI-пїЅпїЅпїЅпїЅпїЅпїЅ.");
         UpdateUI();
     }
+}
 }
